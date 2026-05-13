@@ -109,7 +109,7 @@ export function TestimonialsSection() {
               className={`text-4xl md:text-5xl lg:text-7xl font-display leading-[0.95] tracking-[-0.02em] transition-all duration-1000 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
-              style={{ fontVariationSettings: "'SOFT' 100, 'WONK' 1, 'opsz' 144", textWrap: "balance" }}
+              style={{ fontVariationSettings: "'wdth' 80, 'opsz' 96", textWrap: "balance", letterSpacing: "-0.035em" }}
             >
               Quietly,
               <br />
@@ -186,7 +186,7 @@ export function TestimonialsSection() {
                 />
                 <span
                   className="relative text-6xl lg:text-8xl font-display block mb-3 text-brand-yellow tracking-[-0.04em]"
-                  style={{ fontVariationSettings: "'SOFT' 100, 'WONK' 1, 'opsz' 144" }}
+                  style={{ fontVariationSettings: "'wdth' 100, 'opsz' 144", letterSpacing: "-0.02em" }}
                 >
                   {t.metric.value}
                 </span>

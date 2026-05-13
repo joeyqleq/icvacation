@@ -5,59 +5,64 @@
 
 /*
   IC Vacation — boutique, cinematic, premium consultation-first travel.
-  Palette anchored on brand guidelines:
-    - Brand green  : #26FC00 (accent only — sparingly, premium)
-    - Brand gray   : #444444
-    - Brand black  : #000000
-    - Brand white  : #FFFFFF
-    - Pale yellow  : #FDF972 (warmth accent)
-    - Olive green  : #94BD00 (deep accent)
-    - Gray scales  : #252426, #333537, #3F4245, #464B4E, #54585D, #697174
+
+  Brand discipline (per brand guidelines):
+    80% of all colored elements and ALL typography come from the four primary colors:
+      - Brand green  #26FC00   (accent)
+      - Brand grey   #444444   (neutral)
+      - Brand black  #000000
+      - Brand white  #FFFFFF
+    20% may use the supporting palette:
+      - Pale yellow  #FDF972
+      - Olive green  #94BD00
+      - Grey scale   #697174 / #54585D / #464B4E / #3F4245 / #333537 / #252426
+
+  No purple. No orange. No warm amber. No third-party color drift.
 */
 
 :root {
-  /* Surfaces — deep black with slightly warm undertone for premium feel */
-  --background: #0a0a0a;
-  --foreground: #f5f5f3;
+  /* Surfaces — true noir grounded in brand black */
+  --background: #050505;
+  --foreground: #f7f7f5;
 
-  --card: #111111;
-  --card-foreground: #f5f5f3;
+  --card: #0e0e0e;
+  --card-foreground: #f7f7f5;
 
-  --popover: #111111;
-  --popover-foreground: #f5f5f3;
+  --popover: #0e0e0e;
+  --popover-foreground: #f7f7f5;
 
   /* Primary = brand green, used sparingly for CTAs and highlights */
   --primary: #26FC00;
   --primary-foreground: #000000;
 
-  --secondary: #1a1a1a;
-  --secondary-foreground: #f5f5f3;
+  --secondary: #161616;
+  --secondary-foreground: #f7f7f5;
 
-  --muted: #1a1a1a;
+  --muted: #161616;
   --muted-foreground: #8a8a86;
 
   --accent: #FDF972;
-  --accent-foreground: #0a0a0a;
+  --accent-foreground: #000000;
 
   --destructive: #b3261e;
-  --destructive-foreground: #f5f5f3;
+  --destructive-foreground: #f7f7f5;
 
   --border: #252426;
   --input: #1a1a1a;
   --ring: #26FC00;
 
-  /* Brand palette tokens — directly referenced when needed */
-  --brand-green: #26FC00;
-  --brand-green-deep: #94BD00;
-  --brand-yellow: #FDF972;
-  --brand-gray: #444444;
-  --brand-purple: #9b87f5;
-  --gray-100: #697174;
-  --gray-200: #54585D;
-  --gray-300: #464B4E;
-  --gray-400: #3F4245;
-  --gray-500: #333537;
-  --gray-600: #252426;
+  /* Brand palette tokens — exact hex from brand guidelines */
+  --brand-green:       #26FC00;
+  --brand-green-deep:  #94BD00;
+  --brand-yellow:      #FDF972;
+  --brand-grey:        #444444;
+
+  --grey-100: #697174;
+  --grey-200: #54585D;
+  --grey-300: #464B4E;
+  --grey-400: #3F4245;
+  --grey-500: #333537;
+  --grey-600: #252426;
 
   --chart-1: #26FC00;
   --chart-2: #94BD00;
@@ -67,21 +72,23 @@
 
   --radius: 0rem;
 
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #f5f5f3;
+  --sidebar: #050505;
+  --sidebar-foreground: #f7f7f5;
   --sidebar-primary: #26FC00;
   --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #f5f5f3;
+  --sidebar-accent: #161616;
+  --sidebar-accent-foreground: #f7f7f5;
   --sidebar-border: #252426;
   --sidebar-ring: #26FC00;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter-tight), 'Inter Tight', system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), 'JetBrains Mono', monospace;
-  --font-display: var(--font-fraunces), 'Fraunces', Georgia, serif;
-  --font-serif: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  --font-sans:      var(--font-geist), 'Geist', system-ui, sans-serif;
+  --font-mono:      var(--font-space-mono), 'Space Mono', ui-monospace, monospace;
+  --font-display:   var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-serif:     var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  --font-editorial: var(--font-newsreader), 'Newsreader', Georgia, serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -106,15 +113,24 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-brand-green: var(--brand-green);
+
+  --color-brand-green:      var(--brand-green);
   --color-brand-green-deep: var(--brand-green-deep);
-  --color-brand-yellow: var(--brand-yellow);
-  --color-brand-gray: var(--brand-gray);
-  --color-brand-purple: var(--brand-purple);
+  --color-brand-yellow:     var(--brand-yellow);
+  --color-brand-grey:       var(--brand-grey);
+
+  --color-grey-100: var(--grey-100);
+  --color-grey-200: var(--grey-200);
+  --color-grey-300: var(--grey-300);
+  --color-grey-400: var(--grey-400);
+  --color-grey-500: var(--grey-500);
+  --color-grey-600: var(--grey-600);
+
   --radius-sm: calc(var(--radius));
   --radius-md: calc(var(--radius));
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius));
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -130,12 +146,14 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'ss01', 'cv11', 'kern';
   }
   html {
     scroll-behavior: smooth;
-    background-color: #0a0a0a;
+    background-color: #050505;
   }
+
   /* Subtle film grain for premium magazine feel */
   body::before {
     content: '';
@@ -143,46 +161,72 @@
     inset: 0;
     pointer-events: none;
     z-index: 100;
-    opacity: 0.035;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: overlay;
   }
 
-  /* Premium typography defaults */
+  /* Typography baseline — display headlines lean editorial, body lean modern */
   h1, h2, h3 {
     @apply font-display;
-    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+    font-variation-settings: 'wdth' 90, 'opsz' 96;
+    letter-spacing: -0.025em;
   }
 
   blockquote {
     @apply font-serif italic;
   }
 
-  /* Unified button styles — consistent hover + glass when needed */
+  /* Premium buttons — brand green primary, glass secondary */
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-brand-green text-black font-medium transition-all duration-300;
-    @apply hover:bg-brand-green/90 hover:shadow-[0_0_20px_rgba(38,252,0,0.25)];
+    @apply inline-flex items-center gap-2 bg-brand-green text-black font-medium tracking-tight transition-all duration-300;
+    @apply hover:bg-brand-green/90 hover:shadow-[0_0_28px_rgba(38,252,0,0.35)];
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 border border-foreground/30 hover:border-foreground/60 transition-all duration-300;
-    @apply hover:bg-foreground/5 hover:backdrop-blur-sm;
+    @apply inline-flex items-center gap-2 border border-foreground/30 text-foreground transition-all duration-300;
+    @apply hover:border-brand-green hover:text-brand-green hover:bg-foreground/[0.03];
   }
 
   .btn-glass {
-    @apply bg-foreground/5 backdrop-blur-md border border-foreground/15 hover:bg-foreground/10 transition-all duration-300;
-    @apply hover:border-foreground/30 hover:shadow-[0_4px_24px_rgba(0,0,0,0.4)];
+    @apply bg-foreground/5 backdrop-blur-md border border-foreground/15 text-foreground transition-all duration-300;
+    @apply hover:bg-foreground/10 hover:border-foreground/35;
   }
 }
 
 @layer utilities {
+  /* ============================================================ */
+  /*  FONT ROLES — strict five-voice editorial hierarchy           */
+  /*                                                                */
+  /*    font-display    Bricolage Grotesque  → big statements,      */
+  /*                    variable wdth/opsz axes for tension          */
+  /*    font-serif      Instrument Serif     → italic emphasis word, */
+  /*                    pull-quote, hero accent                      */
+  /*    font-editorial  Newsreader           → narrative body in     */
+  /*                    editorial moments, drop-caps, magazine feel  */
+  /*    font-sans       Geist                → default UI / body     */
+  /*    font-mono       Space Mono           → indices, tickers,     */
+  /*                    labels, technical marginalia                 */
+  /* ============================================================ */
   .font-display {
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+    font-variation-settings: 'wdth' 90, 'opsz' 96;
+  }
+  .font-display-wide {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 100, 'opsz' 144;
+  }
+  .font-display-tight {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 75, 'opsz' 144;
   }
 
   .font-serif {
     font-family: var(--font-serif);
+  }
+
+  .font-editorial {
+    font-family: var(--font-editorial);
   }
 
   .text-stroke {
@@ -190,121 +234,116 @@
     -webkit-text-fill-color: transparent;
   }
 
-  /* Glassmorphism utilities */
+  /* Editorial drop cap — used in narrative paragraphs */
+  .drop-cap::first-letter {
+    @apply font-serif italic;
+    float: left;
+    font-size: 4.2em;
+    line-height: 0.85;
+    padding: 0.15em 0.12em 0 0;
+    color: var(--brand-yellow);
+  }
+
+  /* Index ticker — mono labels, uppercase, wide track */
+  .label-ticker {
+    @apply font-mono uppercase text-[10px] tracking-[0.32em];
+  }
+  .label-ticker-sm {
+    @apply font-mono uppercase text-[9px] tracking-[0.28em];
+  }
+
+  /* Glass surfaces */
   .glass-card {
     @apply bg-background/40 backdrop-blur-xl border border-foreground/10;
   }
-
   .glass-nav {
-    @apply bg-background/85 backdrop-blur-xl border border-foreground/10;
+    @apply bg-black/55 backdrop-blur-2xl border border-foreground/[0.08];
   }
-
   .glass-panel {
     @apply bg-foreground/[0.03] backdrop-blur-lg border border-foreground/[0.08];
   }
 
-  /* Active nav state — soft purple glow */
-  .nav-active {
-    @apply bg-brand-purple/20 text-brand-purple;
-    box-shadow: 0 0 16px rgba(155, 135, 245, 0.3), inset 0 0 8px rgba(155, 135, 245, 0.15);
+  /* Floating sticky island navbar — pill capsule with subtle inner highlight */
+  .nav-island {
+    @apply bg-black/60 backdrop-blur-2xl;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 24px 60px -20px rgba(0, 0, 0, 0.6),
+      0 8px 24px -12px rgba(0, 0, 0, 0.4);
   }
 
-  .marquee {
-    animation: marquee 50s linear infinite;
+  /* Active nav pill — quiet dark capsule with green accent dot */
+  .nav-pill-active {
+    @apply text-white;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
-  .marquee-reverse {
-    animation: marquee-reverse 45s linear infinite;
-  }
+  /* Marquee */
+  .marquee         { animation: marquee 50s linear infinite; }
+  .marquee-reverse { animation: marquee-reverse 45s linear infinite; }
+  @keyframes marquee         { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  @keyframes marquee-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  @keyframes marquee-reverse {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-  }
-
+  /* Line reveal */
   .line-reveal {
     clip-path: inset(0 100% 0 0);
     animation: line-reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
   }
+  @keyframes line-reveal { to { clip-path: inset(0 0 0 0); } }
 
-  @keyframes line-reveal {
-    to { clip-path: inset(0 0 0 0); }
-  }
+  /* Hover lift */
+  .hover-lift { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .hover-lift:hover { transform: translateY(-4px); }
 
-  .hover-lift {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-4px);
-  }
-
+  /* Char-in stagger */
   .animate-char-in {
-    animation: char-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: char-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
     transform: translateY(60%);
   }
-
   @keyframes char-in {
-    0% {
-      opacity: 0;
-      transform: translateY(60%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    0%   { opacity: 0; transform: translateY(60%); }
+    100% { opacity: 1; transform: translateY(0);    }
   }
 
-  /* Subtle drift for atmospheric elements */
+  /* Atmospheric drift */
   @keyframes drift {
     0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(8px, -8px) rotate(2deg); }
+    50%      { transform: translate(8px, -8px) rotate(2deg); }
   }
-  .animate-drift {
-    animation: drift 14s ease-in-out infinite;
-  }
+  .animate-drift { animation: drift 14s ease-in-out infinite; }
 
   @keyframes drift-slow {
     0%, 100% { transform: translate(0, 0) rotate(-1deg); }
-    50% { transform: translate(-6px, 4px) rotate(1deg); }
+    50%      { transform: translate(-6px, 4px) rotate(1deg); }
   }
-  .animate-drift-slow {
-    animation: drift-slow 22s ease-in-out infinite;
+  .animate-drift-slow { animation: drift-slow 22s ease-in-out infinite; }
+
+  /* Slow ken-burns for hero photography */
+  @keyframes ken-burns {
+    0%   { transform: scale(1)    translate(0, 0); }
+    50%  { transform: scale(1.06) translate(-1%, -1.5%); }
+    100% { transform: scale(1.10) translate(-2%, -2.5%); }
+  }
+  .animate-ken-burns { animation: ken-burns 36s ease-in-out infinite alternate; }
+
+  /* Live indicator pulse — brand green */
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(38, 252, 0, 0.6); }
+    50%      { box-shadow: 0 0 0 10px rgba(38, 252, 0, 0); }
+  }
+  .pulse-green {
+    background: var(--brand-green);
+    animation: pulse-green 2.4s ease-in-out infinite;
   }
 
-  /* Water shimmer effect for hero */
-  @keyframes shimmer {
-    0%, 100% { transform: translateX(-100%) translateY(-100%) skewX(-15deg); opacity: 0.15; }
-    50% { transform: translateX(100%) translateY(100%) skewX(-15deg); opacity: 0.25; }
+  /* Variable-axis hover for display headlines — width expands on hover */
+  .display-flex-hover {
+    transition: font-variation-settings 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .animate-shimmer {
-    animation: shimmer 12s ease-in-out infinite;
-  }
-
-  /* Gentle float for birds */
-  @keyframes float-bird {
-    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.6; }
-    50% { transform: translate(60vw, -20px) rotate(2deg); opacity: 0.7; }
-    90% { opacity: 0.5; }
-    100% { transform: translate(120vw, 10px) rotate(4deg); opacity: 0; }
-  }
-  .animate-float-bird {
-    animation: float-bird 28s linear infinite;
-  }
-
-  /* Sparkle twinkle */
-  @keyframes twinkle {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); }
-  }
-  .animate-twinkle {
-    animation: twinkle 2.5s ease-in-out infinite;
+  .display-flex-hover:hover {
+    font-variation-settings: 'wdth' 100, 'opsz' 144;
   }
 }

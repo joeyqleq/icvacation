@@ -115,7 +115,7 @@ export function NumbersSection() {
                 >
                   <span
                     className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-display leading-none tracking-[-0.03em] block"
-                    style={{ fontVariationSettings: "'SOFT' 50, 'WONK' 1, 'opsz' 144" }}
+                    style={{ fontVariationSettings: "'wdth' 100, 'opsz' 144", letterSpacing: "-0.04em" }}
                   >
                     <AnimatedNumber end={num.value} suffix={num.suffix} />
                   </span>

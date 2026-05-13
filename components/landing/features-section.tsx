@@ -167,7 +167,7 @@ export function ConsultantSection() {
                 className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-[-0.025em] leading-[0.92] transition-all duration-1000 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
-                style={{ fontVariationSettings: "'SOFT' 100, 'WONK' 1, 'opsz' 144", textWrap: "balance" }}
+                style={{ fontVariationSettings: "'wdth' 80, 'opsz' 96", textWrap: "balance", letterSpacing: "-0.035em" }}
               >
                 Begin with{" "}
                 <span className="font-serif italic text-brand-yellow">conversation</span>,
