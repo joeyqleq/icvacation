@@ -2,14 +2,14 @@
 
 import { useEffect, useState, useRef } from "react";
 
-const regions = [
-  { name: "North America", nodes: 12, status: "operational" },
-  { name: "Europe", nodes: 8, status: "operational" },
-  { name: "Asia Pacific", nodes: 6, status: "operational" },
-  { name: "South America", nodes: 3, status: "operational" },
+const credentials = [
+  { name: "Italy", years: "since 2014", note: "Hand-picked agriturismi, hill towns, the slower Tuscan north" },
+  { name: "Japan", years: "since 2016", note: "Ryokan stays, regional cuisine, off-season Kyoto" },
+  { name: "East Africa", years: "since 2018", note: "Mobile camps, owner-led safari lodges, conservation-led" },
+  { name: "Iceland & the Faroes", years: "since 2020", note: "Quiet fjords, remote farm-stays, weather-led routing" },
 ];
 
-export function InfrastructureSection() {
+export function AdvisorSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeRegion, setActiveRegion] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -28,172 +28,221 @@ export function InfrastructureSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveRegion((prev) => (prev + 1) % regions.length);
-    }, 3000);
+      setActiveRegion((prev) => (prev + 1) % credentials.length);
+    }, 3200);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="infra" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
-        {/* Background accent — retiré, remplacé par l'image sphère */}
-      
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section
+      id="advisor"
+      ref={sectionRef}
+      className="relative py-32 lg:py-40 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="mb-20">
-          <span className={`inline-flex items-center gap-4 text-sm font-mono text-muted-foreground mb-8 transition-all duration-700 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}>
-            <span className="w-12 h-px bg-foreground/20" />
-            Global infrastructure
+          <span
+            className={`inline-flex items-center gap-4 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-8 transition-all duration-700 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <span className="w-12 h-px bg-brand-green" />
+            Personal advisor
           </span>
-          
-          <div className="grid lg:grid-cols-[auto_1fr] gap-8 lg:gap-16 items-stretch">
-            {/* Image globe — colonne gauche, pleine hauteur */}
-            <div className={`w-48 lg:w-72 xl:w-80 shrink-0 transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}>
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/world-3i68QNWJwmO7W19ztZWbevAwJQHzYL.png"
-                alt="Global network sphere"
-                className="w-full h-full object-contain object-center"
-              />
+
+          <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-16 items-stretch">
+            {/* Advisor desk image — left column */}
+            <div
+              className={`w-full lg:w-[420px] xl:w-[480px] shrink-0 transition-all duration-1000 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            >
+              <div className="relative aspect-[4/5] overflow-hidden border border-foreground/10">
+                <img
+                  src="/advisor-desk.jpg"
+                  alt="Isaac's travel desk — journal, compass, vintage maps"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
+                {/* Owl mascot — quiet brand presence, small */}
+                <img
+                  src="/ic-owl.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute -bottom-3 -right-3 w-20 h-auto opacity-90 animate-drift-slow"
+                />
+              </div>
+              <div className="mt-6 flex items-center gap-3">
+                <span className="w-1 h-10 bg-brand-green" />
+                <div>
+                  <p className="text-base text-foreground">
+                    Isaac Chowrimootoo
+                  </p>
+                  <p className="text-xs font-mono uppercase tracking-[0.18em] text-muted-foreground">
+                    Founder · lead advisor
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Titre + description empilés */}
+            {/* Title + bio */}
             <div className="flex flex-col justify-center">
-              <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}>
-                Global by
+              <h2
+                className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                }`}
+              >
+                One advisor.
                 <br />
-                <span className="text-muted-foreground">default.</span>
+                <span className="text-muted-foreground italic">
+                  Every detail.
+                </span>
               </h2>
 
-              <p className={`mt-8 text-xl text-muted-foreground leading-relaxed max-w-lg transition-all duration-1000 delay-100 ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`}>
-                Your agents run on distributed infrastructure across 29 regions.
-                Sub-50ms latency to 99% of the world.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Main content grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Large stat card */}
-          <div className={`lg:col-span-2 relative p-8 lg:p-12 border border-foreground/10 bg-foreground/[0.02] overflow-hidden transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}>
-            {/* Animated dots background with connecting lines */}
-            <div className="absolute inset-0 opacity-70">
-              {/* SVG for connecting lines */}
-              <svg
-                className="absolute inset-0 w-full h-full"
-                style={{ pointerEvents: "none" }}
+              <p
+                className={`mt-10 text-lg text-muted-foreground leading-relaxed max-w-xl transition-all duration-1000 delay-100 ${
+                  isVisible ? "opacity-100" : "opacity-0"
+                }`}
               >
-                <defs>
-                  <style>{`
-                    @keyframes drawLine {
-                      0%   { stroke-dashoffset: 1000; opacity: 0; }
-                      15%  { opacity: 1; }
-                      70%  { opacity: 0.7; }
-                      100% { stroke-dashoffset: 0; opacity: 0; }
-                    }
-                    .connecting-line {
-                      stroke: #eca8d6;
-                      stroke-width: 1.2;
-                      fill: none;
-                      stroke-dasharray: 1000;
-                      animation: drawLine 3s ease-in-out infinite;
-                    }
-                  `}</style>
-                </defs>
-                {[...Array(19)].map((_, i) => {
-                  const x1 = 10 + (i % 5) * 20;
-                  const y1 = 10 + Math.floor(i / 5) * 25;
-                  const x2 = 10 + ((i + 1) % 5) * 20;
-                  const y2 = 10 + Math.floor((i + 1) / 5) * 25;
-                  return (
-                    <line
-                      key={`line-${i}`}
-                      x1={`${x1}%`}
-                      y1={`${y1}%`}
-                      x2={`${x2}%`}
-                      y2={`${y2}%`}
-                      className="connecting-line"
-                      style={{ animationDelay: `${i * 0.15}s` }}
-                    />
-                  );
-                })}
-              </svg>
-
-              {/* Dots */}
-              {[...Array(20)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-1.5 h-1.5 rounded-full bg-[#eca8d6]"
-                  style={{
-                    left: `${10 + (i % 5) * 20}%`,
-                    top: `${10 + Math.floor(i / 5) * 25}%`,
-                    animation: `pulse 2s ease-in-out ${i * 0.1}s infinite`,
-                  }}
-                />
-              ))}
-            </div>
-            
-            <div className="relative z-10">
-              <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-8xl lg:text-[10rem] font-display leading-none">29</span>
-                <span className="text-2xl text-muted-foreground">regions</span>
-              </div>
-              <p className="text-muted-foreground max-w-md">
-                Compute nodes distributed globally for maximum redundancy and minimum latency.
+                Isaac has been quietly shaping vacations for travelers who care
+                about the details since 2014. No call centres. No anonymous
+                inbox. The person who plans your trip is the person you speak
+                to — and the one who picks up when something needs solving on
+                the road.
               </p>
-            </div>
-          </div>
 
-          {/* Stacked stat cards */}
-          <div className="flex flex-col gap-6">
-            <div className={`p-8 border border-foreground/10 bg-foreground/[0.02] transition-all duration-700 delay-100 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}>
-              <span className="text-5xl lg:text-6xl font-display">99.99%</span>
-              <span className="block text-sm text-muted-foreground mt-2">Uptime SLA</span>
-            </div>
-            
-            <div className={`p-8 border border-foreground/10 bg-foreground/[0.02] transition-all duration-700 delay-200 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}>
-              <span className="text-5xl lg:text-6xl font-display">&lt;50ms</span>
-              <span className="block text-sm text-muted-foreground mt-2">Global latency</span>
+              <div
+                className={`mt-10 flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground transition-all duration-1000 delay-200 ${
+                  isVisible ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-brand-green" />
+                  Virtuoso network member
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-brand-green" />
+                  ASTA verified advisor
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-brand-green" />
+                  62 countries personally visited
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Region list */}
-        <div className={`mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-1000 delay-300 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}>
-          {regions.map((region, index) => (
+        {/* Quiet credentials strip — what Isaac specialises in */}
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Large signature stat */}
+          <div
+            className={`lg:col-span-2 relative p-8 lg:p-14 border border-foreground/10 bg-foreground/[0.02] overflow-hidden transition-all duration-700 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+          >
+            {/* Dandelion accents — quiet, ambient */}
+            <img
+              src="/ic-dandelion.svg"
+              alt=""
+              aria-hidden="true"
+              className="absolute -top-6 -right-6 w-40 h-40 opacity-15 animate-drift"
+            />
+            <img
+              src="/ic-dandelion.svg"
+              alt=""
+              aria-hidden="true"
+              className="absolute bottom-8 right-32 w-16 h-16 opacity-10 animate-drift-slow"
+            />
+
+            <div className="relative z-10">
+              <span className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
+                The signature
+              </span>
+              <div className="flex items-baseline gap-3 mt-4 mb-6">
+                <span className="text-7xl lg:text-[9rem] font-display leading-none">
+                  62
+                </span>
+                <span className="text-xl text-muted-foreground italic">
+                  countries
+                </span>
+              </div>
+              <p className="text-muted-foreground max-w-md text-lg leading-relaxed">
+                Every itinerary is shaped from places Isaac has been to,
+                stayed in, and walked through — never guessed at from a
+                booking screen.
+              </p>
+            </div>
+          </div>
+
+          {/* Two quiet stat cards */}
+          <div className="flex flex-col gap-6">
+            <div
+              className={`p-8 border border-foreground/10 bg-foreground/[0.02] transition-all duration-700 delay-100 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            >
+              <span className="text-4xl lg:text-5xl font-display">24h</span>
+              <span className="block text-sm text-muted-foreground mt-2">
+                response, always
+              </span>
+            </div>
+
+            <div
+              className={`p-8 border border-foreground/10 bg-foreground/[0.02] transition-all duration-700 delay-200 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            >
+              <span className="text-4xl lg:text-5xl font-display">1:1</span>
+              <span className="block text-sm text-muted-foreground mt-2">
+                relationship, by design
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Specialism rows */}
+        <div
+          className={`mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-1000 delay-300 ${
+            isVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {credentials.map((region, index) => (
             <div
               key={region.name}
               className={`p-6 border transition-all duration-300 cursor-default ${
-                activeRegion === index 
-                  ? "border-foreground/30 bg-foreground/[0.04]" 
-                  : "border-foreground/10"
+                activeRegion === index
+                  ? "border-brand-green/60 bg-brand-green/[0.04]"
+                  : "border-foreground/10 hover:border-foreground/30"
               }`}
             >
               <div className="flex items-center gap-2 mb-3">
-                <span className={`w-2 h-2 rounded-full transition-colors ${
-                  activeRegion === index ? "bg-[#eca8d6]" : "bg-foreground/20"
-                }`} />
-                <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                  {region.status}
+                <span
+                  className={`w-1.5 h-1.5 transition-colors ${
+                    activeRegion === index ? "bg-brand-green" : "bg-foreground/20"
+                  }`}
+                />
+                <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-[0.18em]">
+                  {region.years}
                 </span>
               </div>
-              <span className="font-medium block mb-1">{region.name}</span>
-              <span className="text-sm text-muted-foreground">{region.nodes} nodes</span>
+              <span className="font-display text-xl block mb-2">
+                {region.name}
+              </span>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {region.note}
+              </p>
             </div>
           ))}
         </div>

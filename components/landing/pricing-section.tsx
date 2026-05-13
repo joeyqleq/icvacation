@@ -1,60 +1,64 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, Check, Zap } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 
-const plans = [
+const tiers = [
   {
-    name: "Explorer",
-    description: "For tinkering and small automations",
-    price: { monthly: 0, annual: 0 },
+    name: "Consultation",
+    tag: "ENTRY",
+    description: "For the trip you're already half-planning",
+    price: { single: 350 },
+    unit: "one-time",
     features: [
-      "3 concurrent agents",
-      "1,000 tasks/month",
-      "Community support",
-      "Basic logging",
-      "Public integrations",
+      "90-minute call with Isaac",
+      "Written brief & recommendations",
+      "Hand-picked stays & operators",
+      "Destination calendar",
+      "Booking guidance (you book)",
     ],
-    cta: "Start free",
+    cta: "Book a consultation",
     highlight: false,
   },
   {
-    name: "Builder",
-    description: "For teams shipping with agents",
-    price: { monthly: 79, annual: 65 },
+    name: "Custom",
+    tag: "SIGNATURE",
+    description: "Most travelers come for this. Fully planned, advisor-led.",
+    price: { single: 1850 },
+    unit: "per trip",
     features: [
-      "25 concurrent agents",
-      "50,000 tasks/month",
-      "Priority support",
-      "Full audit trails",
-      "Private integrations",
-      "Team workspaces",
-      "Custom agent roles",
+      "Everything in Consultation",
+      "Full day-by-day itinerary",
+      "All stays, transfers & guides booked",
+      "On-the-ground concierge",
+      "24-hour response while you travel",
+      "2–3 collaborative drafts",
+      "Reservations at our private network",
     ],
-    cta: "Start trial",
+    cta: "Start planning",
     highlight: true,
   },
   {
-    name: "Scale",
-    description: "For agent-first organizations",
-    price: { monthly: null, annual: null },
+    name: "Atelier",
+    tag: "BESPOKE",
+    description: "Multi-week, multi-region, complex travel for repeat clients.",
+    price: { single: null },
+    unit: "by application",
     features: [
-      "Unlimited agents",
-      "Unlimited tasks",
-      "24/7 dedicated support",
-      "On-premise deployment",
-      "SLA guarantee",
-      "Custom LLM routing",
-      "Advanced security",
-      "Dedicated compute",
+      "Everything in Custom",
+      "Multi-region routing",
+      "Private aircraft & yachts",
+      "Bespoke access & private guides",
+      "Family or group logistics",
+      "Dedicated trip director",
+      "Year-round advisory",
     ],
-    cta: "Contact sales",
+    cta: "Apply for atelier",
     highlight: false,
   },
 ];
 
 export function PricingSection() {
-  const [isAnnual, setIsAnnual] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -71,148 +75,176 @@ export function PricingSection() {
   }, []);
 
   return (
-    <section id="pricing" ref={sectionRef} className="relative py-32 lg:py-40">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        {/* Header - Dramatic offset */}
-        <div className="grid lg:grid-cols-12 gap-8 mb-20">
+    <section
+      id="pricing"
+      ref={sectionRef}
+      className="relative py-32 lg:py-40"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        {/* Header */}
+        <div className="grid lg:grid-cols-12 gap-8 mb-20 items-end">
           <div className="lg:col-span-7">
-            <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-8">
-              <span className="w-12 h-px bg-foreground/30" />
-              Pricing
+            <span className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-8">
+              <span className="w-12 h-px bg-brand-green" />
+              How we work together
             </span>
-            <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}>
-              Pay for
+            <h2
+              className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            >
+              A relationship,
               <br />
-              <span className="text-stroke">results.</span>
+              <span className="text-stroke italic">not a transaction.</span>
             </h2>
           </div>
-          
-          <div className="lg:col-span-5 relative p-0 h-96 lg:h-auto">
-            {/* Whale image */}
-            <div className={`absolute inset-0 pointer-events-none transition-all duration-1000 delay-100 ${
-              isVisible ? "opacity-100" : "opacity-0"
-            }`}>
-              <img
-                src="/images/whale.png"
-                alt="Organic whale"
-                className="w-full h-full object-contain object-center"
-              />
-            </div>
 
+          <div className="lg:col-span-5">
+            <p
+              className={`text-lg text-muted-foreground leading-relaxed max-w-md transition-all duration-1000 delay-100 ${
+                isVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              Three ways to begin. Most travelers start with a consultation,
+              and many quietly stay with us for years after.
+            </p>
           </div>
         </div>
 
-        {/* Pricing cards - Horizontal layout with overlap */}
+        {/* Tier cards — sharper, Template B influenced, IC palette */}
         <div className="relative">
-          <div className="grid lg:grid-cols-3 gap-4 lg:gap-0">
-            {plans.map((plan, index) => (
+          <div className="grid lg:grid-cols-3 gap-4">
+            {tiers.map((tier, index) => (
               <div
-                key={plan.name}
+                key={tier.name}
                 className={`relative bg-background border transition-all duration-700 ${
-                  plan.highlight 
-                    ? "border-foreground lg:-mx-2 lg:z-10 lg:scale-105" 
-                    : "border-foreground/10 lg:first:-mr-2 lg:last:-ml-2"
-                } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+                  tier.highlight
+                    ? "border-brand-green lg:scale-[1.025] lg:z-10"
+                    : "border-foreground/15 hover:border-foreground/30"
+                } ${
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-12"
+                }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Popular badge */}
-                {plan.highlight && (
-                  <div className="absolute -top-4 left-8 right-8 flex justify-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-background text-xs font-mono uppercase tracking-widest">
-                      <Zap className="w-3 h-3" />
-                      Most Popular
+                {tier.highlight && (
+                  <div className="absolute -top-3 left-8 right-8 flex justify-center">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-green text-black text-[10px] font-mono uppercase tracking-[0.22em]">
+                      Most travelers choose this
                     </span>
                   </div>
                 )}
 
                 <div className="p-8 lg:p-10">
-                  {/* Plan header */}
+                  {/* Tier header */}
                   <div className="mb-8 pb-8 border-b border-foreground/10">
-                    <span className="font-mono text-xs text-muted-foreground">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-2xl lg:text-3xl font-display mt-2">{plan.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                        [ {String(index + 1).padStart(2, "0")} ]
+                      </span>
+                      <span
+                        className={`px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.18em] border ${
+                          tier.highlight
+                            ? "border-brand-green text-brand-green"
+                            : "border-foreground/15 text-muted-foreground"
+                        }`}
+                      >
+                        {tier.tag}
+                      </span>
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-display">
+                      {tier.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                      {tier.description}
+                    </p>
                   </div>
 
                   {/* Price */}
-                  <div className="mb-8">
-                    {plan.price.monthly !== null ? (
+                  <div className="mb-10">
+                    {tier.price.single !== null ? (
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl lg:text-6xl font-display">
-                          ${isAnnual ? plan.price.annual : plan.price.monthly}
+                        <span
+                          className={`text-5xl lg:text-6xl font-display ${
+                            tier.highlight ? "text-brand-green" : ""
+                          }`}
+                        >
+                          ${tier.price.single}
                         </span>
-                        <span className="text-muted-foreground text-sm">/month</span>
+                        <span className="text-muted-foreground text-sm">
+                          {tier.unit}
+                        </span>
                       </div>
                     ) : (
-                      <span className="text-4xl font-display">Custom</span>
-                    )}
-                    {plan.price.monthly !== null && plan.price.monthly > 0 && (
-                      <p className="text-xs text-muted-foreground mt-2 font-mono">
-                        {isAnnual ? "billed annually" : "billed monthly"}
-                      </p>
+                      <span className="text-4xl font-display italic text-muted-foreground">
+                        By application
+                      </span>
                     )}
                   </div>
 
                   {/* Features */}
                   <ul className="space-y-3 mb-10">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <Check className="w-4 h-4 text-[#eca8d6] mt-0.5 shrink-0" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
+                    {tier.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-3"
+                      >
+                        <Check className="w-4 h-4 text-brand-green mt-1 shrink-0" />
+                        <span className="text-sm text-muted-foreground">
+                          {feature}
+                        </span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* CTA */}
-                  <button
+                  <a
+                    href="#contact"
                     className={`w-full py-4 flex items-center justify-center gap-2 text-sm font-medium transition-all group ${
-                      plan.highlight
-                        ? "bg-foreground text-background hover:bg-foreground/90"
-                        : "border border-foreground/20 text-foreground hover:border-foreground hover:bg-foreground/5"
+                      tier.highlight
+                        ? "bg-brand-green text-black hover:bg-brand-green/90"
+                        : "border border-foreground/20 text-foreground hover:bg-foreground/5 hover:border-foreground/40"
                     }`}
                   >
-                    {plan.cta}
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </button>
+                    {tier.cta}
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom note with icons */}
-        <div className={`mt-20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 pt-12 border-t border-foreground/10 transition-all duration-1000 delay-500 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}>
-          <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
+        {/* Bottom note */}
+        <div
+          className={`mt-16 pt-10 border-t border-foreground/10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 transition-all duration-1000 delay-500 ${
+            isVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
             <span className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-[#eca8d6]" />
-              Encrypted execution
+              <Check className="w-4 h-4 text-brand-green" />
+              Consultation fee credited toward Custom or Atelier
             </span>
             <span className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-[#eca8d6]" />
-              Full audit logs
+              <Check className="w-4 h-4 text-brand-green" />
+              No commission-driven recommendations
             </span>
             <span className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-[#eca8d6]" />
-              Multi-model routing
+              <Check className="w-4 h-4 text-brand-green" />
+              Existing clients: skip the line
             </span>
           </div>
-          <a href="#" className="text-sm underline underline-offset-4 hover:text-foreground transition-colors">
-            Compare all features
+          <a
+            href="#contact"
+            className="text-sm underline underline-offset-4 hover:text-foreground transition-colors"
+          >
+            Have a question first? Ask Isaac →
           </a>
         </div>
       </div>
-
-      <style jsx>{`
-        .text-stroke {
-          -webkit-text-stroke: 1.5px currentColor;
-          -webkit-text-fill-color: transparent;
-        }
-      `}</style>
     </section>
   );
 }

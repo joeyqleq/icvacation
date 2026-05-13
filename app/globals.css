@@ -3,40 +3,77 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  IC Vacation — boutique, cinematic, premium consultation-first travel.
+  Palette anchored on brand guidelines:
+    - Brand green  : #26FC00 (accent only — sparingly, premium)
+    - Brand gray   : #444444
+    - Brand black  : #000000
+    - Brand white  : #FFFFFF
+    - Pale yellow  : #FDF972 (warmth accent)
+    - Olive green  : #94BD00 (deep accent)
+    - Gray scales  : #252426, #333537, #3F4245, #464B4E, #54585D, #697174
+*/
+
 :root {
-  --background: oklch(0.06 0.008 260);
-  --foreground: oklch(0.94 0.005 90);
-  --card: oklch(0.09 0.008 260);
-  --card-foreground: oklch(0.94 0.005 90);
-  --popover: oklch(0.09 0.008 260);
-  --popover-foreground: oklch(0.94 0.005 90);
-  --primary: oklch(0.94 0.005 90);
-  --primary-foreground: oklch(0.06 0.008 260);
-  --secondary: oklch(0.12 0.008 260);
-  --secondary-foreground: oklch(0.94 0.005 90);
-  --muted: oklch(0.12 0.008 260);
-  --muted-foreground: oklch(0.55 0.015 90);
-  --accent: oklch(0.14 0.01 260);
-  --accent-foreground: oklch(0.94 0.005 90);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.94 0.005 90);
-  --border: oklch(0.18 0.008 260);
-  --input: oklch(0.14 0.008 260);
-  --ring: oklch(0.94 0.005 90);
-  --chart-1: oklch(0.94 0.005 90);
-  --chart-2: oklch(0.72 0.01 90);
-  --chart-3: oklch(0.52 0.015 90);
-  --chart-4: oklch(0.35 0.01 90);
-  --chart-5: oklch(0.20 0.008 90);
-  --radius: 0.25rem;
-  --sidebar: oklch(0.06 0.008 260);
-  --sidebar-foreground: oklch(0.94 0.005 90);
-  --sidebar-primary: oklch(0.94 0.005 90);
-  --sidebar-primary-foreground: oklch(0.06 0.008 260);
-  --sidebar-accent: oklch(0.12 0.008 260);
-  --sidebar-accent-foreground: oklch(0.94 0.005 90);
-  --sidebar-border: oklch(0.18 0.008 260);
-  --sidebar-ring: oklch(0.55 0.015 90);
+  /* Surfaces — deep black with slightly warm undertone for premium feel */
+  --background: #0a0a0a;
+  --foreground: #f5f5f3;
+
+  --card: #111111;
+  --card-foreground: #f5f5f3;
+
+  --popover: #111111;
+  --popover-foreground: #f5f5f3;
+
+  /* Primary = brand green, used sparingly for CTAs and highlights */
+  --primary: #26FC00;
+  --primary-foreground: #000000;
+
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f3;
+
+  --muted: #1a1a1a;
+  --muted-foreground: #8a8a86;
+
+  --accent: #FDF972;
+  --accent-foreground: #0a0a0a;
+
+  --destructive: #b3261e;
+  --destructive-foreground: #f5f5f3;
+
+  --border: #252426;
+  --input: #1a1a1a;
+  --ring: #26FC00;
+
+  /* Brand palette tokens — directly referenced when needed */
+  --brand-green: #26FC00;
+  --brand-green-deep: #94BD00;
+  --brand-yellow: #FDF972;
+  --brand-gray: #444444;
+  --gray-100: #697174;
+  --gray-200: #54585D;
+  --gray-300: #464B4E;
+  --gray-400: #3F4245;
+  --gray-500: #333537;
+  --gray-600: #252426;
+
+  --chart-1: #26FC00;
+  --chart-2: #94BD00;
+  --chart-3: #FDF972;
+  --chart-4: #697174;
+  --chart-5: #333537;
+
+  --radius: 0rem;
+
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #f5f5f3;
+  --sidebar-primary: #26FC00;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #f5f5f3;
+  --sidebar-border: #252426;
+  --sidebar-ring: #26FC00;
 }
 
 @theme inline {
@@ -67,10 +104,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-deep: var(--brand-green-deep);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-gray: var(--brand-gray);
+  --radius-sm: calc(var(--radius));
+  --radius-md: calc(var(--radius));
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius));
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -90,6 +131,18 @@
   }
   html {
     scroll-behavior: smooth;
+    background-color: #0a0a0a;
+  }
+  /* Subtle film grain for premium magazine feel */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
   }
 }
 
@@ -97,62 +150,53 @@
   .font-display {
     font-family: var(--font-display);
   }
-  
+
   .text-stroke {
     -webkit-text-stroke: 1.5px currentColor;
     -webkit-text-fill-color: transparent;
   }
-  
+
   .marquee {
-    animation: marquee 30s linear infinite;
+    animation: marquee 50s linear infinite;
   }
-  
+
   .marquee-reverse {
-    animation: marquee-reverse 25s linear infinite;
+    animation: marquee-reverse 45s linear infinite;
   }
 
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-  
+
   @keyframes marquee-reverse {
     0% { transform: translateX(-50%); }
     100% { transform: translateX(0); }
   }
-  
+
   .line-reveal {
     clip-path: inset(0 100% 0 0);
     animation: line-reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
   }
-  
+
   @keyframes line-reveal {
     to { clip-path: inset(0 0 0 0); }
   }
-  
+
   .hover-lift {
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  
+
   .hover-lift:hover {
     transform: translateY(-4px);
   }
-  
-  .letter-spin {
-    display: inline-block;
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  
-  .letter-spin:hover {
-    transform: rotateY(360deg);
-  }
-  
+
   .animate-char-in {
     animation: char-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
     transform: translateY(60%);
   }
-  
+
   @keyframes char-in {
     0% {
       opacity: 0;
@@ -164,43 +208,20 @@
     }
   }
 
-  .noise-overlay {
-    position: relative;
+  /* Subtle drift for atmospheric elements */
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(8px, -8px) rotate(2deg); }
   }
-  
-  .noise-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .how-it-works-bg {
-    background-color: oklch(0.10 0.008 260);
+  .animate-drift {
+    animation: drift 14s ease-in-out infinite;
   }
 
-  .word-gradient {
-    background: linear-gradient(
-      45deg,
-      #eca8d6 0%,
-      #a78bfa 25%,
-      #67e8f9 50%,
-      #fbbf24 75%,
-      #eca8d6 100%
-    );
-    background-size: 300% 300%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 1.5s ease infinite;
+  @keyframes drift-slow {
+    0%, 100% { transform: translate(0, 0) rotate(-1deg); }
+    50% { transform: translate(-6px, 4px) rotate(1deg); }
   }
-
-  @keyframes gradient-shift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  .animate-drift-slow {
+    animation: drift-slow 22s ease-in-out infinite;
   }
 }

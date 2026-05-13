@@ -1,102 +1,234 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight, Minus, Plus } from "lucide-react";
 
-export function CtaSection() {
+const faqs = [
+  {
+    q: "Do I have to know where I want to go?",
+    a: "Not at all. Most travelers come to us with a feeling, a window of time, or a memory they want to chase. We translate that into places. Knowing nothing is genuinely a fine place to start.",
+  },
+  {
+    q: "How is this different from Expedia, Booking, or my credit card concierge?",
+    a: "We don't surface inventory. We don't run a call centre. Isaac plans your trip personally, end-to-end, and is the one human you speak to throughout. The difference shows up most when something goes wrong on the road — and that almost always happens.",
+  },
+  {
+    q: "Is the consultation fee refundable if I book a custom trip?",
+    a: "It's credited in full toward your Custom or Atelier itinerary. If we decide we're not the right fit for the trip — which does happen — we'll tell you, and refund it.",
+  },
+  {
+    q: "What kind of traveler is this not for?",
+    a: "Travelers who want the cheapest possible rate, who prefer to book themselves piece by piece, or who want a packed sightseeing checklist. We genuinely respect all of those styles — we're just not the right tool for them.",
+  },
+  {
+    q: "Can you plan family, group, or multi-generation trips?",
+    a: "Yes. Family travel is one of Isaac's specialisms. The Atelier tier is built for multi-generation and group itineraries with multiple needs running in parallel.",
+  },
+];
+
+export function FaqCtaSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
-  };
-
   return (
-    <section ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section id="contact" ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        {/* FAQ — Template B influence */}
+        <div className="grid lg:grid-cols-12 gap-12 mb-24 lg:mb-32">
+          <div className="lg:col-span-4">
+            <span className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-6">
+              <span className="w-12 h-px bg-brand-green" />
+              Frequently asked
+            </span>
+            <h2
+              className={`text-5xl lg:text-7xl font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            >
+              Before
+              <br />
+              <span className="text-muted-foreground italic">we begin.</span>
+            </h2>
+            <p className="mt-8 text-muted-foreground leading-relaxed max-w-sm">
+              The questions Isaac is asked most. If yours isn't here,{" "}
+              <a
+                href="#contact"
+                className="text-brand-green hover:underline underline-offset-4"
+              >
+                ask him directly
+              </a>
+              .
+            </p>
+          </div>
+
+          <div className="lg:col-span-8">
+            <ul className="border-t border-foreground/15">
+              {faqs.map((faq, index) => {
+                const isOpen = openIndex === index;
+                return (
+                  <li key={faq.q} className="border-b border-foreground/15">
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      className="w-full flex items-start justify-between gap-6 py-6 lg:py-7 text-left group"
+                    >
+                      <div className="flex items-start gap-5 flex-1">
+                        <span className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground pt-1.5 shrink-0">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span
+                          className={`text-lg lg:text-xl transition-colors duration-300 ${
+                            isOpen ? "text-brand-green" : "text-foreground group-hover:text-foreground/80"
+                          }`}
+                        >
+                          {faq.q}
+                        </span>
+                      </div>
+                      <span
+                        className={`shrink-0 w-8 h-8 mt-1 flex items-center justify-center border transition-colors ${
+                          isOpen
+                            ? "border-brand-green text-brand-green"
+                            : "border-foreground/20 text-foreground/60 group-hover:border-foreground/40"
+                        }`}
+                      >
+                        {isOpen ? (
+                          <Minus className="w-4 h-4" />
+                        ) : (
+                          <Plus className="w-4 h-4" />
+                        )}
+                      </span>
+                    </button>
+                    <div
+                      className={`grid transition-all duration-500 ease-out ${
+                        isOpen
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="pl-0 sm:pl-12 pr-12 pb-7 text-muted-foreground leading-relaxed max-w-2xl">
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+
+        {/* Cinematic CTA box — preserved from Template A */}
         <div
           className={`relative border border-foreground transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
           }`}
-          onMouseMove={handleMouseMove}
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            setMouse({
+              x: ((e.clientX - rect.left) / rect.width) * 100,
+              y: ((e.clientY - rect.top) / rect.height) * 100,
+            });
+          }}
         >
-          {/* Spotlight effect */}
-          <div 
-            className="absolute inset-0 opacity-10 pointer-events-none transition-opacity duration-300"
+          {/* Background image — quiet, deep */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src="/cta-vista.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
+          </div>
+
+          {/* Spotlight */}
+          <div
+            className="absolute inset-0 opacity-30 pointer-events-none transition-opacity duration-300"
             style={{
-              background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(0,0,0,0.15), transparent 40%)`
+              background: `radial-gradient(700px circle at ${mouse.x}% ${mouse.y}%, rgba(38,252,0,0.08), transparent 50%)`,
             }}
           />
-          
+
           <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-              {/* Left content */}
-              <div className="flex-1">
-                <h2 className="text-6xl md:text-7xl lg:text-[72px] font-display tracking-tight mb-8 leading-[0.95]">
-                  Ready to delegate
+              <div className="flex-1 max-w-2xl">
+                <span className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-6">
+                  <span className="w-8 h-px bg-brand-green" />
+                  Begin
+                </span>
+                <h2 className="text-5xl md:text-6xl lg:text-[64px] font-display tracking-tight mb-8 leading-[0.98]">
+                  When you're ready,
                   <br />
-                  to AI agents?
+                  <span className="italic text-brand-green">
+                    so are we.
+                  </span>
                 </h2>
 
-                <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
-                  Join teams automating complex workflows with COMPUTE agents. 
-                  Deploy your first agent in minutes.
+                <p className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl">
+                  Book a 90-minute consultation, no obligation. Bring a window of
+                  time, a feeling, or nothing at all.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-start gap-4">
-                  <Button
-                    size="lg"
-                    className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
+                <div className="flex flex-col sm:flex-row items-start gap-3">
+                  <a
+                    href="#contact"
+                    className="group inline-flex items-center gap-3 bg-brand-green text-black hover:bg-brand-green/90 h-14 px-7 text-base font-medium transition-colors"
                   >
-                    Deploy your first agent
-                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
+                    Book a consultation
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-3 border border-foreground/30 hover:border-foreground/60 hover:bg-foreground/5 h-14 px-7 text-base transition-colors"
                   >
-                    Book a demo
-                  </Button>
+                    Write to Isaac
+                  </a>
                 </div>
 
-                <p className="text-sm text-muted-foreground mt-8 font-mono">
-                  1,000 free tasks with COMPUTE
+                <p className="text-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mt-8">
+                  Consultation fee credited toward your trip
                 </p>
               </div>
 
-              {/* Right image */}
-              <div className="hidden lg:flex items-end justify-center w-[600px] h-[650px] -mr-16">
+              {/* Right column — quiet owl + dandelion accent */}
+              <div className="hidden lg:flex flex-col items-end justify-center gap-6 w-[280px] xl:w-[340px] shrink-0">
                 <img
-                  src="/images/bridge.png"
-                  alt="Two trees connected by glowing arcs"
-                  className="w-full h-full object-contain object-bottom"
+                  src="/ic-dandelion.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-32 h-32 opacity-80 animate-drift-slow"
+                />
+                <img
+                  src="/ic-owl.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-52 h-auto opacity-90 animate-drift"
                 />
               </div>
             </div>
           </div>
 
-          {/* Decorative corner */}
-          <div className="absolute top-0 right-0 w-32 h-32 border-b border-l border-foreground/10" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 border-t border-r border-foreground/10" />
+          {/* Decorative corners */}
+          <div className="absolute top-0 right-0 w-24 h-24 border-b border-l border-foreground/20" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 border-t border-r border-foreground/20" />
         </div>
       </div>
     </section>

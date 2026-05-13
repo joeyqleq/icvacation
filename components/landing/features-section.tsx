@@ -1,39 +1,44 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Sparkles, MessageSquare } from "lucide-react";
 
-const features = [
+/**
+ * AI Travel Consultant preview.
+ * A quiet, advisor-feeling chat surface — the AI gathers context first,
+ * then hands the trip to Isaac. This section makes that handoff visible.
+ */
+
+const conversation = [
   {
-    number: "01",
-    title: "Autonomous Execution",
-    description: "Deploy AI agents that work independently. They analyze, decide, and execute complex multi-step tasks without human intervention.",
-    stats: { value: "99.7%", label: "task completion" },
+    from: "ai",
+    text: "Hello. Before Isaac shapes a trip for you, let's talk about how you like to travel.",
   },
   {
-    number: "02",
-    title: "Distributed Computing",
-    description: "Offload compute-heavy tasks to our global network. Your agents run on optimized infrastructure across 50+ regions worldwide.",
-    stats: { value: "50+", label: "global regions" },
+    from: "you",
+    text: "Two of us. We want quiet, slow, and far from crowds. Late spring.",
   },
   {
-    number: "03",
-    title: "Multi-Agent Orchestration",
-    description: "Coordinate teams of specialized agents. They communicate, delegate, and collaborate to solve complex problems together.",
-    stats: { value: "1000x", label: "parallel execution" },
+    from: "ai",
+    text: "Beautiful. Mountains, sea, or somewhere in between?",
   },
   {
-    number: "04",
-    title: "Secure Sandboxing",
-    description: "Each agent runs in isolated environments. Full audit trails, encrypted execution, and zero data leakage between tasks.",
-    stats: { value: "0", label: "data breaches" },
+    from: "you",
+    text: "Mountains. Walks in the morning, long dinners, no rush.",
+  },
+  {
+    from: "ai",
+    text: "Then I'm thinking the Dolomites, a quiet stretch of the Engadin, or perhaps a private chalet in the Karwendel.",
+  },
+  {
+    from: "handoff",
+    text: "Brief saved. Isaac will review and reach out personally within 24 hours.",
   },
 ];
 
-// Floating dot particles visualization
-function ParticleVisualization() {
+function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef(0);
-  const mouseRef = useRef({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,25 +56,15 @@ function ParticleVisualization() {
     resize();
     window.addEventListener("resize", resize);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        x: (e.clientX - rect.left) / rect.width,
-        y: (e.clientY - rect.top) / rect.height,
-      };
-    };
-    canvas.addEventListener("mousemove", handleMouseMove);
-
-    // Generate stable particle positions
-    const COUNT = 70;
+    const COUNT = 55;
     const particles = Array.from({ length: COUNT }, (_, i) => {
       const seed = i * 1.618;
       return {
-        bx: ((seed * 127.1) % 1),
-        by: ((seed * 311.7) % 1),
+        bx: (seed * 127.1) % 1,
+        by: (seed * 311.7) % 1,
         phase: seed * Math.PI * 2,
-        speed: 0.4 + (seed % 0.4),
-        radius: 1.2 + (seed % 2.2),
+        speed: 0.3 + (seed % 0.3),
+        radius: 0.9 + (seed % 1.6),
       };
     });
 
@@ -78,43 +73,29 @@ function ParticleVisualization() {
       const rect = canvas.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
-
       ctx.clearRect(0, 0, w, h);
 
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
-
       particles.forEach((p) => {
-        const flowX = Math.sin(time * p.speed * 0.4 + p.phase) * 38;
-        const flowY = Math.cos(time * p.speed * 0.3 + p.phase * 0.7) * 24;
-
-        const bx = p.bx * w;
-        const by = p.by * h;
-        const dx = p.bx - mx;
-        const dy = p.by - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const influence = Math.max(0, 1 - dist * 2.8);
-
-        const x = bx + flowX + influence * Math.cos(time + p.phase) * 36;
-        const y = by + flowY + influence * Math.sin(time + p.phase) * 36;
-
+        const flowX = Math.sin(time * p.speed * 0.4 + p.phase) * 30;
+        const flowY = Math.cos(time * p.speed * 0.3 + p.phase * 0.7) * 18;
+        const x = p.bx * w + flowX;
+        const y = p.by * h + flowY;
         const pulse = Math.sin(time * p.speed + p.phase) * 0.5 + 0.5;
-        const alpha = 0.08 + pulse * 0.18 + influence * 0.3;
+        const alpha = 0.04 + pulse * 0.12;
 
         ctx.beginPath();
-        ctx.arc(x, y, p.radius + pulse * 0.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.arc(x, y, p.radius + pulse * 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(38, 252, 0, ${alpha})`;
         ctx.fill();
       });
 
-      time += 0.016;
+      time += 0.014;
       frameRef.current = requestAnimationFrame(render);
     };
     render();
 
     return () => {
       window.removeEventListener("resize", resize);
-      canvas.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(frameRef.current);
     };
   }, []);
@@ -122,15 +103,15 @@ function ParticleVisualization() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 pointer-events-auto"
+      className="absolute inset-0 pointer-events-none"
       style={{ width: "100%", height: "100%" }}
     />
   );
 }
 
-export function FeaturesSection() {
+export function ConsultantSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const [revealed, setRevealed] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -145,80 +126,197 @@ export function FeaturesSection() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!isVisible) return;
+    if (revealed >= conversation.length) return;
+    const t = setTimeout(() => setRevealed((r) => r + 1), revealed === 0 ? 400 : 1100);
+    return () => clearTimeout(t);
+  }, [isVisible, revealed]);
+
   return (
     <section
-      id="features"
+      id="approach"
       ref={sectionRef}
       className="relative py-24 lg:py-32 overflow-hidden"
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        {/* Header - Full width with diagonal layout */}
-        <div className="relative mb-24 lg:mb-32">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        {/* Header */}
+        <div className="relative mb-20 lg:mb-28">
           <div className="grid lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-                <span className="w-12 h-px bg-foreground/30" />
-                Capabilities
+              <span className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-6">
+                <span className="w-12 h-px bg-brand-green" />
+                AI Travel Consultant
               </span>
               <h2
-                className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
+                className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
-                Intelligent
+                Begin with{" "}
+                <span className="italic text-brand-green">conversation</span>,
                 <br />
-                <span className="text-muted-foreground">workers.</span>
+                <span className="text-muted-foreground">not a search bar.</span>
               </h2>
             </div>
             <div className="lg:col-span-5 lg:pb-4">
-              <p className={`text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-200 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}>
-                Deploy autonomous AI agents that execute complex tasks across distributed infrastructure. No supervision required.
+              <p
+                className={`text-lg text-muted-foreground leading-relaxed transition-all duration-1000 delay-200 ${
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                }`}
+              >
+                Our quiet AI listens first. It learns who you travel with, how
+                you like to move, and what you want to feel. Then it hands the
+                brief to Isaac, who shapes the trip personally.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid lg:grid-cols-12 gap-4 lg:gap-6">
-          {/* Large feature card */}
-          <div 
-            className={`lg:col-span-12 relative bg-black border border-foreground/10 min-h-[500px] overflow-hidden group transition-all duration-700 flex ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            }`}
-            onMouseEnter={() => setActiveFeature(0)}
-          >
-            {/* Left: text content */}
-            <div className="relative flex-1 p-8 lg:p-12 bg-black">
-              <ParticleVisualization />
-              <div className="relative z-10">
-                <span className="font-mono text-sm text-muted-foreground">{features[0].number}</span>
-                <h3 className="text-3xl lg:text-4xl font-display mt-4 mb-6 group-hover:translate-x-2 transition-transform duration-500">
-                  {features[0].title}
-                </h3>
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-md mb-8">
-                  {features[0].description}
-                </p>
-                <div>
-                  <span className="text-5xl lg:text-6xl font-display">{features[0].stats.value}</span>
-                  <span className="block text-sm text-muted-foreground font-mono mt-2">{features[0].stats.label}</span>
+        {/* Conversation surface */}
+        <div
+          className={`relative border border-foreground/10 bg-[#0d0d0d] overflow-hidden transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+        >
+          <ParticleField />
+
+          <div className="relative z-10 grid lg:grid-cols-[1.3fr_1fr]">
+            {/* Conversation column */}
+            <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-foreground/10">
+              {/* Surface header */}
+              <div className="flex items-center justify-between mb-10 pb-6 border-b border-foreground/10">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-brand-green/15 border border-brand-green/40 flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-brand-green" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-foreground">IC Vacation Consultant</p>
+                    <p className="text-xs font-mono text-muted-foreground">
+                      Pre-consultation brief · v2.4
+                    </p>
+                  </div>
                 </div>
+                <span className="inline-flex items-center gap-2 text-xs font-mono text-brand-green">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" />
+                  LIVE
+                </span>
+              </div>
+
+              {/* Messages */}
+              <div className="flex flex-col gap-5 min-h-[320px]">
+                {conversation.slice(0, revealed).map((msg, i) => {
+                  if (msg.from === "handoff") {
+                    return (
+                      <div
+                        key={i}
+                        className="self-stretch mt-4 border border-brand-green/40 bg-brand-green/[0.06] px-5 py-4 flex items-center gap-3 animate-[char-in_0.5s_ease_forwards]"
+                      >
+                        <MessageSquare className="w-4 h-4 text-brand-green shrink-0" />
+                        <p className="text-sm text-foreground/90">{msg.text}</p>
+                      </div>
+                    );
+                  }
+                  const isAi = msg.from === "ai";
+                  return (
+                    <div
+                      key={i}
+                      className={`flex ${isAi ? "justify-start" : "justify-end"}`}
+                    >
+                      <div
+                        className={`max-w-[80%] px-4 py-3 text-sm leading-relaxed animate-[char-in_0.5s_ease_forwards] ${
+                          isAi
+                            ? "bg-foreground/[0.04] border border-foreground/10 text-foreground"
+                            : "bg-foreground text-background"
+                        }`}
+                      >
+                        <span
+                          className={`block text-[10px] font-mono uppercase tracking-[0.18em] mb-1 ${
+                            isAi ? "text-muted-foreground" : "text-background/60"
+                          }`}
+                        >
+                          {isAi ? "consultant" : "you"}
+                        </span>
+                        {msg.text}
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {revealed < conversation.length && (
+                  <div className="flex gap-1.5 items-center pl-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-green/70 animate-pulse" />
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-brand-green/70 animate-pulse"
+                      style={{ animationDelay: "150ms" }}
+                    />
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-brand-green/70 animate-pulse"
+                      style={{ animationDelay: "300ms" }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Right: mirrored image, full height */}
-            <div className="hidden lg:block relative w-[42%] shrink-0 overflow-hidden">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2812%29-ng3RrNnsPMJ5CrtOjcPTmhHg01W11q.png"
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ transform: "scaleX(-1)" }}
-              />
-              {/* Fade left edge into black */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent" />
+            {/* Brief column — quietly summarises the conversation */}
+            <div className="p-8 lg:p-12 bg-[#0a0a0a]">
+              <span className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
+                Brief · auto-captured
+              </span>
+
+              <ul className="mt-8 flex flex-col gap-6 text-sm">
+                {[
+                  { k: "Travellers", v: "Two adults" },
+                  { k: "Season", v: "Late spring" },
+                  { k: "Pace", v: "Slow, quiet, far from crowds" },
+                  { k: "Terrain", v: "Mountains" },
+                  { k: "Rhythm", v: "Walks at dawn, long dinners" },
+                  {
+                    k: "Suggested",
+                    v: "Dolomites · Engadin · Karwendel",
+                    accent: true,
+                  },
+                ].map((row) => (
+                  <li
+                    key={row.k}
+                    className="flex items-start justify-between gap-6 pb-4 border-b border-foreground/[0.06]"
+                  >
+                    <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground pt-0.5">
+                      {row.k}
+                    </span>
+                    <span
+                      className={`text-right max-w-[60%] ${
+                        row.accent ? "text-brand-green" : "text-foreground"
+                      }`}
+                    >
+                      {row.v}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-10 flex items-center gap-3 text-xs font-mono text-muted-foreground">
+                <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
+                Brief forwarded to Isaac
+              </div>
             </div>
+          </div>
+
+          {/* Bottom prompt bar */}
+          <div className="relative z-10 border-t border-foreground/10 px-6 lg:px-10 py-5 flex items-center justify-between gap-4 bg-[#080808]">
+            <span className="text-xs font-mono text-muted-foreground">
+              <span className="text-brand-green">›</span> Tell us how you want
+              this trip to feel
+            </span>
+            <a
+              href="#contact"
+              className="text-xs font-mono uppercase tracking-[0.18em] text-brand-green hover:text-brand-green/80 transition-colors"
+            >
+              Start your brief →
+            </a>
           </div>
         </div>
       </div>

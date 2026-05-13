@@ -1,38 +1,36 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Shield, Lock, Eye, FileCheck } from "lucide-react";
+import { Compass, Feather, HeartHandshake, Map } from "lucide-react";
 
-const securityFeatures = [
+const principles = [
   {
-    icon: Shield,
-    title: "Isolated execution",
-    description: "Each agent runs in its own secure sandbox.",
-    image: "/images/isolated.jpg",
+    icon: Compass,
+    title: "Slow, not packed",
+    description:
+      "We design days that breathe. Three things matter more than ten.",
   },
   {
-    icon: Lock,
-    title: "Encrypted memory",
-    description: "Data encrypted at rest and in transit.",
-    image: "/images/encrypted.jpg",
+    icon: Map,
+    title: "Known places, deeply",
+    description:
+      "We work in regions Isaac has spent years in — never a list of countries on a brochure.",
   },
   {
-    icon: Eye,
-    title: "Full audit trails",
-    description: "Every action logged and inspectable.",
-    image: "/images/audit.jpg",
+    icon: HeartHandshake,
+    title: "One human, end-to-end",
+    description:
+      "From first call to homecoming. No handoffs, no call centres.",
   },
   {
-    icon: FileCheck,
-    title: "Permission boundaries",
-    description: "Principle of least privilege by design.",
-    image: "/images/permissions.jpg",
+    icon: Feather,
+    title: "Quietly luxurious",
+    description:
+      "Comfort is in the details, not the marble. We choose character over chandeliers.",
   },
 ];
 
-const certifications = ["SOC 2", "ISO 27001", "HIPAA", "GDPR"];
-
-export function SecuritySection() {
+export function PhilosophySection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,115 +49,151 @@ export function SecuritySection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % securityFeatures.length);
-    }, 3000);
+      setActiveFeature((prev) => (prev + 1) % principles.length);
+    }, 3200);
     return () => clearInterval(interval);
   }, []);
 
+  const active = principles[activeFeature];
+
   return (
-    <section id="security" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
-      {/* Background accent removed */}
-      
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section
+      id="services"
+      ref={sectionRef}
+      className="relative py-32 lg:py-40 overflow-hidden"
+    >
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="mb-20">
-          <span className={`inline-flex items-center gap-4 text-sm font-mono text-muted-foreground mb-8 transition-all duration-700 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}>
-            <span className="w-12 h-px bg-foreground/20" />
-            Security
+          <span
+            className={`inline-flex items-center gap-4 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-8 transition-all duration-700 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <span className="w-12 h-px bg-brand-green" />
+            Philosophy
           </span>
-          
-          {/* Title — full width */}
-          <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] mb-12 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}>
-            Autonomous,
+
+          <h2
+            className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.95] mb-12 transition-all duration-1000 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+          >
+            Curated,
             <br />
-            <span className="text-muted-foreground">not uncontrolled.</span>
+            <span className="text-muted-foreground italic">not catalogued.</span>
           </h2>
-          
-          {/* Description — below title */}
-          <div className={`transition-all duration-1000 delay-100 ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Your agents are powerful but constrained. Enterprise-grade security ensures they only do what you allow.
+
+          <div
+            className={`transition-all duration-1000 delay-100 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+              Four quiet principles that shape every trip we plan — and every
+              trip we politely decline.
             </p>
           </div>
         </div>
 
-        {/* Main content */}
         <div className="grid lg:grid-cols-12 gap-6">
-          {/* Large visual card */}
-          <div className={`lg:col-span-7 relative p-8 lg:p-12 border border-foreground/10 min-h-[400px] overflow-hidden transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}>
-            {/* Dynamic feature image with cross-fade — desktop only */}
-            <div className="absolute inset-0 pointer-events-none items-center justify-end hidden lg:flex">
-              {securityFeatures.map((feature, index) => (
-                <img
-                  key={feature.image}
-                  src={feature.image}
-                  alt={feature.title}
-                  className="absolute h-3/4 w-3/4 object-contain object-right transition-opacity duration-500"
-                  style={{ opacity: activeFeature === index ? 0.85 : 0 }}
-                />
-              ))}
-            </div>
-            
-            <div className="relative z-10">
-              <span className="font-mono text-sm text-muted-foreground">Active protection</span>
-              <div className="mt-8">
-                <span className="text-7xl lg:text-8xl font-display">0</span>
-                <span className="block text-muted-foreground mt-2">Security incidents this year</span>
+          {/* Featured principle — big visual card */}
+          <div
+            className={`lg:col-span-7 relative p-8 lg:p-14 border border-foreground/10 min-h-[460px] overflow-hidden transition-all duration-700 bg-foreground/[0.02] ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+          >
+            {/* Penguin mascot — quiet, sparing */}
+            <img
+              src="/ic-penguin.svg"
+              alt=""
+              aria-hidden="true"
+              className="absolute -bottom-6 -right-6 w-44 h-auto opacity-90 animate-drift-slow"
+            />
+            <img
+              src="/ic-dandelion.svg"
+              alt=""
+              aria-hidden="true"
+              className="absolute top-10 right-16 w-12 h-12 opacity-20 animate-drift"
+            />
+
+            <div className="relative z-10 max-w-md">
+              <span className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
+                Currently
+              </span>
+
+              <div className="mt-8 mb-10 flex items-center gap-5">
+                <div className="w-14 h-14 flex items-center justify-center border border-brand-green/40 bg-brand-green/[0.06]">
+                  <active.icon className="w-6 h-6 text-brand-green" />
+                </div>
+                <span className="text-5xl lg:text-6xl font-display leading-none">
+                  {active.title}
+                </span>
               </div>
+
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {active.description}
+              </p>
             </div>
-            
-            {/* Certification badges */}
-            <div className="absolute bottom-8 left-8 right-8 flex flex-wrap gap-2">
-              {certifications.map((cert, index) => (
+
+            {/* Quiet bottom strip */}
+            <div className="absolute bottom-8 left-8 right-8 lg:left-14 flex flex-wrap gap-2">
+              {principles.map((p, index) => (
                 <span
-                  key={cert}
-                  className={`px-3 py-1 border border-foreground/10 text-xs font-mono text-muted-foreground transition-all duration-500 ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                  key={p.title}
+                  className={`px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] border transition-all duration-500 ${
+                    activeFeature === index
+                      ? "border-brand-green/60 text-brand-green bg-brand-green/[0.06]"
+                      : "border-foreground/10 text-muted-foreground"
                   }`}
-                  style={{ transitionDelay: `${index * 100 + 300}ms` }}
+                  style={{ transitionDelay: `${index * 80}ms` }}
                 >
-                  {cert}
+                  0{index + 1}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Feature cards stack */}
+          {/* Principle list */}
           <div className="lg:col-span-5 flex flex-col gap-4">
-            {securityFeatures.map((feature, index) => (
-              <div
-                key={feature.title}
-                className={`p-6 border transition-all duration-500 cursor-default ${
-                  activeFeature === index 
-                    ? "border-foreground/30 bg-foreground/[0.04]" 
-                    : "border-foreground/10"
-                } ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
-                style={{ transitionDelay: `${index * 80}ms` }}
+            {principles.map((p, index) => (
+              <button
+                key={p.title}
                 onClick={() => setActiveFeature(index)}
                 onMouseEnter={() => setActiveFeature(index)}
+                className={`text-left p-6 border transition-all duration-500 cursor-pointer ${
+                  activeFeature === index
+                    ? "border-brand-green/50 bg-brand-green/[0.04]"
+                    : "border-foreground/10 hover:border-foreground/30"
+                } ${
+                  isVisible
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-8"
+                }`}
+                style={{ transitionDelay: `${index * 80}ms` }}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`shrink-0 w-10 h-10 flex items-center justify-center border transition-colors ${
-                    activeFeature === index 
-                      ? "border-foreground bg-foreground text-background" 
-                      : "border-foreground/20"
-                  }`}>
-                    <feature.icon className="w-5 h-5" />
+                  <div
+                    className={`shrink-0 w-10 h-10 flex items-center justify-center border transition-colors ${
+                      activeFeature === index
+                        ? "border-brand-green bg-brand-green text-black"
+                        : "border-foreground/20 text-foreground/60"
+                    }`}
+                  >
+                    <p.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-1">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    <h3 className="font-medium mb-1.5">{p.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {p.description}
+                    </p>
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>

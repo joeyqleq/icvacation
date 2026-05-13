@@ -1,32 +1,32 @@
 import { Navigation } from "@/components/landing/navigation";
 import { HeroSection } from "@/components/landing/hero-section";
-import { FeaturesSection } from "@/components/landing/features-section";
-import { HowItWorksSection } from "@/components/landing/how-it-works-section";
-import { InfrastructureSection } from "@/components/landing/infrastructure-section";
-import { MetricsSection } from "@/components/landing/metrics-section";
-import { IntegrationsSection } from "@/components/landing/integrations-section";
-import { SecuritySection } from "@/components/landing/security-section";
-import { DevelopersSection } from "@/components/landing/developers-section";
+import { ConsultantSection } from "@/components/landing/features-section";
+import { ProcessSection } from "@/components/landing/how-it-works-section";
+import { AdvisorSection } from "@/components/landing/infrastructure-section";
+import { NumbersSection } from "@/components/landing/metrics-section";
+import { DestinationsSection } from "@/components/landing/integrations-section";
+import { PhilosophySection } from "@/components/landing/security-section";
+import { JournalSection } from "@/components/landing/developers-section";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { PricingSection } from "@/components/landing/pricing-section";
-import { CtaSection } from "@/components/landing/cta-section";
+import { FaqCtaSection } from "@/components/landing/cta-section";
 import { FooterSection } from "@/components/landing/footer-section";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
+    <main className="relative min-h-screen overflow-x-hidden bg-background">
       <Navigation />
       <HeroSection />
-      <FeaturesSection />
-      <HowItWorksSection />
-      <InfrastructureSection />
-      <MetricsSection />
-      <IntegrationsSection />
-      <SecuritySection />
-      <DevelopersSection />
+      <ConsultantSection />
+      <AdvisorSection />
+      <ProcessSection />
+      <DestinationsSection />
+      <NumbersSection />
       <TestimonialsSection />
+      <PhilosophySection />
+      <JournalSection />
       <PricingSection />
-      <CtaSection />
+      <FaqCtaSection />
       <FooterSection />
     </main>
   );

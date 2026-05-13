@@ -4,26 +4,30 @@ import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/goo
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const instrumentSans = Instrument_Sans({ 
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   variable: '--font-instrument'
 });
 
-const instrumentSerif = Instrument_Serif({ 
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   variable: '--font-instrument-serif'
 });
 
-const jetbrainsMono = JetBrains_Mono({ 
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: '--font-jetbrains'
 });
 
 export const metadata: Metadata = {
-  title: 'COMPUTE - AI Agents for Distributed Computing',
-  description: 'Deploy autonomous AI agents on distributed infrastructure. Offload complex tasks to intelligent workers that run 24/7.',
+  title: 'IC Vacation — Vacations, shaped around you.',
+  description:
+    'IC Vacation is a boutique, advisor-led travel practice. Personal consultation, curated itineraries, and quietly luxurious vacations designed by Isaac Chowrimootoo.',
   generator: 'v0.app',
+  icons: {
+    icon: '/ic-dandelion.svg',
+  },
 }
 
 export default function RootLayout({
@@ -32,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background">
       <body className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {children}
         <Analytics />
