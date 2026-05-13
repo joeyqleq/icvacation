@@ -14,101 +14,105 @@ const navLinks = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      // Track active section by checking viewport overlap
+      const sections = navLinks
+        .map((l) => l.href.replace("#", ""))
+        .map((id) => ({ id, el: document.getElementById(id) }))
+        .filter((s) => s.el);
+
+      const viewportMid = window.scrollY + window.innerHeight * 0.35;
+      let current = "";
+      for (const { id, el } of sections) {
+        if (!el) continue;
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        if (viewportMid >= top && viewportMid < bottom) {
+          current = id;
+          break;
+        }
+      }
+      setActiveSection(current);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
       className={`fixed z-50 transition-all duration-500 ${
-        isScrolled
-          ? "top-4 left-4 right-4"
-          : "top-0 left-0 right-0"
+        isScrolled ? "top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4" : "top-0 left-0 right-0"
       }`}
     >
       <nav
         className={`mx-auto transition-all duration-500 ${
           isScrolled || isMobileMenuOpen
-            ? "bg-background/85 backdrop-blur-xl border border-foreground/10 max-w-[1240px]"
+            ? "glass-nav max-w-[1240px] rounded-[2px]"
             : "bg-transparent max-w-[1440px]"
         }`}
       >
         <div
-          className={`flex items-center justify-between transition-all duration-500 px-6 lg:px-10 ${
+          className={`flex items-center justify-between transition-all duration-500 px-5 sm:px-6 lg:px-10 ${
             isScrolled ? "h-14" : "h-20"
           }`}
         >
-          {/* Logo lockup — wordmark + monogram dandelion */}
-          <a href="#" className="flex items-center gap-3 group">
+          {/* Logo lockup — full IC VACATION wordmark SVG (dandelion + name baked in) */}
+          <a
+            href="#"
+            aria-label="IC Vacation home"
+            className="flex items-center group shrink-0"
+          >
             <img
-              src="/ic-dandelion.svg"
-              alt=""
-              aria-hidden="true"
-              className={`transition-all duration-500 ${
-                isScrolled ? "w-7 h-7" : "w-9 h-9"
+              src="/ic-wordmark-yellow.svg"
+              alt="IC Vacation"
+              className={`transition-all duration-500 w-auto ${
+                isScrolled ? "h-7" : "h-9 sm:h-10"
               }`}
             />
-            <div className="flex flex-col leading-none">
-              <span
-                className={`font-display tracking-tight transition-all duration-500 ${
-                  isScrolled ? "text-lg text-foreground" : "text-xl text-white"
-                }`}
-              >
-                IC Vacation
-              </span>
-              <span
-                className={`font-mono uppercase tracking-[0.18em] transition-all duration-500 ${
-                  isScrolled ? "text-[9px] mt-1 text-muted-foreground" : "text-[10px] mt-1.5 text-white/55"
-                }`}
-              >
-                Boutique travel · est. 2014
-              </span>
-            </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm transition-colors duration-300 relative group ${
-                  isScrolled
-                    ? "text-foreground/70 hover:text-foreground"
-                    : "text-white/70 hover:text-white"
-                }`}
-              >
-                {link.name}
-                <span
-                  className={`absolute -bottom-1 left-0 w-0 h-px transition-all duration-300 group-hover:w-full ${
-                    isScrolled ? "bg-brand-green" : "bg-brand-green"
+          {/* Desktop Navigation — soft purple active pill */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace("#", "");
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`relative px-4 py-2 text-sm transition-all duration-300 rounded-[2px] ${
+                    isActive
+                      ? "nav-active"
+                      : isScrolled
+                      ? "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                      : "text-white/75 hover:text-white hover:bg-white/[0.06]"
                   }`}
-                />
-              </a>
-            ))}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-5">
+          {/* Desktop CTA — unified hover */}
+          <div className="hidden md:flex items-center gap-4">
             <a
               href="#stories"
-              className={`transition-all duration-500 ${
-                isScrolled
-                  ? "text-xs text-foreground/70 hover:text-foreground"
-                  : "text-sm text-white/70 hover:text-white"
+              className={`text-sm transition-all duration-300 hover:underline underline-offset-4 ${
+                isScrolled ? "text-foreground/70 hover:text-foreground" : "text-white/70 hover:text-white"
               }`}
             >
               Sign in
             </a>
             <a
               href="#contact"
-              className={`group inline-flex items-center gap-2 bg-brand-green text-black font-medium transition-all duration-500 hover:bg-brand-green/90 ${
-                isScrolled ? "px-4 h-8 text-xs" : "px-5 h-10 text-sm"
+              className={`btn-primary group transition-all duration-500 ${
+                isScrolled ? "px-4 h-9 text-xs" : "px-5 h-10 text-sm"
               }`}
             >
               Book consultation
@@ -124,35 +128,36 @@ export function Navigation() {
             }`}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu — Full-Screen Overlay */}
+      {/* Mobile Menu — Full-Screen Overlay (glass) */}
       <div
-        className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
-          isMobileMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+        className={`md:hidden fixed inset-0 z-40 transition-all duration-500 ${
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ top: 0 }}
       >
-        <div className="flex flex-col h-full px-8 pt-28 pb-8">
-          <div className="flex-1 flex flex-col justify-center gap-7">
+        <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
+        <div className="relative flex flex-col h-full px-7 pt-24 pb-8">
+          {/* Dandelion accent */}
+          <img
+            src="/dandelion-yellow.svg"
+            alt=""
+            aria-hidden="true"
+            className="absolute top-20 right-6 w-28 h-28 opacity-15 animate-drift-slow"
+          />
+
+          <div className="flex-1 flex flex-col justify-center gap-6 relative z-10">
             {navLinks.map((link, i) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-5xl font-display text-foreground hover:text-brand-green transition-all duration-500 ${
-                  isMobileMenuOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
+                className={`text-[clamp(2.5rem,9vw,4rem)] font-display leading-[0.95] text-foreground hover:text-brand-purple transition-all duration-500 ${
+                  isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
                 style={{
                   transitionDelay: isMobileMenuOpen ? `${i * 75}ms` : "0ms",
@@ -164,10 +169,8 @@ export function Navigation() {
           </div>
 
           <div
-            className={`flex flex-col gap-3 pt-8 border-t border-foreground/10 transition-all duration-500 ${
-              isMobileMenuOpen
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
+            className={`relative z-10 flex flex-col gap-3 pt-8 border-t border-foreground/10 transition-all duration-500 ${
+              isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{
               transitionDelay: isMobileMenuOpen ? "300ms" : "0ms",
@@ -175,7 +178,7 @@ export function Navigation() {
           >
             <a
               href="#contact"
-              className="w-full flex items-center justify-center gap-2 bg-brand-green text-black h-14 text-base font-medium"
+              className="btn-primary w-full justify-center h-14 text-base"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Book consultation
@@ -183,7 +186,7 @@ export function Navigation() {
             </a>
             <a
               href="#stories"
-              className="w-full flex items-center justify-center border border-foreground/20 h-14 text-base"
+              className="btn-secondary w-full justify-center h-14 text-base"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Sign in

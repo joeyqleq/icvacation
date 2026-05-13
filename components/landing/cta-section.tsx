@@ -187,17 +187,17 @@ export function FaqCtaSection() {
                   time, a feeling, or nothing at all.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-start gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-3">
                   <a
                     href="#contact"
-                    className="group inline-flex items-center gap-3 bg-brand-green text-black hover:bg-brand-green/90 h-14 px-7 text-base font-medium transition-colors"
+                    className="btn-primary group h-14 px-7 text-base justify-center sm:justify-start"
                   >
                     Book a consultation
                     <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-3 border border-foreground/30 hover:border-foreground/60 hover:bg-foreground/5 h-14 px-7 text-base transition-colors"
+                    className="btn-glass inline-flex items-center justify-center sm:justify-start gap-3 h-14 px-7 text-base"
                   >
                     Write to Isaac
                   </a>
@@ -208,19 +208,19 @@ export function FaqCtaSection() {
                 </p>
               </div>
 
-              {/* Right column — quiet owl + dandelion accent */}
-              <div className="hidden lg:flex flex-col items-end justify-center gap-6 w-[280px] xl:w-[340px] shrink-0">
+              {/* Right column — bird mascot signals 'begin journey / take flight' */}
+              <div className="hidden lg:flex flex-col items-end justify-center gap-8 w-[280px] xl:w-[340px] shrink-0">
                 <img
-                  src="/ic-dandelion.svg"
+                  src="/dandelion-yellow.svg"
                   alt=""
                   aria-hidden="true"
-                  className="w-32 h-32 opacity-80 animate-drift-slow"
+                  className="w-24 h-24 opacity-70 animate-drift-slow"
                 />
                 <img
-                  src="/ic-owl.svg"
+                  src="/mascot-bird.svg"
                   alt=""
                   aria-hidden="true"
-                  className="w-52 h-auto opacity-90 animate-drift"
+                  className="w-48 xl:w-56 h-auto opacity-95 animate-drift"
                 />
               </div>
             </div>

@@ -48,12 +48,18 @@ export function FooterSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
 
-        {/* Floating dandelion mark, far right */}
+        {/* Floating dandelion accents — multiple sizes/opacities for richness */}
         <img
-          src="/ic-dandelion.svg"
+          src="/dandelion-yellow.svg"
           alt=""
           aria-hidden="true"
-          className="absolute top-12 right-12 w-24 h-24 opacity-70 animate-drift-slow hidden lg:block"
+          className="absolute top-10 right-12 w-28 h-28 opacity-75 animate-drift-slow hidden lg:block"
+        />
+        <img
+          src="/dandelion-grey.svg"
+          alt=""
+          aria-hidden="true"
+          className="absolute bottom-12 left-16 w-16 h-16 opacity-35 animate-drift hidden lg:block"
         />
 
         {/* Quiet quote overlay */}
@@ -73,24 +79,19 @@ export function FooterSection() {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-12 lg:gap-8">
             {/* Brand Column */}
             <div className="col-span-2">
-              <a href="#" className="inline-flex items-center gap-3 mb-6">
+              <a
+                href="#"
+                aria-label="IC Vacation home"
+                className="inline-block mb-7"
+              >
                 <img
-                  src="/ic-dandelion.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="w-9 h-9"
+                  src="/ic-wordmark-yellow.svg"
+                  alt="IC Vacation"
+                  className="h-10 w-auto"
                 />
-                <div className="flex flex-col leading-none">
-                  <span className="text-xl font-display text-white">
-                    IC Vacation
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-white/55 mt-1.5">
-                    Boutique travel · est. 2014
-                  </span>
-                </div>
               </a>
 
-              <p className="text-white/55 leading-relaxed mb-8 max-w-xs text-sm">
+              <p className="text-white/55 leading-[1.7] mb-8 max-w-xs text-sm">
                 A small, advisor-led travel practice. Personal consultations and
                 quietly curated vacations — shaped by Isaac Chowrimootoo.
               </p>
@@ -100,7 +101,7 @@ export function FooterSection() {
                   <a
                     key={link.name}
                     href={link.href}
-                    className="text-sm text-white/45 hover:text-brand-green transition-colors flex items-center gap-1 group"
+                    className="text-sm text-white/45 hover:text-brand-yellow transition-colors flex items-center gap-1 group"
                   >
                     {link.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -139,7 +140,7 @@ export function FooterSection() {
 
           <div className="flex items-center gap-6 text-xs font-mono uppercase tracking-[0.18em] text-white/40">
             <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
               Booking spring 2026 now
             </span>
             <span className="hidden md:inline text-white/30">

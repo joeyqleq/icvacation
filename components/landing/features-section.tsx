@@ -140,36 +140,54 @@ export function ConsultantSection() {
       className="relative py-24 lg:py-32 overflow-hidden"
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        {/* Owl mascot — noir advisor energy, sparingly */}
+        <img
+          src="/mascot-owl.svg"
+          alt=""
+          aria-hidden="true"
+          className="hidden lg:block absolute top-12 right-12 w-28 xl:w-36 h-auto opacity-90 z-[2] animate-drift-slow pointer-events-none"
+        />
+
         {/* Header */}
         <div className="relative mb-20 lg:mb-28">
           <div className="grid lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-6">
-                <span className="w-12 h-px bg-brand-green" />
-                AI Travel Consultant
-              </span>
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <span className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground">
+                  <span className="w-12 h-px bg-brand-yellow" />
+                  [ 02 ] // AI Travel Consultant
+                </span>
+                {/* Clear preview / coming soon label */}
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-brand-yellow border border-brand-yellow/50 bg-brand-yellow/[0.06] backdrop-blur-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+                  Preview · arriving 2026
+                </span>
+              </div>
               <h2
-                className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
+                className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-[-0.025em] leading-[0.92] transition-all duration-1000 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
+                style={{ fontVariationSettings: "'SOFT' 100, 'WONK' 1, 'opsz' 144", textWrap: "balance" }}
               >
                 Begin with{" "}
-                <span className="italic text-brand-green">conversation</span>,
+                <span className="font-serif italic text-brand-yellow">conversation</span>,
                 <br />
                 <span className="text-muted-foreground">not a search bar.</span>
               </h2>
             </div>
             <div className="lg:col-span-5 lg:pb-4">
               <p
-                className={`text-lg text-muted-foreground leading-relaxed transition-all duration-1000 delay-200 ${
+                className={`text-base lg:text-lg text-muted-foreground leading-[1.6] transition-all duration-1000 delay-200 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-4"
                 }`}
+                style={{ textWrap: "pretty" }}
               >
-                Our quiet AI listens first. It learns who you travel with, how
-                you like to move, and what you want to feel. Then it hands the
-                brief to Isaac, who shapes the trip personally.
+                A quiet listening tool, currently in private preview. It learns
+                who you travel with, how you like to move, and what you want to
+                feel — then hands the brief to Isaac, who shapes the trip
+                personally. Until launch, every brief is read by Isaac directly.
               </p>
             </div>
           </div>
@@ -199,9 +217,9 @@ export function ConsultantSection() {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-2 text-xs font-mono text-brand-green">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" />
-                  LIVE
+                <span className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-brand-yellow">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+                  Preview
                 </span>
               </div>
 

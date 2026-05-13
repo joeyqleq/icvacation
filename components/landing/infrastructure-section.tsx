@@ -69,7 +69,7 @@ export function AdvisorSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
                 {/* Owl mascot — quiet brand presence, small */}
                 <img
-                  src="/ic-owl.svg"
+                  src="/mascot-owl.svg"
                   alt=""
                   aria-hidden="true"
                   className="absolute -bottom-3 -right-3 w-20 h-auto opacity-90 animate-drift-slow"

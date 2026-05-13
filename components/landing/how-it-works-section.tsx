@@ -108,13 +108,13 @@ export function ProcessSection() {
             }`}
           >
             <img
-              src="/ic-bird.svg"
+              src="/mascot-bird.svg"
               alt=""
               aria-hidden="true"
               className="absolute right-8 bottom-8 lg:right-20 lg:bottom-20 w-48 lg:w-72 h-auto animate-drift-slow"
             />
             <img
-              src="/ic-dandelion.svg"
+              src="/dandelion-yellow.svg"
               alt=""
               aria-hidden="true"
               className="absolute left-12 top-12 w-20 h-auto opacity-50 animate-drift"

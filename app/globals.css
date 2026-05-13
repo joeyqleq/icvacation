@@ -51,6 +51,7 @@
   --brand-green-deep: #94BD00;
   --brand-yellow: #FDF972;
   --brand-gray: #444444;
+  --brand-purple: #9b87f5;
   --gray-100: #697174;
   --gray-200: #54585D;
   --gray-300: #464B4E;
@@ -77,9 +78,10 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-instrument), 'Instrument Sans', system-ui, sans-serif;
+  --font-sans: var(--font-inter-tight), 'Inter Tight', system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), 'JetBrains Mono', monospace;
-  --font-display: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  --font-display: var(--font-fraunces), 'Fraunces', Georgia, serif;
+  --font-serif: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -108,6 +110,7 @@
   --color-brand-green-deep: var(--brand-green-deep);
   --color-brand-yellow: var(--brand-yellow);
   --color-brand-gray: var(--brand-gray);
+  --color-brand-purple: var(--brand-purple);
   --radius-sm: calc(var(--radius));
   --radius-md: calc(var(--radius));
   --radius-lg: var(--radius);
@@ -144,16 +147,66 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: overlay;
   }
+
+  /* Premium typography defaults */
+  h1, h2, h3 {
+    @apply font-display;
+    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+  }
+
+  blockquote {
+    @apply font-serif italic;
+  }
+
+  /* Unified button styles — consistent hover + glass when needed */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-brand-green text-black font-medium transition-all duration-300;
+    @apply hover:bg-brand-green/90 hover:shadow-[0_0_20px_rgba(38,252,0,0.25)];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-foreground/30 hover:border-foreground/60 transition-all duration-300;
+    @apply hover:bg-foreground/5 hover:backdrop-blur-sm;
+  }
+
+  .btn-glass {
+    @apply bg-foreground/5 backdrop-blur-md border border-foreground/15 hover:bg-foreground/10 transition-all duration-300;
+    @apply hover:border-foreground/30 hover:shadow-[0_4px_24px_rgba(0,0,0,0.4)];
+  }
 }
 
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'WONK' 0;
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
   }
 
   .text-stroke {
     -webkit-text-stroke: 1.5px currentColor;
     -webkit-text-fill-color: transparent;
+  }
+
+  /* Glassmorphism utilities */
+  .glass-card {
+    @apply bg-background/40 backdrop-blur-xl border border-foreground/10;
+  }
+
+  .glass-nav {
+    @apply bg-background/85 backdrop-blur-xl border border-foreground/10;
+  }
+
+  .glass-panel {
+    @apply bg-foreground/[0.03] backdrop-blur-lg border border-foreground/[0.08];
+  }
+
+  /* Active nav state — soft purple glow */
+  .nav-active {
+    @apply bg-brand-purple/20 text-brand-purple;
+    box-shadow: 0 0 16px rgba(155, 135, 245, 0.3), inset 0 0 8px rgba(155, 135, 245, 0.15);
   }
 
   .marquee {
@@ -223,5 +276,35 @@
   }
   .animate-drift-slow {
     animation: drift-slow 22s ease-in-out infinite;
+  }
+
+  /* Water shimmer effect for hero */
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-100%) translateY(-100%) skewX(-15deg); opacity: 0.15; }
+    50% { transform: translateX(100%) translateY(100%) skewX(-15deg); opacity: 0.25; }
+  }
+  .animate-shimmer {
+    animation: shimmer 12s ease-in-out infinite;
+  }
+
+  /* Gentle float for birds */
+  @keyframes float-bird {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    50% { transform: translate(60vw, -20px) rotate(2deg); opacity: 0.7; }
+    90% { opacity: 0.5; }
+    100% { transform: translate(120vw, 10px) rotate(4deg); opacity: 0; }
+  }
+  .animate-float-bird {
+    animation: float-bird 28s linear infinite;
+  }
+
+  /* Sparkle twinkle */
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  .animate-twinkle {
+    animation: twinkle 2.5s ease-in-out infinite;
   }
 }
