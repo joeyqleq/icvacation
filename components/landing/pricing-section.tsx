@@ -60,6 +60,7 @@ const tiers = [
 ];
 
 export function PricingSection() {
+  const { openContact } = useContact();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
