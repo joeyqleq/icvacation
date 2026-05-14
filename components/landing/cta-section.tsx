@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Minus, Plus } from "lucide-react";
+import { PixelButton } from "@/components/site/pixel-button";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
+import { Mascot } from "@/components/site/mascot";
+import { useContact } from "@/components/site/contact-provider";
 
 const faqs = [
   {
@@ -31,23 +35,23 @@ export function FaqCtaSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const { openContact } = useContact();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
       { threshold: 0.15 }
     );
-
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
     <section id="contact" ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        {/* FAQ — Template B influence */}
+      <BackgroundBoxes variant="mixed" />
+
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
+        {/* FAQ */}
         <div className="grid lg:grid-cols-12 gap-12 mb-24 lg:mb-32">
           <div className="lg:col-span-4">
             <span className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground mb-6">
@@ -56,9 +60,7 @@ export function FaqCtaSection() {
             </span>
             <h2
               className={`text-5xl lg:text-7xl font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
               Before
@@ -66,15 +68,20 @@ export function FaqCtaSection() {
               <span className="text-muted-foreground italic">we begin.</span>
             </h2>
             <p className="mt-8 text-muted-foreground leading-relaxed max-w-sm">
-              The questions Isaac is asked most. If yours isn't here,{" "}
-              <a
-                href="#contact"
-                className="text-brand-green hover:underline underline-offset-4"
+              The questions Isaac is asked most. If yours isn&apos;t here,{" "}
+              <button
+                onClick={openContact}
+                className="text-brand-green hover:underline underline-offset-4 cursor-pointer"
               >
                 ask him directly
-              </a>
+              </button>
               .
             </p>
+
+            {/* Quiet owl mascot watching over the FAQ */}
+            <div className="hidden lg:block mt-12 relative">
+              <Mascot creature="owl" size={180} pose="bob" tint="yellow" glow className="opacity-90" />
+            </div>
           </div>
 
           <div className="lg:col-span-8">
@@ -106,18 +113,12 @@ export function FaqCtaSection() {
                             : "border-foreground/20 text-foreground/60 group-hover:border-foreground/40"
                         }`}
                       >
-                        {isOpen ? (
-                          <Minus className="w-4 h-4" />
-                        ) : (
-                          <Plus className="w-4 h-4" />
-                        )}
+                        {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                       </span>
                     </button>
                     <div
                       className={`grid transition-all duration-500 ease-out ${
-                        isOpen
-                          ? "grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                       }`}
                     >
                       <div className="overflow-hidden">
@@ -133,12 +134,10 @@ export function FaqCtaSection() {
           </div>
         </div>
 
-        {/* Cinematic CTA box — preserved from Template A */}
+        {/* Cinematic CTA */}
         <div
-          className={`relative border border-foreground transition-all duration-1000 ${
-            isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
+          className={`relative border border-foreground/30 transition-all duration-1000 overflow-hidden ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
@@ -148,22 +147,15 @@ export function FaqCtaSection() {
             });
           }}
         >
-          {/* Background image — quiet, deep */}
           <div className="absolute inset-0 overflow-hidden">
-            <img
-              src="/cta-vista.jpg"
-              alt=""
-              aria-hidden="true"
-              className="w-full h-full object-cover object-center opacity-30"
-            />
+            <img src="/cta-vista.jpg" alt="" aria-hidden="true" className="w-full h-full object-cover object-center opacity-30" />
             <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
           </div>
 
-          {/* Spotlight */}
           <div
             className="absolute inset-0 opacity-30 pointer-events-none transition-opacity duration-300"
             style={{
-              background: `radial-gradient(700px circle at ${mouse.x}% ${mouse.y}%, rgba(38,252,0,0.08), transparent 50%)`,
+              background: `radial-gradient(700px circle at ${mouse.x}% ${mouse.y}%, rgba(38,252,0,0.10), transparent 50%)`,
             }}
           />
 
@@ -175,11 +167,9 @@ export function FaqCtaSection() {
                   Begin
                 </span>
                 <h2 className="text-5xl md:text-6xl lg:text-[64px] font-display tracking-tight mb-8 leading-[0.98]">
-                  When you're ready,
+                  When you&apos;re ready,
                   <br />
-                  <span className="italic text-brand-green">
-                    so are we.
-                  </span>
+                  <span className="italic text-brand-green">so are we.</span>
                 </h2>
 
                 <p className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl">
@@ -188,19 +178,14 @@ export function FaqCtaSection() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-3">
-                  <a
-                    href="#contact"
-                    className="btn-primary group h-14 px-7 text-base justify-center sm:justify-start"
-                  >
+                  <PixelButton variant="yellow" onClick={openContact}>
                     Book a consultation
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                  <a
-                    href="#contact"
-                    className="btn-glass inline-flex items-center justify-center sm:justify-start gap-3 h-14 px-7 text-base"
-                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </PixelButton>
+                  <PixelButton variant="grey" onClick={openContact}>
                     Write to Isaac
-                  </a>
+                    <span className="font-mono opacity-70">&rarr;</span>
+                  </PixelButton>
                 </div>
 
                 <p className="text-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mt-8">
@@ -208,25 +193,13 @@ export function FaqCtaSection() {
                 </p>
               </div>
 
-              {/* Right column — bird mascot signals 'begin journey / take flight' */}
-              <div className="hidden lg:flex flex-col items-end justify-center gap-8 w-[280px] xl:w-[340px] shrink-0">
-                <img
-                  src="/dandelion-yellow.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="w-24 h-24 opacity-70 animate-drift-slow"
-                />
-                <img
-                  src="/mascot-bird.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="w-48 xl:w-56 h-auto opacity-95 animate-drift"
-                />
+              {/* Right column — bird mascot signals take-flight */}
+              <div className="hidden lg:flex flex-col items-end justify-center gap-2 w-[280px] xl:w-[340px] shrink-0">
+                <Mascot creature="bird" size={260} pose="hover" tint="green" glow />
               </div>
             </div>
           </div>
 
-          {/* Decorative corners */}
           <div className="absolute top-0 right-0 w-24 h-24 border-b border-l border-foreground/20" />
           <div className="absolute bottom-0 left-0 w-24 h-24 border-t border-r border-foreground/20" />
         </div>

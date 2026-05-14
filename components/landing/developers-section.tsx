@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const journalEntries = [
   {
@@ -106,8 +107,8 @@ export function JournalSection() {
               trips, for the kind of traveler who reads them.
             </p>
 
-            <a
-              href="#contact"
+            <Link
+              href="/blog"
               className={`group inline-flex items-center gap-3 text-sm font-mono uppercase tracking-[0.22em] text-foreground hover:text-brand-green transition-colors ${
                 isVisible
                   ? "opacity-100 translate-y-0"
@@ -116,7 +117,7 @@ export function JournalSection() {
             >
               Read the journal
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            </Link>
           </div>
 
           {/* Article rows — Template B sharper card mechanic */}

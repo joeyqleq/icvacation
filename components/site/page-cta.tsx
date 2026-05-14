@@ -1,12 +1,18 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
+import { PixelButton } from "@/components/site/pixel-button";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
+import { Mascot } from "@/components/site/mascot";
+import { useContact } from "@/components/site/contact-provider";
 
 interface PageCtaProps {
   eyebrow?: string;
   title: string;
-  emphasis?: string; // shown as italic serif accent inline
+  emphasis?: string;
   subtitle?: string;
-  primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
+  mascot?: "bird" | "owl" | "penguin" | "dandelion";
 }
 
 export function PageCta({
@@ -14,79 +20,78 @@ export function PageCta({
   title,
   emphasis,
   subtitle,
-  primary = { label: "Plan my trip", href: "/contact" },
-  secondary = { label: "Contact Isaac", href: "/contact" },
+  secondary,
+  mascot = "bird",
 }: PageCtaProps) {
+  const { openContact } = useContact();
+
   return (
-    <section className="relative py-24 lg:py-32 bg-background overflow-hidden">
-      {/* Quiet dandelion + grey backdrop */}
-      <div className="absolute inset-0 pointer-events-none opacity-50">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(38,252,0,0.05), transparent 70%)",
-          }}
-        />
-      </div>
-      <img
-        src="/dandelion-grey.svg"
-        alt=""
-        aria-hidden="true"
-        className="absolute -top-24 -left-24 w-[28rem] h-[28rem] opacity-[0.05] animate-drift-slow"
-      />
-      <img
-        src="/dandelion-yellow.svg"
-        alt=""
-        aria-hidden="true"
-        className="absolute -bottom-32 -right-24 w-[26rem] h-[26rem] opacity-[0.06] animate-drift"
+    <section className="relative py-20 lg:py-32 bg-background overflow-hidden">
+      <BackgroundBoxes variant="green" />
+
+      {/* Inline ambient glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(38,252,0,0.06), transparent 70%)",
+        }}
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
-        <div className="max-w-[860px]">
-          <span className="inline-flex items-center gap-3 label-ticker text-white/55 mb-6">
-            <span className="w-10 h-px bg-brand-green/60" />
-            {eyebrow}
-          </span>
-          <h2
-            className="font-display-tight text-white leading-[0.92] tracking-[-0.035em] mb-6"
-            style={{ fontSize: "clamp(2.4rem, 6.4vw, 5.8rem)", textWrap: "balance" }}
-          >
-            {title}
-            {emphasis && (
-              <>
-                {" "}
-                <span className="font-serif italic text-brand-yellow">
-                  {emphasis}
-                </span>
-              </>
+        <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-8">
+            <span className="inline-flex items-center gap-3 label-ticker text-white/55 mb-6">
+              <span className="w-10 h-px bg-brand-green/60" />
+              {eyebrow}
+            </span>
+            <h2
+              className="font-display-tight text-white leading-[0.92] tracking-[-0.035em] mb-6"
+              style={{ fontSize: "clamp(2.2rem, 6.4vw, 5.8rem)", textWrap: "balance" }}
+            >
+              {title}
+              {emphasis && (
+                <>
+                  {" "}
+                  <span className="font-serif italic text-brand-yellow">{emphasis}</span>
+                </>
+              )}
+            </h2>
+            {subtitle && (
+              <p
+                className="max-w-[560px] font-editorial text-[17px] md:text-[19px] text-white/75 leading-[1.5] mb-8 lg:mb-10"
+                style={{ textWrap: "pretty" }}
+              >
+                {subtitle}
+              </p>
             )}
-          </h2>
-          {subtitle && (
-            <p
-              className="max-w-[560px] font-editorial text-[18px] md:text-[20px] text-white/75 leading-[1.5] mb-10"
-              style={{ textWrap: "pretty" }}
-            >
-              {subtitle}
-            </p>
-          )}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <a
-              href={primary.href}
-              className="btn-primary group h-14 px-7 text-base justify-center sm:justify-start"
-            >
-              {primary.label}
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-            <a
-              href={secondary.href}
-              className="btn-secondary group inline-flex items-center justify-center sm:justify-start gap-3 h-14 px-7 text-base"
-            >
-              {secondary.label}
-              <span className="font-mono text-white/60 group-hover:translate-x-0.5 transition-transform">
-                &rarr;
-              </span>
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <PixelButton variant="yellow" onClick={openContact}>
+                Plan my trip
+                <ArrowUpRight className="w-4 h-4" />
+              </PixelButton>
+              {secondary && (
+                <PixelButton variant="grey" href={secondary.href}>
+                  {secondary.label}
+                  <span className="font-mono opacity-70">&rarr;</span>
+                </PixelButton>
+              )}
+            </div>
+          </div>
+
+          {/* Mascot — large, expressive, glowing */}
+          <div className="hidden lg:flex lg:col-span-4 justify-end relative">
+            <div className="relative">
+              <Mascot
+                creature={mascot}
+                size={280}
+                pose="hover"
+                tint="yellow"
+                glow
+                className="drop-shadow-[0_24px_60px_rgba(38,252,0,0.18)]"
+              />
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-44 h-1 bg-gradient-to-r from-transparent via-brand-green/60 to-transparent blur-sm" />
+            </div>
           </div>
         </div>
       </div>

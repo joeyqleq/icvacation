@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
+import { useContact } from "@/components/site/contact-provider";
 
 const tiers = [
   {
@@ -200,8 +201,9 @@ export function PricingSection() {
                     ))}
                   </ul>
 
-                  <a
-                    href="#contact"
+                  <button
+                    onClick={openContact}
+                    type="button"
                     className={`w-full py-4 flex items-center justify-center gap-2 text-sm font-medium transition-all group ${
                       tier.highlight
                         ? "bg-brand-green text-black hover:bg-brand-green/90"
@@ -210,7 +212,7 @@ export function PricingSection() {
                   >
                     {tier.cta}
                     <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
@@ -237,12 +239,13 @@ export function PricingSection() {
               Existing clients: skip the line
             </span>
           </div>
-          <a
-            href="#contact"
+          <button
+            onClick={openContact}
+            type="button"
             className="text-sm underline underline-offset-4 hover:text-foreground transition-colors"
           >
             Have a question first? Ask Isaac →
-          </a>
+          </button>
         </div>
       </div>
     </section>
