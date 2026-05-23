@@ -11,6 +11,7 @@ interface PageCtaProps {
   title: string;
   emphasis?: string;
   subtitle?: string;
+  primary?: { label: string; href?: string };
   secondary?: { label: string; href: string };
   mascot?: "bird" | "owl" | "penguin" | "dandelion";
 }
@@ -20,6 +21,7 @@ export function PageCta({
   title,
   emphasis,
   subtitle,
+  primary,
   secondary,
   mascot = "bird",
 }: PageCtaProps) {
@@ -66,10 +68,17 @@ export function PageCta({
               </p>
             )}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <PixelButton variant="yellow" onClick={openContact}>
-                Plan my trip
-                <ArrowUpRight className="w-4 h-4" />
-              </PixelButton>
+              {primary?.href ? (
+                <PixelButton variant="yellow" href={primary.href}>
+                  {primary.label}
+                  <ArrowUpRight className="w-4 h-4" />
+                </PixelButton>
+              ) : (
+                <PixelButton variant="yellow" onClick={openContact}>
+                  {primary?.label ?? "Plan my trip"}
+                  <ArrowUpRight className="w-4 h-4" />
+                </PixelButton>
+              )}
               {secondary && (
                 <PixelButton variant="grey" href={secondary.href}>
                   {secondary.label}

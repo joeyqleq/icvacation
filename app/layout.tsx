@@ -1,61 +1,84 @@
 import React from "react"
 import type { Metadata } from 'next'
-import {
-  Bricolage_Grotesque,
-  Instrument_Serif,
-  Newsreader,
-  Geist,
-  Space_Mono,
-  Anton,
-} from 'next/font/google'
+import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ContactProvider } from '@/components/site/contact-provider'
 import { SiteAnalytics } from '@/components/site/analytics'
 
-const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
+const bricolage = localFont({
+  src: '../public/fonts/bricolage-grotesque/BricolageGrotesque-Variable.ttf',
   variable: '--font-bricolage',
   display: 'swap',
-  axes: ['wdth', 'opsz'],
+  weight: '200 800',
+  style: 'normal',
 })
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
+const instrumentSerif = localFont({
+  src: [
+    {
+      path: '../public/fonts/instrument-serif/InstrumentSerif-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/instrument-serif/InstrumentSerif-Italic.ttf',
+      weight: '400',
+      style: 'italic',
+    },
+  ],
   variable: '--font-instrument-serif',
   display: 'swap',
 })
 
-const newsreader = Newsreader({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
+const newsreader = localFont({
+  src: [
+    {
+      path: '../public/fonts/newsreader/Newsreader-Variable.ttf',
+      weight: '200 800',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/newsreader/Newsreader-Italic-Variable.ttf',
+      weight: '200 800',
+      style: 'italic',
+    },
+  ],
   variable: '--font-newsreader',
   display: 'swap',
-  axes: ['opsz'],
 })
 
-const geist = Geist({
-  subsets: ['latin'],
+const geist = localFont({
+  src: '../public/fonts/geist/Geist-Variable.woff2',
   variable: '--font-geist',
   display: 'swap',
+  weight: '100 900',
+  style: 'normal',
 })
 
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
+const spaceMono = localFont({
+  src: [
+    {
+      path: '../public/fonts/space-mono/SpaceMono-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/space-mono/SpaceMono-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-space-mono',
   display: 'swap',
 })
 
-// Anton — the commanding, condensed display face used in the navbar so the
-// nav voice echoes the IC Vacation logo wordmark.
-const anton = Anton({
-  subsets: ['latin'],
-  weight: '400',
+const anton = localFont({
+  src: '../public/fonts/anton/Anton-Regular.ttf',
   variable: '--font-anton',
   display: 'swap',
+  weight: '400',
+  style: 'normal',
 })
 
 export const metadata: Metadata = {
@@ -79,6 +102,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const enableVercelAnalytics = process.env.NODE_ENV === 'production'
+
   return (
     <html lang="en" className="bg-background">
       <body
@@ -88,7 +113,7 @@ export default function RootLayout({
           {children}
         </ContactProvider>
         <SiteAnalytics />
-        <Analytics />
+        {enableVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>
   )

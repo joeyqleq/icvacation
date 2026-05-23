@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   createContext,
   useCallback,
@@ -8,7 +9,11 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { ContactModal } from "@/components/site/contact-modal";
+
+const ContactModal = dynamic(
+  () => import("@/components/site/contact-modal").then((mod) => mod.ContactModal),
+  { ssr: false },
+);
 
 /**
  * Site-wide context for opening the rich contact modal.  Any component

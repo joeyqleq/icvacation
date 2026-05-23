@@ -9,10 +9,10 @@
 
 ## Project Overview
 
-IC Vacation is a **boutique, advisor-led travel consultancy** run by Isaac Chowrimootoo. The website serves as a premium digital presence — not a booking engine, but a conversation starter. The goal is to feel like a quiet, confident, high-end travel editorial rather than a generic OTA.
+IC Vacation is a **boutique, advisor-led travel consultancy** run by Isaac Chowtrimootoo. The website serves as a premium digital presence — not a booking engine, but a conversation starter. The goal is to feel like a quiet, confident, high-end travel editorial rather than a generic OTA.
 
 ### Core Identity
-- **Founder**: Isaac Chowrimootoo (the "IC" in IC Vacation)
+- **Founder**: Isaac Chowtrimootoo (the "IC" in IC Vacation)
 - **Positioning**: Personal consultation first, not self-service booking
 - **Tone**: Quietly confident, editorial, cinematic, premium but not pretentious
 - **Tagline concepts**: "Travel, shaped personally" / "Begin with conversation"

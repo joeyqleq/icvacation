@@ -11,6 +11,14 @@ import Script from "next/script";
  *           user-supplied snippet.
  */
 export function SiteAnalytics() {
+  const enabled =
+    process.env.NODE_ENV === "production" &&
+    process.env.NEXT_PUBLIC_ENABLE_SITE_ANALYTICS === "true";
+
+  if (!enabled) {
+    return null;
+  }
+
   return (
     <>
       {/* Tianji */}
