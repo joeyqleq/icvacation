@@ -6,33 +6,12 @@ import {
   Newsreader,
   Geist,
   Space_Mono,
+  Anton,
 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-
-/**
- * Five-voice editorial typography system — each font has ONE clear role,
- * so the page never feels like a generic template.
- *
- *   Bricolage Grotesque (variable: wdth, opsz)
- *     → display headlines, hero statement, big section titles
- *     → axes manipulated for tension between condensed + wide
- *
- *   Instrument Serif (italic)
- *     → editorial emphasis word inside a Bricolage headline
- *     → pull-quotes, "in their own words", soft accents
- *
- *   Newsreader (variable serif)
- *     → long-form narrative copy (Meet Isaac, journal articles)
- *     → drop-caps + optical sizing for a real magazine feel
- *
- *   Geist (sans)
- *     → default UI / body / buttons / navigation
- *
- *   Space Mono
- *     → index numbers, tickers, technical labels, marginalia
- *     → wide-tracked, uppercase, micro-scale, always green or yellow
- */
+import { ContactProvider } from '@/components/site/contact-provider'
+import { SiteAnalytics } from '@/components/site/analytics'
 
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -70,6 +49,15 @@ const spaceMono = Space_Mono({
   display: 'swap',
 })
 
+// Anton — the commanding, condensed display face used in the navbar so the
+// nav voice echoes the IC Vacation logo wordmark.
+const anton = Anton({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-anton',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'IC Vacation — Vacations, shaped around you.',
   description:
@@ -94,9 +82,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body
-        className={`${bricolage.variable} ${instrumentSerif.variable} ${newsreader.variable} ${geist.variable} ${spaceMono.variable} font-sans antialiased`}
+        className={`${bricolage.variable} ${instrumentSerif.variable} ${newsreader.variable} ${geist.variable} ${spaceMono.variable} ${anton.variable} font-sans antialiased`}
       >
-        {children}
+        <ContactProvider>
+          {children}
+        </ContactProvider>
+        <SiteAnalytics />
         <Analytics />
       </body>
     </html>

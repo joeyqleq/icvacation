@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Sparkles, MessageSquare } from "lucide-react";
+import { useContact } from "@/components/site/contact-provider";
 
 /**
  * AI Travel Consultant preview.
@@ -110,6 +111,7 @@ function ParticleField() {
 }
 
 export function ConsultantSection() {
+  const { openContact } = useContact();
   const [isVisible, setIsVisible] = useState(false);
   const [revealed, setRevealed] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -329,12 +331,13 @@ export function ConsultantSection() {
               <span className="text-brand-green">›</span> Tell us how you want
               this trip to feel
             </span>
-            <a
-              href="#contact"
+            <button
+              onClick={openContact}
+              type="button"
               className="text-xs font-mono uppercase tracking-[0.18em] text-brand-green hover:text-brand-green/80 transition-colors"
             >
               Start your brief →
-            </a>
+            </button>
           </div>
         </div>
       </div>

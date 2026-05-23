@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { PageShell } from "@/components/site/page-shell";
 import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
+import { Mascot } from "@/components/site/mascot";
 
 export const metadata: Metadata = {
   title: "About Isaac · IC Vacation",
@@ -201,7 +203,9 @@ export default function AboutIsaacPage() {
 
       {/* PRINCIPLES */}
       <section className="relative py-24 bg-background border-t border-foreground/10">
-        <div className="max-w-[1100px] mx-auto px-6 lg:px-12">
+        <BackgroundBoxes variant="yellow" className="opacity-20" />
+        <Mascot type="dandelion" variant="neon" size="lg" className="absolute -right-8 -bottom-16 opacity-40 rotate-12 hidden lg:block" />
+        <div className="max-w-[1100px] mx-auto px-6 lg:px-12 relative z-10">
           <span className="inline-flex items-center gap-3 label-ticker text-white/55 mb-8">
             <span className="w-10 h-px bg-brand-green/60" />
             [ 08 ] // Four small principles

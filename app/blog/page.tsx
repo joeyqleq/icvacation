@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageShell } from "@/components/site/page-shell";
 import { PageCta } from "@/components/site/page-cta";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { posts } from "@/lib/blog-data";
 import { ArrowUpRight } from "lucide-react";
 
@@ -95,7 +96,8 @@ export default function BlogIndexPage() {
 
       {/* ARTICLE GRID */}
       <section className="relative pb-24 bg-background">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <BackgroundBoxes variant="grey" className="opacity-15" />
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="flex items-baseline justify-between mb-10">
             <span className="inline-flex items-center gap-3 label-ticker text-white/55">
               <span className="w-10 h-px bg-brand-green/60" />

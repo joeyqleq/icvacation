@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { PageShell } from "@/components/site/page-shell";
 import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
+import { Mascot } from "@/components/site/mascot";
 import { Ship, Anchor, Compass, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -120,7 +122,9 @@ export default function CruisesPage() {
 
       {/* CRUISE LINES */}
       <section className="relative py-24 lg:py-32 bg-background overflow-hidden border-t border-foreground/10">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <BackgroundBoxes variant="green" className="opacity-30" />
+        <Mascot type="penguin" variant="neon" size="lg" className="absolute -right-6 bottom-12 opacity-60 hidden lg:block" />
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="grid lg:grid-cols-12 gap-10 mb-14">
             <div className="lg:col-span-5">
               <span className="inline-flex items-center gap-3 label-ticker text-white/55 mb-6">

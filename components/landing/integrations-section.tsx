@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { useContact } from "@/components/site/contact-provider";
 
 const destinations = [
   {
@@ -48,6 +50,7 @@ const regionTags = [
 ];
 
 export function DestinationsSection() {
+  const { openContact } = useContact();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -109,9 +112,9 @@ export function DestinationsSection() {
         {/* Featured destinations grid — sharper cards, Template B influence */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
           {destinations.map((dest, index) => (
-            <a
+            <Link
               key={dest.name}
-              href="#contact"
+              href="/destinations"
               className={`group relative aspect-[4/3] overflow-hidden border transition-all duration-500 ${
                 hoveredIndex === index
                   ? "border-brand-green/60"
@@ -170,7 +173,7 @@ export function DestinationsSection() {
                   <ArrowUpRight className="w-5 h-5" />
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -197,15 +200,16 @@ export function DestinationsSection() {
               </div>
             </div>
 
-            <a
-              href="#contact"
+            <button
+              onClick={openContact}
+              type="button"
               className="group inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.18em] text-foreground/70 hover:text-brand-green transition-colors"
             >
               Ask about somewhere else
               <span className="group-hover:translate-x-1 transition-transform">
                 →
               </span>
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageShell } from "@/components/site/page-shell";
 import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
 
 export const metadata: Metadata = {
   title: "Destinations · IC Vacation",
@@ -162,7 +163,8 @@ export default function DestinationsPage() {
 
       {/* HOW WE CHOOSE — editorial note */}
       <section className="relative py-24 bg-background border-t border-foreground/10">
-        <div className="max-w-[1100px] mx-auto px-6 lg:px-12">
+        <BackgroundBoxes variant="green" className="opacity-25" />
+        <div className="max-w-[1100px] mx-auto px-6 lg:px-12 relative z-10">
           <span className="inline-flex items-center gap-3 label-ticker text-white/55 mb-8">
             <span className="w-10 h-px bg-brand-green/60" />
             [ 05 ] // How we choose

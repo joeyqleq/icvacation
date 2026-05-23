@@ -1,148 +1,124 @@
-'use client';
+"use client";
 
-import { Navigation } from '@/components/landing/navigation';
-import { PageShell } from '@/components/site/page-shell';
-import { PageHero } from '@/components/site/page-hero';
-import { PageCta } from '@/components/site/page-cta';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect } from "react";
+import { Navigation } from "@/components/landing/navigation";
+import { PageShell } from "@/components/site/page-shell";
+import { FooterSection } from "@/components/landing/footer-section";
+import { useContact } from "@/components/site/contact-provider";
+import { PixelButton } from "@/components/site/pixel-button";
+import { BackgroundBoxes } from "@/components/site/background-boxes";
+import { Mascot } from "@/components/site/mascot";
+import { Mail, Phone, MapPin, ArrowUpRight, Clock } from "lucide-react";
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const { openContact } = useContact();
+
+  // Auto-open the modal when the page loads — contact is the primary action here
+  useEffect(() => {
+    const t = setTimeout(openContact, 380);
+    return () => clearTimeout(t);
+  }, [openContact]);
 
   return (
     <PageShell>
       <Navigation />
-      
-      <PageHero
-        title="Begin a conversation with Isaac"
-        subtitle="Share your travel dreams, and let's shape something extraordinary together."
-        description="IC Vacation is personal by design. Whether you're dreaming of a quiet escape or an adventure abroad, Isaac reads every inquiry personally and responds thoughtfully within 24 hours."
-      />
 
-      <section className="relative py-20 lg:py-32 bg-black">
-        <div className="container max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
-            {/* Contact form */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl lg:text-4xl font-display tracking-tight mb-4" style={{ fontVariationSettings: "'wdth' 100, 'opsz' 48" }}>
-                  Tell us about your ideal getaway.
-                </h2>
-                <p className="text-foreground/65 leading-relaxed">
-                  We'll listen closely to your preferences, constraints, and dreams — then shape an itinerary that feels uniquely yours.
-                </p>
+      <main className="relative pt-32 sm:pt-40 pb-16 sm:pb-24 lg:pb-32 overflow-hidden">
+        <BackgroundBoxes variant="green" />
+
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="/hero-landscape.jpg"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background" />
+        </div>
+
+        <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+            <div className="lg:col-span-7">
+              <span className="inline-flex items-center gap-3 label-ticker text-white/70 mb-5">
+                <span className="w-2 h-2 rounded-full pulse-green" />
+                <span className="font-mono">[ contact ]</span>
+                <span className="w-8 h-px bg-brand-green/60" />
+                Reach Isaac directly
+              </span>
+
+              <h1
+                className="font-display-tight text-white leading-[0.92] tracking-[-0.04em] mb-6"
+                style={{ fontSize: "clamp(2.6rem, 7.2vw, 6.8rem)" }}
+              >
+                Tell us about
+                <br />
+                <span className="font-serif italic text-brand-yellow">the trip on your mind.</span>
+              </h1>
+
+              <p
+                className="max-w-[560px] font-editorial text-[17px] sm:text-[19px] text-white/80 leading-[1.5] mb-8"
+                style={{ textWrap: "pretty" }}
+              >
+                The full inquiry form is one click away. The more you can tell
+                us now — destination instincts, dates, who&apos;s travelling,
+                budget shape — the more personal the first call will feel.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <PixelButton variant="yellow" onClick={openContact}>
+                  Open the inquiry form
+                  <ArrowUpRight className="w-4 h-4" />
+                </PixelButton>
+                <PixelButton variant="grey" href="/about-isaac">
+                  Read about Isaac first
+                  <span className="font-mono opacity-70">&rarr;</span>
+                </PixelButton>
               </div>
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  // Form submission would go here
-                  console.log('[v0] Form submitted:', formState);
-                }}
-                className="space-y-5"
-              >
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Your name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={formState.name}
-                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-brand-green/50"
-                    placeholder="Isaac would like to know…"
-                    required
-                  />
-                </div>
+              {/* Quiet meta */}
+              <div className="mt-12 sm:mt-16 grid sm:grid-cols-3 gap-5 sm:gap-6 max-w-2xl">
+                {[
+                  { icon: Mail,  label: "Email",       value: "hello@icvacation.com", href: "mailto:hello@icvacation.com" },
+                  { icon: Phone, label: "Phone",       value: "+44 (0)20 0000 0000",  href: "tel:+442000000000"           },
+                  { icon: Clock, label: "Reply time",  value: "Within one working day"                                   },
+                ].map((row) => (
+                  <div key={row.label} className="flex flex-col gap-1 border-l border-brand-green/40 pl-4">
+                    <span className="label-ticker-sm text-white/55 flex items-center gap-2">
+                      <row.icon className="w-3.5 h-3.5 text-brand-green" />
+                      {row.label}
+                    </span>
+                    {row.href ? (
+                      <a href={row.href} className="text-white/85 hover:text-brand-green transition-colors text-sm">
+                        {row.value}
+                      </a>
+                    ) : (
+                      <span className="text-white/85 text-sm">{row.value}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={formState.email}
-                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-brand-green/50"
-                    placeholder="you@example.com"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Your message
-                  </label>
-                  <textarea
-                    id="message"
-                    value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    rows={6}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-brand-green/50 resize-none"
-                    placeholder="Tell us about your travel vision, preferred pace, who you're traveling with, and what makes you come alive…"
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-primary group w-full h-12 justify-center"
-                >
-                  Send inquiry
-                  <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </button>
-              </form>
+              <div className="mt-10 flex items-start gap-3 text-sm text-white/55 max-w-xl">
+                <MapPin className="w-4 h-4 text-brand-green mt-0.5 shrink-0" />
+                <span>
+                  Based in London — available globally for video consultation
+                  across all timezones.
+                </span>
+              </div>
             </div>
 
-            {/* Contact info */}
-            <div className="space-y-12">
-              <div>
-                <div className="flex items-start gap-4 mb-6">
-                  <Mail className="w-5 h-5 text-brand-green mt-1 shrink-0" />
-                  <div>
-                    <h3 className="font-medium mb-1">Email</h3>
-                    <a href="mailto:hello@icvacation.com" className="text-foreground/65 hover:text-brand-green transition-colors">
-                      hello@icvacation.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 mb-6">
-                  <Phone className="w-5 h-5 text-brand-green mt-1 shrink-0" />
-                  <div>
-                    <h3 className="font-medium mb-1">Phone</h3>
-                    <a href="tel:+44-123-456-7890" className="text-foreground/65 hover:text-brand-green transition-colors">
-                      +44 (0) 123 456 7890
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-5 h-5 text-brand-green mt-1 shrink-0" />
-                  <div>
-                    <h3 className="font-medium mb-1">Based in</h3>
-                    <p className="text-foreground/65">
-                      London, UK<br />
-                      Available globally
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-                <p className="text-sm leading-relaxed text-foreground/65">
-                  <strong className="text-white">Response time:</strong> Isaac reads and responds to all inquiries within 24 hours. For urgent requests, reach out via phone.
-                </p>
+            {/* Mascot column */}
+            <div className="hidden lg:flex lg:col-span-5 justify-center relative">
+              <div className="relative">
+                <Mascot creature="penguin" size={420} pose="hover" tint="yellow" glow />
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-56 h-1 bg-gradient-to-r from-transparent via-brand-green/60 to-transparent blur-sm" />
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </main>
 
-      <PageCta />
+      <FooterSection />
     </PageShell>
   );
 }
