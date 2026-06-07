@@ -80,19 +80,19 @@ export function ProcessSection() {
             </div>
 
             <h2
-              className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.92] transition-all duration-1000 delay-100 ${
+              className={`text-5xl md:text-6xl lg:text-[112px] leading-[0.92] transition-all duration-1000 delay-100 ${
                 isVisible
                   ? "translate-y-0 opacity-100"
                   : "translate-y-16 opacity-0"
               }`}
             >
-              <span className="block">Listen.</span>
-              <span className="block text-white/35 italic">Shape.</span>
-              <span className="block text-white/15">Travel.</span>
+              <span className="premium-heading block">Listen.</span>
+              <span className="premium-heading-yellow block">Shape.</span>
+              <span className="premium-heading-glass block">Travel.</span>
             </h2>
 
             <p
-              className={`mt-10 text-lg text-white/55 leading-relaxed max-w-md transition-all duration-1000 delay-200 ${
+              className={`mt-10 text-lg font-editorial text-white/80 leading-relaxed max-w-md transition-all duration-1000 delay-200 ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -161,7 +161,7 @@ export function ProcessSection() {
               </span>
 
               <p
-                className={`text-white/60 leading-relaxed mb-10 transition-opacity duration-300 ${
+                className={`font-editorial text-[15px] sm:text-[16px] text-white/76 leading-relaxed mb-10 transition-opacity duration-300 ${
                   activeStep === index ? "opacity-100" : "opacity-70"
                 }`}
               >

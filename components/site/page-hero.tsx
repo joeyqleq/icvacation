@@ -132,7 +132,7 @@ export function PageHero({
           {(primaryCta || secondaryCta) && (
             <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-3">
               {primaryCta && (
-                primaryCta.openModal ? (
+                primaryCta.openModal || primaryCta.href === "/contact" ? (
                   <PixelButton variant="yellow" onClick={openContact}>
                     {primaryCta.label}
                     <ArrowUpRight className="w-4 h-4" />

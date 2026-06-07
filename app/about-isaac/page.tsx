@@ -4,6 +4,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
+import { FamilyLegacySection } from "@/components/landing/family-legacy-section";
 
 export const metadata: Metadata = {
   title: "About Isaac · IC Vacation",
@@ -67,8 +68,8 @@ export default function AboutIsaacPage() {
           { type: "plain", text: "on the road." },
         ]}
         subtitle="Isaac is an independent travel advisor who works from a small desk, with a small list, and a fairly old notebook."
-        image="/advisor-desk.jpg"
-        imageAlt="Travel advisor's desk in soft afternoon light"
+        image="/images/ai/isaac-office-advisor.png"
+        imageAlt="Isaac in an IC Vacation advisor office"
         primaryCta={{ label: "Plan a trip with Isaac", href: "/contact" }}
         secondaryCta={{ label: "Field notes", href: "/blog" }}
       />
@@ -121,12 +122,11 @@ export default function AboutIsaacPage() {
               [ 06 ] // A quiet timeline
             </span>
             <h2
-              className="font-display-tight text-white leading-[0.92] max-w-[760px] tracking-[-0.03em]"
+              className="leading-[0.92] max-w-[760px]"
               style={{ fontSize: "clamp(2rem, 5vw, 4.4rem)", textWrap: "balance" }}
             >
-              Four moments,
-              <br />
-              <span className="font-serif italic text-brand-yellow">no résumé.</span>
+              <span className="premium-heading block">Four moments,</span>
+              <span className="premium-heading-yellow block">no résumé.</span>
             </h2>
           </div>
 
@@ -179,12 +179,11 @@ export default function AboutIsaacPage() {
                 [ 07 ] // Quiet credentials
               </span>
               <h3
-                className="font-display-tight text-white leading-[0.95]"
+                className="leading-[0.95]"
                 style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.8rem)" }}
               >
-                Memberships
-                <br />
-                <span className="font-serif italic text-brand-yellow">that matter.</span>
+                <span className="premium-heading block">Memberships</span>
+                <span className="premium-heading-yellow block">that matter.</span>
               </h3>
             </div>
             <div className="lg:col-span-8 grid sm:grid-cols-2 gap-px bg-foreground/10 self-start">
@@ -223,6 +222,8 @@ export default function AboutIsaacPage() {
           </ul>
         </div>
       </section>
+
+      <FamilyLegacySection />
 
       <PageCta
         eyebrow="// Next step"

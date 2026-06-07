@@ -10,18 +10,18 @@ type FooterAction =
 
 const footerLinks: Record<string, FooterAction[]> = {
   Travel: [
-    { name: "Approach",    href: "/#approach"      },
+    { name: "Home",        href: "/"               },
+    { name: "AI Travel Consultant", href: "/#ai-travel-consultant" },
     { name: "Destinations",href: "/destinations"   },
     { name: "Cruises",     href: "/cruises"        },
     { name: "Hotels & resorts", href: "/hotels-resorts" },
     { name: "Flights & packages", href: "/flights-packages" },
-    { name: "Pricing",     href: "/#pricing"       },
   ],
   Practice: [
     { name: "Meet Isaac",  href: "/about-isaac"    },
     { name: "Client stories", href: "/#stories"   },
     { name: "Journal",     href: "/blog"           },
-    { name: "Press",       href: "/about-isaac#press" },
+    { name: "Family legacy", href: "/about-isaac#family-legacy" },
   ],
   Contact: [
     { name: "Book consultation", action: "openContact" },
@@ -37,10 +37,10 @@ const footerLinks: Record<string, FooterAction[]> = {
   ],
 };
 
-const socialLinks = [
-  { name: "Instagram", href: "https://instagram.com/icvacation" },
-  { name: "Substack",  href: "https://icvacation.substack.com" },
-  { name: "LinkedIn",  href: "https://linkedin.com/company/icvacation" },
+const quickLinks = [
+  { name: "Email", href: "mailto:info@icvacation.com" },
+  { name: "Journal", href: "/blog" },
+  { name: "AI preview", href: "/#ai-travel-consultant" },
 ];
 
 export function FooterSection() {
@@ -99,12 +99,12 @@ export function FooterSection() {
               </p>
 
               <div className="flex flex-wrap gap-4 sm:gap-6">
-                {socialLinks.map((link) => (
+                {quickLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-sm text-white/45 hover:text-brand-yellow transition-colors flex items-center gap-1 group"
                   >
                     {link.name}

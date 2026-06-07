@@ -62,8 +62,8 @@ export default function CruisesPage() {
           { type: "emph",  text: "for the right people.", color: "yellow" },
         ]}
         subtitle="Cruising is the most over-sold and over-generalised category in travel. We start somewhere quieter — with who you are, how you move, and what you want to feel when the ship leaves port."
-        image="/destination-coast.jpg"
-        imageAlt="Coastal vista from a quiet cruise deck at golden hour"
+        image="/images/ai/isaac-cruise-helm.png"
+        imageAlt="Isaac at the helm of a ship, representing cruise planning"
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "Talk to Isaac", href: "/about-isaac" }}
       />

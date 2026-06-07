@@ -11,9 +11,15 @@ const cyclingWords = ["quietly", "thoughtfully", "personally", "beautifully"];
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const { openContact } = useContact();
 
-  useEffect(() => { setIsVisible(true); }, []);
+  useEffect(() => { 
+    setIsVisible(true); 
+    // Delay video src mount to speed up initial TTI/FCP
+    const t = setTimeout(() => setVideoLoaded(true), 800);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -22,24 +28,33 @@ export function HeroSection() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const imageTransform = `translate3d(0, ${scrollY * 0.22}px, 0) scale(1.05)`;
+  const mediaTransform = `translate3d(0, ${scrollY * 0.16}px, 0) scale(1.035)`;
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-background flex flex-col"
-      style={{ height: "100svh", minHeight: 640 }}
+      className="relative w-full bg-background flex flex-col min-h-screen lg:min-h-[100svh] overflow-x-hidden overflow-y-auto"
     >
-      {/* === Cinematic landscape === */}
+      {/* === Cinematic beach video === */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 will-change-transform" style={{ transform: imageTransform }}>
-          <img
-            src="/hero-landscape.jpg"
-            alt="A still alpine lake at dawn, mist rising over the water, surrounded by quiet mountains"
-            className="w-full h-full object-cover animate-ken-burns"
-          />
+        <div className="absolute inset-0 will-change-transform" style={{ transform: mediaTransform }}>
+          <video
+            className="h-full w-full object-cover object-[58%_center]"
+            poster="/video/hero-bg-poster.png"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="A first-person beach view with gentle tide movement and a cruise ship offshore"
+          >
+            {videoLoaded && <source src="/video/hero-bg-desktop.mp4" type="video/mp4" />}
+          </video>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/82 via-black/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/58 to-black/12" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background" />
+        {/* Soft bottom gradient to transition smoothly into the next section body without a straight-line cut */}
+        <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-b from-transparent via-[#050505]/20 via-[#050505]/65 via-[#050505]/95 to-[#050505] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_68%_50%,transparent_0%,transparent_42%,rgba(0,0,0,0.42)_100%)]" />
       </div>
 
       {/* Floating dandelion accent — top right */}
@@ -67,7 +82,7 @@ export function HeroSection() {
       </div>
 
       {/* === HERO CONTENT — fills the viewport, content + stats use flex === */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-24 sm:pt-28 pb-8">
+      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-28 sm:pt-32 pb-12 lg:pb-8">
         <div className="lg:max-w-[82%]">
           {/* Eyebrow ticker */}
           <div
@@ -79,11 +94,11 @@ export function HeroSection() {
               <span className="w-2 h-2 rounded-full pulse-green" />
               <span className="font-mono">[ 01 ]</span>
               <span className="w-8 h-px bg-brand-green/60" />
-              Advisor-led vacations · est. 2014
+              Boutique travel planning · cruise, resort, flight
             </span>
           </div>
 
-          {/* Headline */}
+          {/* Headline with premium gradient and drop shadow glow effects */}
           <h1
             className={`text-left mb-5 sm:mb-7 transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -91,14 +106,14 @@ export function HeroSection() {
             style={{ textWrap: "balance" }}
           >
             <span
-              className="block font-display-tight text-white leading-[0.86]"
+              className="block font-display-tight bg-gradient-to-b from-white via-white to-white/75 bg-clip-text text-transparent leading-[0.86] drop-shadow-[0_4px_12px_rgba(255,255,255,0.18)]"
               style={{ fontSize: "clamp(2.6rem, 7.6vw, 7.4rem)", letterSpacing: "-0.04em" }}
             >
               Vacations,
             </span>
 
             <span
-              className="block font-serif italic text-brand-yellow leading-[0.95]"
+              className="block font-serif italic bg-gradient-to-r from-brand-yellow via-brand-yellow/90 to-brand-yellow bg-clip-text text-transparent leading-[0.95] drop-shadow-[0_0_24px_rgba(255,229,0,0.25)]"
               style={{
                 fontSize: "clamp(2.2rem, 7vw, 6.8rem)",
                 paddingLeft: "0.06em",
@@ -109,12 +124,12 @@ export function HeroSection() {
             </span>
 
             <span
-              className="block font-display-wide text-white leading-[0.92]"
+              className="block font-display-wide bg-gradient-to-b from-white via-white/95 to-white/70 bg-clip-text text-transparent leading-[0.92] drop-shadow-[0_4px_12px_rgba(255,255,255,0.18)]"
               style={{ fontSize: "clamp(2.6rem, 7.6vw, 7.4rem)", letterSpacing: "-0.035em" }}
             >
               around&nbsp;
-              <span className="font-serif italic text-white/85">you</span>
-              <span className="text-brand-green">.</span>
+              <span className="font-serif italic bg-gradient-to-b from-white via-white/80 to-white/60 bg-clip-text text-transparent">you</span>
+              <span className="text-brand-green drop-shadow-[0_0_24px_rgba(38,252,0,0.45)]">.</span>
             </span>
           </h1>
 
@@ -125,10 +140,10 @@ export function HeroSection() {
             }`}
             style={{ textWrap: "pretty", fontVariationSettings: "'opsz' 22" }}
           >
-            A boutique travel practice led by{" "}
+            A boutique travel consultancy led by{" "}
             <span className="font-serif italic text-white">Isaac Chowrimootoo</span>.
-            Personal consultations, quietly curated itineraries, and the kind of
-            trip you tell stories about for years.
+            Personal consultations, carefully paired cruises, resorts, flights,
+            and packages — shaped around the way you actually want to feel.
           </p>
 
           {/* CTAs — pixel cascade buttons */}
@@ -138,11 +153,11 @@ export function HeroSection() {
             }`}
           >
             <PixelButton variant="yellow" onClick={openContact}>
-              Book a consultation
+              Plan my trip
               <ArrowUpRight className="w-4 h-4" />
             </PixelButton>
-            <PixelButton variant="grey" href="/destinations">
-              See where we send people
+            <PixelButton variant="grey" href="/flights-packages#flight-search-preview">
+              Try the flight mockup
               <span className="font-mono opacity-70">&rarr;</span>
             </PixelButton>
           </div>
@@ -157,8 +172,8 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-8 lg:gap-12">
             {[
               { idx: "01", value: "11 yrs", label: "shaping personal itineraries" },
-              { idx: "02", value: "62",     label: "countries planned & visited" },
-              { idx: "03", value: "1:1",    label: "advisor relationship, always" },
+              { idx: "02", value: "3",      label: "cruise · resort · flight lanes" },
+              { idx: "03", value: "1:1",    label: "human advisor relationship" },
             ].map((stat) => (
               <div
                 key={stat.label}

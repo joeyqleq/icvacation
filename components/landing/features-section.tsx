@@ -166,20 +166,19 @@ export function ConsultantSection() {
                 </span>
               </div>
               <h2
-                className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-[-0.025em] leading-[0.92] transition-all duration-1000 ${
+                className={`text-5xl md:text-6xl lg:text-[112px] leading-[0.92] transition-all duration-1000 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
-                style={{ fontVariationSettings: "'wdth' 80, 'opsz' 96", textWrap: "balance", letterSpacing: "-0.035em" }}
+                style={{ textWrap: "balance" }}
               >
-                Begin with{" "}
-                <span className="font-serif italic text-brand-yellow">conversation</span>,
-                <br />
-                <span className="text-muted-foreground">not a search bar.</span>
+                <span className="premium-heading block">Begin with</span>
+                <span className="premium-heading block"><span className="premium-heading-yellow">conversation</span>,</span>
+                <span className="premium-heading-glass block">not a search bar.</span>
               </h2>
             </div>
             <div className="lg:col-span-5 lg:pb-4">
               <p
-                className={`text-base lg:text-lg text-muted-foreground leading-[1.6] transition-all duration-1000 delay-200 ${
+                className={`text-base lg:text-lg font-editorial text-white/80 leading-[1.6] transition-all duration-1000 delay-200 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-4"

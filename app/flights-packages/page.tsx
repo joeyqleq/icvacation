@@ -4,6 +4,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
+import { FlightSearchPreview } from "@/components/landing/flight-search-preview";
 
 export const metadata: Metadata = {
   title: "Flights & Packages · IC Vacation",
@@ -55,11 +56,13 @@ export default function FlightsPackagesPage() {
           { type: "plain", text: "no algorithm." },
         ]}
         subtitle="A quieter way to put a trip together. You tell us the shape of the journey — we come back with the flights, the stays, and the rhythm in one considered plan."
-        image="/footer-horizon.jpg"
-        imageAlt="Looking out over a clouded horizon from an aircraft cabin window"
+        image="/images/ai/isaac-flight-transfer.png"
+        imageAlt="Isaac in a travel transfer setting, representing flight and package planning"
         primaryCta={{ label: "Start an inquiry", href: "/contact" }}
         secondaryCta={{ label: "About Isaac", href: "/about-isaac" }}
       />
+
+      <FlightSearchPreview />
 
       {/* STEPS */}
       <section className="relative py-24 lg:py-32 bg-background overflow-hidden">

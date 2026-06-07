@@ -70,8 +70,8 @@ export default function HotelsResortsPage() {
           { type: "plain", text: "not the star rating." },
         ]}
         subtitle="A small, deliberately edited list of hotels and resorts we genuinely know — and the rooms inside them worth asking for."
-        image="/destination-alps.jpg"
-        imageAlt="A quiet resort terrace overlooking the alpine valley at dusk"
+        image="/images/ai/isaac-hotel-bellboy.png"
+        imageAlt="Isaac in a hotel hospitality setting, representing resort planning"
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "See destinations", href: "/destinations" }}
       />

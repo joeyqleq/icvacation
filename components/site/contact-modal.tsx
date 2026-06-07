@@ -17,7 +17,7 @@ import { Mascot } from "@/components/site/mascot";
  * name, email, phone, departure city, destination(s), travel dates,
  * travelers, trip style, budget, occasion, message.
  *
- * POSTs to /api/contact which uses Resend to email eojiraam@gmail.com.
+ * POSTs to /api/contact, which uses Resend and environment-configured inboxes.
  */
 
 const TRIP_STYLES = [

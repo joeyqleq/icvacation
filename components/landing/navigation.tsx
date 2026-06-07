@@ -7,12 +7,14 @@ import { usePathname } from "next/navigation";
 import { useContact } from "@/components/site/contact-provider";
 
 const navLinks = [
-  { name: "Approach",     href: "/#approach"      },
-  { name: "Destinations", href: "/destinations"   },
-  { name: "Cruises",      href: "/cruises"        },
-  { name: "Hotels",       href: "/hotels-resorts" },
-  { name: "Journal",      href: "/blog"           },
-  { name: "About",        href: "/about-isaac"    },
+  { name: "Home",         href: "/"                         },
+  { name: "Cruises",      href: "/cruises"                  },
+  { name: "Hotels",       href: "/hotels-resorts"           },
+  { name: "Flights",      href: "/flights-packages"         },
+  { name: "Destinations", href: "/destinations"             },
+  { name: "AI Preview",   href: "/#ai-travel-consultant"    },
+  { name: "Journal",      href: "/blog"                     },
+  { name: "About",        href: "/about-isaac"              },
 ];
 
 export function Navigation() {
@@ -23,8 +25,23 @@ export function Navigation() {
   const pathname = usePathname();
   const { openContact } = useContact();
 
-  // First scroll triggers the bootup-then-expand sequence.  After expansion
-  // the navbar stays as a pill for the rest of the session.
+  // Expand automatically on homepage after 1200ms
+  useEffect(() => {
+    if (pathname === "/") {
+      const timer = setTimeout(() => {
+        setExpanded((exp) => {
+          if (!exp) {
+            setTimeout(() => setHasBooted(true), 950);
+            return true;
+          }
+          return exp;
+        });
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
+
+  // Scroll triggers expansion too
   useEffect(() => {
     let raf = 0;
     const onScroll = () => {
@@ -32,7 +49,6 @@ export function Navigation() {
       raf = requestAnimationFrame(() => {
         if (window.scrollY > 24 && !expanded) {
           setExpanded(true);
-          // Mark boot complete after the terminal flicker animation finishes
           setTimeout(() => setHasBooted(true), 950);
         }
         // Active anchor tracking (homepage anchors only)
@@ -63,7 +79,7 @@ export function Navigation() {
     };
   }, [expanded]);
 
-  // If we land on a route other than "/", auto-expand (no orb intro mid-flow)
+  // Non-homepage routes auto-expand immediately
   useEffect(() => {
     if (pathname !== "/") {
       setExpanded(true);
@@ -79,16 +95,25 @@ export function Navigation() {
     return pathname === href || pathname.startsWith(href + "/");
   }
 
+  const triggerExpand = () => {
+    if (!expanded) {
+      setExpanded(true);
+      setTimeout(() => setHasBooted(true), 950);
+    }
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 pointer-events-none">
       <div className="flex justify-center pt-3 sm:pt-5">
         {/* === ORB MODE — circular neon yellow halo containing the rotating dandelion === */}
         {!expanded ? (
           <div
-            className="nav-orb pointer-events-auto relative flex items-center justify-center rounded-full"
+            className="nav-orb pointer-events-auto relative flex items-center justify-center rounded-full cursor-pointer"
             style={{ width: 88, height: 88 }}
             role="banner"
             aria-label="IC Vacation — scroll to enter"
+            onMouseEnter={triggerExpand}
+            onClick={triggerExpand}
           >
             <div className="nav-orb-spin w-[68%] h-[68%] relative">
               <img
@@ -111,28 +136,28 @@ export function Navigation() {
           <nav
             key="pill"
             className={`nav-island pointer-events-auto flex items-center rounded-full transition-all duration-500
-              h-12 sm:h-14 px-3 sm:px-4 max-w-[1180px] w-[calc(100%-1.5rem)]
+              h-12 sm:h-14 px-3 sm:px-4 max-w-[1240px] w-[calc(100%-1.5rem)]
               ${hasBooted ? "" : "terminal-boot"}
             `}
             aria-label="Primary"
           >
-            {/* Logo lockup */}
+            {/* Logo lockup — increased padding-right to shift Home away from Wordmark */}
             <Link
               href="/"
               aria-label="IC Vacation home"
-              className="flex items-center shrink-0 group pr-3 sm:pr-4 nav-item-cascade"
+              className="flex items-center shrink-0 group pr-8 sm:pr-12 nav-item-cascade"
               style={{ animationDelay: hasBooted ? "0ms" : "300ms" }}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <img
                 src="/ic-wordmark-yellow.svg"
                 alt="IC Vacation"
-                className="h-6 sm:h-7 w-auto transition-transform group-hover:scale-[1.04]"
+                className="h-8 sm:h-9 w-auto transition-transform group-hover:scale-[1.04]"
               />
             </Link>
 
             {/* Desktop nav — centered, evenly spaced, Anton-style hover underline */}
-            <div className="hidden lg:flex flex-1 items-center justify-center gap-7 xl:gap-9">
+            <div className="hidden lg:flex flex-1 items-center justify-center gap-2 xl:gap-4">
               {navLinks.map((link, i) => (
                 <Link
                   key={link.name}

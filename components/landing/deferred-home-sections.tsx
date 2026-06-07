@@ -17,6 +17,11 @@ const DestinationsSection = dynamic(
   { ssr: false },
 );
 
+const FlightSearchPreview = dynamic(
+  () => import("@/components/landing/flight-search-preview").then((mod) => mod.FlightSearchPreview),
+  { ssr: false },
+);
+
 const NumbersSection = dynamic(
   () => import("@/components/landing/metrics-section").then((mod) => mod.NumbersSection),
   { ssr: false },
@@ -42,8 +47,18 @@ const PricingSection = dynamic(
   { ssr: false },
 );
 
+const ConsultantSection = dynamic(
+  () => import("@/components/landing/features-section").then((mod) => mod.ConsultantSection),
+  { ssr: false },
+);
+
 const FaqCtaSection = dynamic(
   () => import("@/components/landing/cta-section").then((mod) => mod.FaqCtaSection),
+  { ssr: false },
+);
+
+const FamilyLegacySection = dynamic(
+  () => import("@/components/landing/family-legacy-section").then((mod) => mod.FamilyLegacySection),
   { ssr: false },
 );
 
@@ -58,11 +73,14 @@ export function DeferredHomeSections() {
       <AdvisorSection />
       <ProcessSection />
       <DestinationsSection />
+      <FlightSearchPreview />
       <NumbersSection />
       <TestimonialsSection />
       <PhilosophySection />
       <JournalSection />
+      <ConsultantSection />
       <PricingSection />
+      <FamilyLegacySection />
       <FaqCtaSection />
       <FooterSection />
     </>

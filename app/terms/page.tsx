@@ -90,8 +90,8 @@ export default function TermsPage() {
               </h2>
               <p>
                 For questions regarding these terms, please contact{" "}
-                <a href="mailto:hello@icvacation.com" className="text-brand-green hover:text-brand-green/80 transition-colors">
-                  hello@icvacation.com
+                <a href="mailto:info@icvacation.com" className="text-brand-green hover:text-brand-green/80 transition-colors">
+                  info@icvacation.com
                 </a>
               </p>
             </div>

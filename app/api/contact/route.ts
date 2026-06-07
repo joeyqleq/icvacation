@@ -1,14 +1,28 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resend: Resend | null = null;
 
-// Dev-phase recipient — change to a CRM/inbox later
-const TO_EMAIL = "eojiraam@gmail.com";
-const FROM_EMAIL = "IC Vacation Inquiry <contact-form@icvacation.com>";
+function getResend() {
+  if (!resend) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
+
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "info@icvacation.com";
+const FROM_EMAIL =
+  process.env.CONTACT_FROM_EMAIL || "IC Vacation Inquiry <inquiry@icvacation.com>";
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { ok: false, error: "Email is not configured yet." },
+        { status: 503 }
+      );
+    }
+
     const body = await req.json();
 
     const {
@@ -65,7 +79,7 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM_EMAIL,
       to: [TO_EMAIL],
       replyTo: email,

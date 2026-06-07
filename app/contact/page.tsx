@@ -78,7 +78,7 @@ export default function ContactPage() {
               {/* Quiet meta */}
               <div className="mt-12 sm:mt-16 grid sm:grid-cols-3 gap-5 sm:gap-6 max-w-2xl">
                 {[
-                  { icon: Mail,  label: "Email",       value: "hello@icvacation.com", href: "mailto:hello@icvacation.com" },
+                  { icon: Mail,  label: "Email",       value: "info@icvacation.com", href: "mailto:info@icvacation.com" },
                   { icon: Phone, label: "Phone",       value: "+44 (0)20 0000 0000",  href: "tel:+442000000000"           },
                   { icon: Clock, label: "Reply time",  value: "Within one working day"                                   },
                 ].map((row) => (

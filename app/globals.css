@@ -13,7 +13,7 @@
       - Brand black  #000000
       - Brand white  #FFFFFF
     20% may use the supporting palette:
-      - Pale yellow  #FDF972
+      - Brand yellow #FFE500
       - Olive green  #94BD00
       - Grey scale   #697174 / #54585D / #464B4E / #3F4245 / #333537 / #252426
 
@@ -41,7 +41,7 @@
   --muted: #161616;
   --muted-foreground: #8a8a86;
 
-  --accent: #FDF972;
+  --accent: #FFE500;
   --accent-foreground: #000000;
 
   --destructive: #b3261e;
@@ -54,7 +54,7 @@
   /* Brand palette tokens — exact hex from brand guidelines */
   --brand-green:       #26FC00;
   --brand-green-deep:  #94BD00;
-  --brand-yellow:      #FDF972;
+  --brand-yellow:      #FFE500;
   --brand-grey:        #444444;
 
   --grey-100: #697174;
@@ -66,7 +66,7 @@
 
   --chart-1: #26FC00;
   --chart-2: #94BD00;
-  --chart-3: #FDF972;
+  --chart-3: #FFE500;
   --chart-4: #697174;
   --chart-5: #333537;
 
@@ -236,38 +236,38 @@
       0 -1px 0 rgba(0, 0, 0, 0.4) inset,
       0 24px 60px -20px rgba(0, 0, 0, 0.7),
       0 8px 24px -12px rgba(0, 0, 0, 0.45),
-      0 0 60px -20px rgba(253, 249, 114, 0.25);
+      0 0 60px -20px rgba(255, 229, 0, 0.25);
   }
 
   /* Pre-scroll orb: pulsating neon-yellow halo around a circular glass capsule */
   .nav-orb {
-    background: radial-gradient(circle at 50% 50%, rgba(253,249,114,0.22) 0%, rgba(253,249,114,0.08) 45%, rgba(0,0,0,0.6) 85%);
+    background: radial-gradient(circle at 50% 50%, rgba(255, 229, 0, 0.22) 0%, rgba(255, 229, 0, 0.08) 45%, rgba(0, 0, 0, 0.6) 85%);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(253, 249, 114, 0.35);
+    border: 1px solid rgba(255, 229, 0, 0.35);
     box-shadow:
-      0 0 0 1px rgba(253, 249, 114, 0.15) inset,
-      0 0 24px 4px rgba(253, 249, 114, 0.35),
-      0 0 60px 12px rgba(253, 249, 114, 0.22),
-      0 0 120px 24px rgba(253, 249, 114, 0.10),
+      0 0 0 1px rgba(255, 229, 0, 0.15) inset,
+      0 0 24px 4px rgba(255, 229, 0, 0.35),
+      0 0 60px 12px rgba(255, 229, 0, 0.22),
+      0 0 120px 24px rgba(255, 229, 0, 0.10),
       0 18px 48px -12px rgba(0, 0, 0, 0.6);
     animation: orb-pulse 3.4s ease-in-out infinite;
   }
   @keyframes orb-pulse {
     0%, 100% {
       box-shadow:
-        0 0 0 1px rgba(253, 249, 114, 0.15) inset,
-        0 0 24px 4px rgba(253, 249, 114, 0.35),
-        0 0 60px 12px rgba(253, 249, 114, 0.22),
-        0 0 120px 24px rgba(253, 249, 114, 0.10),
+        0 0 0 1px rgba(255, 229, 0, 0.15) inset,
+        0 0 24px 4px rgba(255, 229, 0, 0.35),
+        0 0 60px 12px rgba(255, 229, 0, 0.22),
+        0 0 120px 24px rgba(255, 229, 0, 0.10),
         0 18px 48px -12px rgba(0, 0, 0, 0.6);
     }
     50% {
       box-shadow:
-        0 0 0 1px rgba(253, 249, 114, 0.28) inset,
-        0 0 36px 8px rgba(253, 249, 114, 0.55),
-        0 0 80px 20px rgba(253, 249, 114, 0.32),
-        0 0 160px 36px rgba(253, 249, 114, 0.18),
+        0 0 0 1px rgba(255, 229, 0, 0.28) inset,
+        0 0 36px 8px rgba(255, 229, 0, 0.55),
+        0 0 80px 20px rgba(255, 229, 0, 0.32),
+        0 0 160px 36px rgba(255, 229, 0, 0.18),
         0 18px 48px -12px rgba(0, 0, 0, 0.6);
     }
   }
@@ -296,44 +296,35 @@
   }
   .nav-item-cascade { animation: nav-item-cascade 0.6s cubic-bezier(0.22,1,0.36,1) backwards; }
 
-  /* Nav item — hover underline that slides 0 → 100% and back */
+  /* Nav item — pill shaped capsule with hover and active states */
   .nav-link {
     position: relative;
-    display: inline-block;
-    padding: 0.4rem 0.1rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.85rem;
     color: rgba(255, 255, 255, 0.78);
     font-family: var(--font-command);
     font-weight: 400;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     font-size: 0.78rem;
-    transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                font-weight 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                letter-spacing 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                text-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0; right: 100%;
-    bottom: -2px;
-    height: 2.5px;
-    background: var(--brand-yellow);
-    box-shadow: 0 0 8px rgba(253, 249, 114, 0.85), 0 0 16px rgba(253, 249, 114, 0.5);
-    transition: right 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .nav-link:hover {
     color: #ffffff;
-    font-weight: 600;
-    letter-spacing: 0.075em;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.45);
   }
-  .nav-link:hover::after { right: 0; }
-  .nav-link.is-active   { color: #ffffff; }
-  .nav-link.is-active::after {
-    right: 0;
-    background: var(--brand-green);
-    box-shadow: 0 0 8px rgba(38, 252, 0, 0.85), 0 0 16px rgba(38, 252, 0, 0.5);
+  .nav-link.is-active {
+    color: #ffffff;
+    background: rgba(168, 85, 247, 0.12);
+    border-color: rgba(168, 85, 247, 0.38);
+    box-shadow: 
+      0 0 16px rgba(168, 85, 247, 0.28),
+      inset 0 0 8px rgba(168, 85, 247, 0.18);
   }
 
   /* =====================================================
@@ -365,7 +356,7 @@
     --pixel-fg-start: #000000;
     --pixel-bg-end:   #000000;
     --pixel-fg-end:   #ffffff;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset, 0 14px 40px -16px rgba(253, 249, 114, 0.55);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset, 0 14px 40px -16px rgba(255, 229, 0, 0.55);
   }
   .pixel-btn-grey {
     --pixel-bg-start: #54585D;
@@ -375,7 +366,7 @@
     box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset, 0 14px 40px -16px rgba(0,0,0,0.6);
   }
   .pixel-btn:hover { color: var(--pixel-fg-end); }
-  .pixel-btn-yellow:hover { box-shadow: 0 0 0 1px rgba(0,0,0,0.4) inset, 0 18px 50px -16px rgba(0, 0, 0, 0.7), 0 0 28px rgba(253,249,114,0.25); }
+  .pixel-btn-yellow:hover { box-shadow: 0 0 0 1px rgba(0,0,0,0.4) inset, 0 18px 50px -16px rgba(0, 0, 0, 0.7), 0 0 28px rgba(255, 229, 0, 0.25); }
 
   .pixel-grid {
     position: absolute;
@@ -432,14 +423,14 @@
     transition: background 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
   }
   .bg-boxes > span:hover {
-    background: var(--box-hover, rgba(253, 249, 114, 0.22));
-    box-shadow: inset 0 0 24px rgba(253, 249, 114, 0.15);
+    background: var(--box-hover, rgba(255, 229, 0, 0.22));
+    box-shadow: inset 0 0 24px rgba(255, 229, 0, 0.15);
     transition-duration: 0s;
   }
   .bg-boxes--green > span:hover { background: rgba(38, 252, 0, 0.20); box-shadow: inset 0 0 24px rgba(38, 252, 0, 0.18); }
   .bg-boxes--grey  > span:hover { background: rgba(105, 113, 116, 0.30); box-shadow: inset 0 0 24px rgba(105, 113, 116, 0.18); }
   .bg-boxes--mixed > span:nth-child(7n):hover  { background: rgba(38, 252, 0, 0.20); }
-  .bg-boxes--mixed > span:nth-child(11n):hover { background: rgba(253, 249, 114, 0.22); }
+  .bg-boxes--mixed > span:nth-child(11n):hover { background: rgba(255, 229, 0, 0.22); }
 
   /* =====================================================
      CONTACT MODAL — glass neumorphism + neon border glow
@@ -574,5 +565,34 @@
     animation: dia-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
     will-change: transform, filter, opacity;
+  }
+
+  /* Premium display titles with gradients, shading, shadowing, and glassmorphic text strokes */
+  .premium-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 85, 'opsz' 96;
+    letter-spacing: -0.035em;
+    background: linear-gradient(180deg, #ffffff 15%, #e2e8f0 70%, rgba(255, 255, 255, 0.35) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.08));
+  }
+
+  .premium-heading-yellow {
+    font-family: var(--font-serif);
+    font-style: italic;
+    background: linear-gradient(90deg, #FFE500 15%, #FFE500 70%, #fffa80 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255, 229, 0, 0.25));
+  }
+
+  .premium-heading-glass {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 75, 'opsz' 96;
+    letter-spacing: -0.04em;
+    -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.45);
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 3px 6px rgba(255, 255, 255, 0.05));
   }
 }

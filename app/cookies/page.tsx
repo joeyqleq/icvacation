@@ -82,8 +82,8 @@ export default function CookiesPage() {
               </h2>
               <p>
                 Contact us at{" "}
-                <a href="mailto:hello@icvacation.com" className="text-brand-green hover:text-brand-green/80 transition-colors">
-                  hello@icvacation.com
+                <a href="mailto:info@icvacation.com" className="text-brand-green hover:text-brand-green/80 transition-colors">
+                  info@icvacation.com
                 </a>{" "}
                 with any questions about our cookie practices.
               </p>

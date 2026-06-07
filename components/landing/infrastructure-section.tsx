@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { ParallaxMascot } from "@/components/site/parallax-mascot";
 
 const credentials = [
   { name: "Italy", years: "since 2014", note: "Hand-picked agriturismi, hill towns, the slower Tuscan north" },
@@ -39,6 +40,13 @@ export function AdvisorSection() {
       ref={sectionRef}
       className="relative py-32 lg:py-40 overflow-hidden"
     >
+      {/* Floating scroll-parallax owl mascot overlapping the bottom of the video hero */}
+      <ParallaxMascot
+        type="owl"
+        size="lg"
+        variant="neon"
+        className="absolute -top-[160px] left-[10%] z-20 pointer-events-none hidden lg:block"
+      />
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="mb-20">
@@ -91,21 +99,18 @@ export function AdvisorSection() {
             {/* Title + bio */}
             <div className="flex flex-col justify-center">
               <h2
-                className={`text-5xl md:text-6xl lg:text-[112px] font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
+                className={`text-5xl md:text-6xl lg:text-[112px] leading-[0.95] transition-all duration-1000 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 }`}
               >
-                One advisor.
-                <br />
-                <span className="text-muted-foreground italic">
-                  Every detail.
-                </span>
+                <span className="premium-heading block">One advisor.</span>
+                <span className="premium-heading-yellow block">Every detail.</span>
               </h2>
 
               <p
-                className={`mt-10 text-lg text-muted-foreground leading-relaxed max-w-xl transition-all duration-1000 delay-100 ${
+                className={`mt-10 text-lg lg:text-xl font-editorial text-white/82 leading-relaxed max-w-xl transition-all duration-1000 delay-100 ${
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
