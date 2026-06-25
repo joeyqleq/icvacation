@@ -6,47 +6,96 @@ import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
 import { FamilyLegacySection } from "@/components/landing/family-legacy-section";
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Isaac Chowrimootoo",
+  "jobTitle": "Independent Travel Advisor",
+  "description": "Boutique travel advisor with 14+ years of independent practice, specializing in personalized, luxury travel planning and curated itineraries.",
+  "knowsAbout": ["Travel Planning", "Luxury Travel", "Cruise Planning", "Personalized Itineraries", "Destination Expertise", "Adventure Travel"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "IC Vacation",
+    "url": "https://icvacation.com"
+  },
+  "affiliation": [
+    {
+      "@type": "Organization",
+      "name": "Signature Travel Network",
+      "url": "https://www.signaturetravelnetwork.com"
+    }
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Travel Consultation",
+    "url": "https://icvacation.com/contact"
+  }
+};
+
+const faqData = [
+  {
+    question: "What makes Isaac's travel planning different from other advisors?",
+    answer: "Isaac practices boutique travel consultation, not commission-driven booking. Every itinerary is personally built, limited to a small client list, with a 24-hour response window. The practice emphasizes understanding how you speak about travel and designing trips you'd actually love, not template-based vacations."
+  },
+  {
+    question: "How long does it take to plan a trip with Isaac?",
+    answer: "The planning process begins with a real conversation about your travel style, preferences, and dreams. Isaac typically takes 2-3 weeks to develop a considered plan, though timeline varies based on trip complexity. The small client list ensures thoughtful, unhurried planning."
+  },
+  {
+    question: "Does Isaac plan all types of trips?",
+    answer: "Isaac is selective about briefs. The practice specializes in personalized, luxury, and curated travel experiences—from cultural expeditions to cruises and destination retreats. If a brief doesn't align with the practice's approach, Isaac will recommend a specialist who's better suited."
+  },
+  {
+    question: "What is Isaac's experience with cruise vacations?",
+    answer: "With 50+ countries personally walked and years of cruise planning expertise, Isaac designs bespoke cruise itineraries that go beyond standard routes. From river cruises to expedition voyages, each cruise is tailored to your interests, lifestyle, and travel philosophy."
+  },
+  {
+    question: "How can I begin planning a trip with Isaac?",
+    answer: "Start with a brief form at /contact. This helps Isaac understand your vision before a real conversation. You'll receive one quietly considered plan built specifically around your travel dreams and preferences."
+  }
+];
+
 export const metadata: Metadata = {
   title: "About Isaac · IC Vacation",
   description:
-    "Isaac is an independent travel advisor with two decades of close, quiet work. Read about the practice, the people, and the trust signals.",
+    "Isaac is an independent travel advisor with 14+ years of boutique, personalized travel planning. Specializing in luxury vacations, curated itineraries, and cruise experiences—consultation-first, no commission pressure.",
 };
 
 const beats = [
   {
-    year: "1999",
-    title: "Started in the back room of a small agency",
-    body: "Booking flights for a senior advisor, taking notes in red pen, learning the trade from someone who never raised her voice.",
+    year: "Early",
+    title: "Learned the trade from the inside",
+    body: "Booking flights for a senior advisor, taking notes in red pen, learning from someone who never raised her voice.",
   },
   {
-    year: "2006",
+    year: "Then",
     title: "Began travelling, properly",
-    body: "First a year in East Africa, then six months drifting across Japan. The notebooks from that period are still on the desk.",
+    body: "East Africa, then months drifting across Japan. The notebooks from that period are still on the desk.",
   },
   {
-    year: "2012",
+    year: "Later",
     title: "Quietly began taking clients",
     body: "Friends of friends. A short list. The work was always meant to stay small.",
   },
   {
-    year: "2026",
+    year: "Now",
     title: "IC Vacation, in its current form",
     body: "Same practice, same small list, with a quietly built AI consultant taking pre-briefs ahead of the conversation with Isaac.",
   },
 ];
 
 const stats = [
-  { value: "26", label: "Years in travel" },
-  { value: "47", label: "Countries planned, walked" },
-  { value: "1100+", label: "Trips quietly delivered" },
+  { value: "14+", label: "Years independent practice" },
+  { value: "50+", label: "Countries planned, walked" },
   { value: "24h", label: "Response window, always" },
+  { value: "1:1", label: "Every brief, personally" },
 ];
 
 const trust = [
-  { name: "Virtuoso", note: "Member advisor · 2014–present" },
-  { name: "ASTA",     note: "American Society of Travel Advisors" },
-  { name: "IATAN",    note: "Accredited travel professional" },
-  { name: "Signature", note: "Travel Network preferred partner" },
+  { name: "Signature Travel Network", note: "Preferred partner advisor" },
+  { name: "Independent practice",     note: "Consultation-first, no commission pressure" },
+  { name: "Small client list",        note: "Deliberately limited capacity" },
+  { name: "Global reach",             note: "50+ countries planned and personally walked" },
 ];
 
 const principles = [
@@ -59,11 +108,15 @@ const principles = [
 export default function AboutIsaacPage() {
   return (
     <PageShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <PageHero
         index="[ 04 ]"
         kicker="// About Isaac"
         title={[
-          { type: "plain", text: "Twenty-six years," },
+          { type: "plain", text: "Fourteen years," },
           { type: "emph",  text: "quietly,", color: "yellow" },
           { type: "plain", text: "on the road." },
         ]}
@@ -224,6 +277,56 @@ export default function AboutIsaacPage() {
       </section>
 
       <FamilyLegacySection />
+
+      {/* FAQ SECTION */}
+      <section className="relative py-24 lg:py-32 bg-background border-t border-foreground/10">
+        <div className="max-w-[1100px] mx-auto px-6 lg:px-12">
+          <div className="mb-16">
+            <span className="inline-flex items-center gap-3 label-ticker text-white/55 mb-6">
+              <span className="w-10 h-px bg-brand-green/60" />
+              [ 09 ] // Questions
+            </span>
+            <h2
+              className="leading-[0.92]"
+              style={{ fontSize: "clamp(2rem, 5vw, 4.4rem)", textWrap: "balance" }}
+            >
+              <span className="premium-heading block">Frequently</span>
+              <span className="premium-heading-yellow block">asked.</span>
+            </h2>
+          </div>
+
+          <div className="space-y-8">
+            {faqData.map((faq, i) => (
+              <div key={i} className="grid lg:grid-cols-[1fr_2fr] gap-6 pb-8 border-b border-foreground/10 last:border-0 last:pb-0">
+                <h3 className="font-display text-lg lg:text-xl text-white leading-tight">
+                  {faq.question}
+                </h3>
+                <p className="font-editorial text-[16px] lg:text-[17px] text-white/75 leading-[1.6]" style={{ textWrap: "pretty" }}>
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": faqData.map((faq) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": faq.answer
+                }
+              }))
+            })
+          }}
+        />
+      </section>
 
       <PageCta
         eyebrow="// Next step"
