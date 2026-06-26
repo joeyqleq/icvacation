@@ -1,5 +1,7 @@
 "use client";
 
+import { CurvedLoop } from "@/components/ui/curved-loop";
+
 const items = [
   "Italy",
   "Japan",
@@ -29,14 +31,24 @@ export function MarqueeStrip({ splashDone = true }: { splashDone?: boolean }) {
 
   return (
     <div
-      className={`relative w-full overflow-hidden bg-background border-y border-foreground/[0.06] py-4 sm:py-5 ${
+      className={`relative w-full overflow-hidden bg-background border-y border-foreground/[0.06] ${
         splashDone ? "whoosh-up" : "opacity-0"
       }`}
       style={{ animationDelay: splashDone ? "0.6s" : undefined }}
     >
-      <div className="flex gap-6 marquee whitespace-nowrap">
+      {/* Original marquee row */}
+      <div className="flex gap-6 marquee whitespace-nowrap py-4 sm:py-5">
         {row}
         {row}
+      </div>
+      {/* CurvedLoop decorative wave below */}
+      <div className="opacity-30 pointer-events-none select-none" style={{ height: 60, marginTop: -8 }}>
+        <CurvedLoop
+          marqueeText="BOUTIQUE TRAVEL · SHAPED AROUND YOU · IC VACATION · PERSONALIZED ITINERARIES · LUXURY CRUISES · BESPOKE EXPERIENCES · "
+          speed={2.5}
+          className="fill-white/40 text-[11px] font-mono"
+          curveAmount={200}
+        />
       </div>
     </div>
   );

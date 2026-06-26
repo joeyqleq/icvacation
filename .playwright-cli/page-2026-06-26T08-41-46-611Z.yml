@@ -1,0 +1,228 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "IC Vacation home" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - img "IC Vacation" [ref=e5]
+    - generic [ref=e6]:
+      - link "Home" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Cruises" [ref=e8] [cursor=pointer]:
+        - /url: /cruises
+      - link "Hotels" [ref=e9] [cursor=pointer]:
+        - /url: /hotels-resorts
+      - link "Flights" [ref=e10] [cursor=pointer]:
+        - /url: /flights-packages
+      - link "Destinations" [ref=e11] [cursor=pointer]:
+        - /url: /destinations
+      - link "Journal" [ref=e12] [cursor=pointer]:
+        - /url: /blog
+      - link "About" [ref=e13] [cursor=pointer]:
+        - /url: /about-isaac
+    - generic [ref=e14]:
+      - button "Contact" [ref=e15]
+      - link "(407) 810-1670 Unforgettable Experiences" [ref=e16] [cursor=pointer]:
+        - /url: tel:+14078101670
+        - img [ref=e17]
+        - generic [ref=e19]:
+          - generic [ref=e20]: (407) 810-1670
+          - generic [ref=e21]: Unforgettable Experiences
+  - generic [ref=e22]:
+    - img "Isaac in a hotel hospitality setting, representing resort planning" [ref=e25]
+    - generic:
+      - generic: hotels & resorts
+    - generic [ref=e29]:
+      - generic [ref=e31]:
+        - generic [ref=e33]: "[ 02 ]"
+        - text: // Hotels & Resorts
+      - heading "Stays chosen for the mood, not the star rating." [level=1] [ref=e35]:
+        - generic [ref=e36]: Stays chosen
+        - generic [ref=e37]: for the mood,
+        - generic [ref=e38]: not the star rating.
+      - paragraph [ref=e39]: A small, deliberately edited list of hotels and resorts we genuinely know — and the rooms inside them worth asking for.
+      - generic [ref=e40]:
+        - button "Plan my trip" [ref=e41] [cursor=pointer]:
+          - generic [ref=e42]:
+            - text: Plan my trip
+            - img [ref=e43]
+        - link "See destinations →" [ref=e46] [cursor=pointer]:
+          - /url: /destinations
+          - generic [ref=e47]:
+            - text: See destinations
+            - generic [ref=e48]: →
+  - generic [ref=e50]:
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]: "[ 03 ] // How we sort stays"
+        - heading "Not categories. Moods." [level=2] [ref=e55]:
+          - text: Not categories.
+          - text: Moods.
+      - paragraph [ref=e57]: We pick the property for how the trip should feel, then choose the suite, the floor, the table, and the timing.
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - img [ref=e61]
+          - generic [ref=e63]: "01"
+        - generic [ref=e64]:
+          - heading "Mexico, slowly" [level=3] [ref=e65]
+          - paragraph [ref=e66]: Riviera Nayarit hideaways, Yucatán cenote houses, an adults-only stretch of the Pacific. We know which beaches lose the crowds by sunset.
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - img [ref=e69]
+          - generic [ref=e71]: "02"
+        - generic [ref=e72]:
+          - heading "Romance" [level=3] [ref=e73]
+          - paragraph [ref=e74]: Honeymoons that don't feel pre-packaged. Italian lake suites, Greek villas with their own cove, a Maldivian water villa with no neighbours in sight.
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - img [ref=e77]
+          - generic [ref=e79]: "03"
+        - generic [ref=e80]:
+          - heading "Family, properly" [level=3] [ref=e81]
+          - paragraph [ref=e82]: Resorts where kids are genuinely cared for and parents can actually read a book. Connecting suites, quiet pools, age-fit excursions.
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - img [ref=e85]
+          - generic [ref=e87]: "04"
+        - generic [ref=e88]:
+          - heading "Quiet luxury" [level=3] [ref=e89]
+          - paragraph [ref=e90]: Aman, Six Senses, the smaller Cap Juluca-style holdouts. Service that disappears, design that doesn't shout.
+  - generic [ref=e93]:
+    - generic [ref=e94]:
+      - generic [ref=e95]: "[ 04 ] // Mood-fit details"
+      - heading "The small things, on record." [level=3] [ref=e97]:
+        - text: The small things,
+        - text: on record.
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]: Adults only
+        - generic [ref=e101]: Resort policy & adult-only floors
+      - generic [ref=e102]:
+        - generic [ref=e103]: Connecting rooms
+        - generic [ref=e104]: Family suite configurations
+      - generic [ref=e105]:
+        - generic [ref=e106]: Private pool
+        - generic [ref=e107]: Pool villa availability + size
+      - generic [ref=e108]:
+        - generic [ref=e109]: All-inclusive
+        - generic [ref=e110]: Genuine inclusivity, not upselling
+      - generic [ref=e111]:
+        - generic [ref=e112]: Beachfront
+        - generic [ref=e113]: True beach access, not lawn-fronted
+      - generic [ref=e114]:
+        - generic [ref=e115]: Spa-led
+        - generic [ref=e116]: Programmes & therapists we know
+  - generic [ref=e568]:
+    - generic [ref=e569]: "[ 05 ] // Properties Isaac knows by name"
+    - generic [ref=e571]:
+      - paragraph [ref=e572]: Las Ventanas al Paraíso, Los Cabos
+      - paragraph [ref=e573]: Hôtel du Cap-Eden-Roc, Antibes
+      - paragraph [ref=e574]: Aman Venice
+      - paragraph [ref=e575]: Soneva Fushi, Maldives
+      - paragraph [ref=e576]: Belmond Hotel Caruso, Ravello
+      - paragraph [ref=e577]: The Brando, French Polynesia
+      - paragraph [ref=e578]: Singita Sasakwa, Serengeti
+      - paragraph [ref=e579]: Castiglion del Bosco, Tuscany
+  - generic [ref=e1032]:
+    - generic [ref=e1033]: // Next step
+    - heading "Tell us how this trip should feel." [level=2] [ref=e1035]
+    - paragraph [ref=e1036]: We'll come back with a tight shortlist of properties — the right room, the right floor, and what we'd genuinely book ourselves.
+    - button "Plan my trip" [ref=e1038] [cursor=pointer]:
+      - generic [ref=e1039]:
+        - text: Plan my trip
+        - img [ref=e1040]
+  - generic [ref=e1047]:
+    - generic [ref=e1048]:
+      - img "A road through Tuscan hills at dusk" [ref=e1049]
+      - img [ref=e1052]
+      - img [ref=e1053]
+      - generic:
+        - paragraph:
+          - text: “The point of a vacation is not where you went.
+          - text: It's who you came back as.”
+    - generic [ref=e1054]:
+      - generic [ref=e1056]:
+        - generic [ref=e1057]:
+          - link "IC Vacation home" [ref=e1058] [cursor=pointer]:
+            - /url: /
+            - img "IC Vacation" [ref=e1059]
+          - paragraph [ref=e1060]: A small, advisor-led travel practice. Personal consultations and quietly curated vacations — shaped by Isaac Chowrimootoo.
+          - generic [ref=e1061]:
+            - link "Email" [ref=e1062] [cursor=pointer]:
+              - /url: mailto:info@icvacation.com
+              - text: Email
+              - img [ref=e1063]
+            - link "Journal" [ref=e1066] [cursor=pointer]:
+              - /url: /blog
+              - text: Journal
+              - img [ref=e1067]
+            - link "AI preview" [ref=e1070] [cursor=pointer]:
+              - /url: /#ai-travel-consultant
+              - text: AI preview
+              - img [ref=e1071]
+        - generic [ref=e1074]:
+          - heading "Travel" [level=3] [ref=e1075]
+          - list [ref=e1076]:
+            - listitem [ref=e1077]:
+              - link "Home" [ref=e1078] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e1079]:
+              - link "AI Travel Consultant" [ref=e1080] [cursor=pointer]:
+                - /url: /#ai-travel-consultant
+            - listitem [ref=e1081]:
+              - link "Destinations" [ref=e1082] [cursor=pointer]:
+                - /url: /destinations
+            - listitem [ref=e1083]:
+              - link "Cruises" [ref=e1084] [cursor=pointer]:
+                - /url: /cruises
+            - listitem [ref=e1085]:
+              - link "Hotels & resorts" [ref=e1086] [cursor=pointer]:
+                - /url: /hotels-resorts
+            - listitem [ref=e1087]:
+              - link "Flights & packages" [ref=e1088] [cursor=pointer]:
+                - /url: /flights-packages
+        - generic [ref=e1089]:
+          - heading "Practice" [level=3] [ref=e1090]
+          - list [ref=e1091]:
+            - listitem [ref=e1092]:
+              - link "Meet Isaac" [ref=e1093] [cursor=pointer]:
+                - /url: /about-isaac
+            - listitem [ref=e1094]:
+              - link "Client stories" [ref=e1095] [cursor=pointer]:
+                - /url: /#stories
+            - listitem [ref=e1096]:
+              - link "Journal" [ref=e1097] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e1098]:
+              - link "Family legacy" [ref=e1099] [cursor=pointer]:
+                - /url: /about-isaac#family-legacy
+        - generic [ref=e1100]:
+          - heading "Contact" [level=3] [ref=e1101]
+          - list [ref=e1102]:
+            - listitem [ref=e1103]:
+              - button "Book consultation" [ref=e1104]
+            - listitem [ref=e1105]:
+              - button "Write to us" [ref=e1106]
+            - listitem [ref=e1107]:
+              - button "Concierge line" [ref=e1108]
+            - listitem [ref=e1109]:
+              - button "Existing clients" [ref=e1110]
+        - generic [ref=e1111]:
+          - heading "Practical" [level=3] [ref=e1112]
+          - list [ref=e1113]:
+            - listitem [ref=e1114]:
+              - link "Privacy" [ref=e1115] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e1116]:
+              - link "Terms" [ref=e1117] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e1118]:
+              - link "Cookies" [ref=e1119] [cursor=pointer]:
+                - /url: /cookies
+            - listitem [ref=e1120]:
+              - link "Accessibility" [ref=e1121] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e1122]:
+        - paragraph [ref=e1123]: © 2026 IC Vacation Ltd. All rights reserved.
+        - generic [ref=e1124]:
+          - generic [ref=e1125]: Accepting new briefs
+          - generic [ref=e1127]: Made quietly in London

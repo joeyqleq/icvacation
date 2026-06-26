@@ -3,6 +3,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useContact } from "@/components/site/contact-provider";
+import { MetallicPaint } from "@/components/ui/metallic-paint";
 
 type FooterAction =
   | { name: string; href: string }
@@ -11,7 +12,7 @@ type FooterAction =
 const footerLinks: Record<string, FooterAction[]> = {
   Travel: [
     { name: "Home",        href: "/"               },
-    { name: "AI Travel Consultant", href: "/#ai-travel-consultant" },
+    { name: "Liam AI Consultant", href: "/liam"    },
     { name: "Destinations",href: "/destinations"   },
     { name: "Cruises",     href: "/cruises"        },
     { name: "Hotels & resorts", href: "/hotels-resorts" },
@@ -85,13 +86,12 @@ export function FooterSection() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-10 sm:gap-12 lg:gap-8">
             {/* Brand column */}
             <div className="col-span-2 sm:col-span-3 md:col-span-2">
-              <Link
-                href="/"
-                aria-label="IC Vacation home"
-                className="inline-block mb-6 sm:mb-7"
-              >
-                <img src="/ic-wordmark-yellow.svg" alt="IC Vacation" className="h-9 sm:h-10 w-auto" />
-              </Link>
+              <div className="flex items-center gap-4 mb-6 sm:mb-7">
+                <Link href="/" aria-label="IC Vacation home" className="inline-block">
+                  <img src="/ic-wordmark-yellow.svg" alt="IC Vacation" className="h-9 sm:h-10 w-auto" />
+                </Link>
+                <MetallicPaint imageUrl="/ic-owl.svg" color="#FFE500" metalIntensity={0.7} className="w-10 h-10 opacity-80" alt="IC Vacation owl" />
+              </div>
 
               <p className="text-white/55 leading-[1.7] mb-6 sm:mb-8 max-w-xs text-sm">
                 A small, advisor-led travel practice. Personal consultations and

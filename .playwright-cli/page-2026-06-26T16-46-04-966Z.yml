@@ -1,0 +1,139 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "IC Vacation home" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - img "IC Vacation" [ref=e5]
+    - generic [ref=e6]:
+      - link "Home" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Cruises" [ref=e8] [cursor=pointer]:
+        - /url: /cruises
+      - link "Hotels" [ref=e9] [cursor=pointer]:
+        - /url: /hotels-resorts
+      - link "Flights" [ref=e10] [cursor=pointer]:
+        - /url: /flights-packages
+      - link "Destinations" [ref=e11] [cursor=pointer]:
+        - /url: /destinations
+      - link "Journal" [ref=e12] [cursor=pointer]:
+        - /url: /blog
+      - link "About" [ref=e13] [cursor=pointer]:
+        - /url: /about-isaac
+    - generic [ref=e14]:
+      - button "Contact" [ref=e15]
+      - link "(407) 810-1670 Unforgettable Experiences" [ref=e16] [cursor=pointer]:
+        - /url: tel:+14078101670
+        - img [ref=e17]
+        - generic [ref=e19]:
+          - generic [ref=e20]: (407) 810-1670
+          - generic [ref=e21]: Unforgettable Experiences
+  - generic [ref=e472]:
+    - generic [ref=e473]:
+      - generic [ref=e474]:
+        - generic [ref=e476]: "[ bird ]"
+        - text: Mascot takeoff
+      - heading "Bird animation render." [level=1] [ref=e478]:
+        - text: Bird animation
+        - generic [ref=e479]: render.
+    - img [ref=e483]
+    - generic [ref=e492]:
+      - button "Replay" [ref=e493] [cursor=pointer]:
+        - generic [ref=e494]:
+          - text: Replay
+          - img [ref=e495]
+      - generic [ref=e498]: public/mascot-bird.svg
+  - generic [ref=e499]:
+    - generic [ref=e500]:
+      - img "A road through Tuscan hills at dusk" [ref=e501]
+      - img [ref=e504]
+      - img [ref=e505]
+      - generic:
+        - paragraph:
+          - text: “The point of a vacation is not where you went.
+          - text: It's who you came back as.”
+    - generic [ref=e506]:
+      - generic [ref=e508]:
+        - generic [ref=e509]:
+          - link "IC Vacation home" [ref=e510] [cursor=pointer]:
+            - /url: /
+            - img "IC Vacation" [ref=e511]
+          - paragraph [ref=e512]: A small, advisor-led travel practice. Personal consultations and quietly curated vacations — shaped by Isaac Chowrimootoo.
+          - generic [ref=e513]:
+            - link "Email" [ref=e514] [cursor=pointer]:
+              - /url: mailto:info@icvacation.com
+              - text: Email
+              - img [ref=e515]
+            - link "Journal" [ref=e518] [cursor=pointer]:
+              - /url: /blog
+              - text: Journal
+              - img [ref=e519]
+            - link "AI preview" [ref=e522] [cursor=pointer]:
+              - /url: /#ai-travel-consultant
+              - text: AI preview
+              - img [ref=e523]
+        - generic [ref=e526]:
+          - heading "Travel" [level=3] [ref=e527]
+          - list [ref=e528]:
+            - listitem [ref=e529]:
+              - link "Home" [ref=e530] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e531]:
+              - link "AI Travel Consultant" [ref=e532] [cursor=pointer]:
+                - /url: /#ai-travel-consultant
+            - listitem [ref=e533]:
+              - link "Destinations" [ref=e534] [cursor=pointer]:
+                - /url: /destinations
+            - listitem [ref=e535]:
+              - link "Cruises" [ref=e536] [cursor=pointer]:
+                - /url: /cruises
+            - listitem [ref=e537]:
+              - link "Hotels & resorts" [ref=e538] [cursor=pointer]:
+                - /url: /hotels-resorts
+            - listitem [ref=e539]:
+              - link "Flights & packages" [ref=e540] [cursor=pointer]:
+                - /url: /flights-packages
+        - generic [ref=e541]:
+          - heading "Practice" [level=3] [ref=e542]
+          - list [ref=e543]:
+            - listitem [ref=e544]:
+              - link "Meet Isaac" [ref=e545] [cursor=pointer]:
+                - /url: /about-isaac
+            - listitem [ref=e546]:
+              - link "Client stories" [ref=e547] [cursor=pointer]:
+                - /url: /#stories
+            - listitem [ref=e548]:
+              - link "Journal" [ref=e549] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e550]:
+              - link "Family legacy" [ref=e551] [cursor=pointer]:
+                - /url: /about-isaac#family-legacy
+        - generic [ref=e552]:
+          - heading "Contact" [level=3] [ref=e553]
+          - list [ref=e554]:
+            - listitem [ref=e555]:
+              - button "Book consultation" [ref=e556]
+            - listitem [ref=e557]:
+              - button "Write to us" [ref=e558]
+            - listitem [ref=e559]:
+              - button "Concierge line" [ref=e560]
+            - listitem [ref=e561]:
+              - button "Existing clients" [ref=e562]
+        - generic [ref=e563]:
+          - heading "Practical" [level=3] [ref=e564]
+          - list [ref=e565]:
+            - listitem [ref=e566]:
+              - link "Privacy" [ref=e567] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e568]:
+              - link "Terms" [ref=e569] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e570]:
+              - link "Cookies" [ref=e571] [cursor=pointer]:
+                - /url: /cookies
+            - listitem [ref=e572]:
+              - link "Accessibility" [ref=e573] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e574]:
+        - paragraph [ref=e575]: © 2026 IC Vacation Ltd. All rights reserved.
+        - generic [ref=e576]:
+          - generic [ref=e577]: Accepting new briefs
+          - generic [ref=e579]: Made quietly in London

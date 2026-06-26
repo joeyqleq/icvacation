@@ -147,7 +147,7 @@ export function AdvisorSection() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            {/* Dandelion accents — quiet, ambient */}
+            {/* Mixed mascots — quiet, ambient */}
             <img
               src="/ic-dandelion.svg"
               alt=""
@@ -155,7 +155,7 @@ export function AdvisorSection() {
               className="absolute -top-6 -right-6 w-40 h-40 opacity-15 animate-drift"
             />
             <img
-              src="/ic-dandelion.svg"
+              src="/ic-owl.svg"
               alt=""
               aria-hidden="true"
               className="absolute bottom-8 right-32 w-16 h-16 opacity-10 animate-drift-slow"

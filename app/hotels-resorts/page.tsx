@@ -72,6 +72,8 @@ export default function HotelsResortsPage() {
         subtitle="A small, deliberately edited list of hotels and resorts we genuinely know — and the rooms inside them worth asking for."
         image="/images/ai/isaac-hotel-bellboy.png"
         imageAlt="Isaac in a hotel hospitality setting, representing resort planning"
+        imageObjectPosition="center 12%"
+        imageOffsetY="clamp(1.25rem, 4svh, 2.5rem)"
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "See destinations", href: "/destinations" }}
       />

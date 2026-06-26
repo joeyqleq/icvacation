@@ -830,4 +830,153 @@
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 3px 6px rgba(255, 255, 255, 0.05));
   }
+
+  /* Mascot bird — faithful SVG parts animated into a one-shot takeoff */
+  .ic-animated-bird {
+    display: block;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1);
+    transform-origin: 50% 65%;
+    will-change: transform, opacity;
+    filter:
+      drop-shadow(0 20px 36px rgba(0, 0, 0, 0.55))
+      drop-shadow(0 0 22px rgba(38, 252, 0, 0.18));
+  }
+
+  .ic-animated-bird.is-flying {
+    animation: ic-bird-flight-away 8.8s cubic-bezier(0.45, 0, 0.2, 1) forwards;
+  }
+
+  .ic-animated-bird__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    transform-origin: 50% 58%;
+  }
+
+  .ic-animated-bird.is-flying .ic-animated-bird__svg {
+    animation: ic-bird-body-bob 0.72s ease-in-out infinite;
+  }
+
+  .ic-animated-bird__wing,
+  .ic-animated-bird__tail,
+  .ic-animated-bird__pupil,
+  .ic-animated-bird__eye {
+    transform-box: fill-box;
+  }
+
+  .ic-animated-bird__wing {
+    transform-origin: 78% 30%;
+  }
+
+  .ic-animated-bird.is-flying .ic-animated-bird__wing {
+    animation: ic-bird-wing-flap 0.34s ease-in-out infinite;
+  }
+
+  .ic-animated-bird__tail--left {
+    transform-origin: 64% 5%;
+  }
+
+  .ic-animated-bird__tail--right {
+    transform-origin: 30% 4%;
+  }
+
+  .ic-animated-bird.is-flying .ic-animated-bird__tail--left {
+    animation: ic-bird-tail-left 0.58s ease-in-out infinite;
+  }
+
+  .ic-animated-bird.is-flying .ic-animated-bird__tail--right {
+    animation: ic-bird-tail-right 0.52s ease-in-out infinite;
+  }
+
+  .ic-animated-bird__eye {
+    filter: drop-shadow(0 0 10px rgba(38, 252, 0, 0.75));
+  }
+
+  .ic-animated-bird.is-flying .ic-animated-bird__pupil {
+    animation: ic-bird-eye-look 3.15s steps(1, end) 1;
+  }
+
+  @keyframes ic-bird-flight-away {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 8px, 0) rotate(0deg) scale(0.95);
+    }
+    5% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    }
+    12% {
+      transform: translate3d(0, -4px, 0) rotate(-2deg) scale(1);
+    }
+    20% {
+      transform: translate3d(0, 2px, 0) rotate(2deg) scale(1);
+    }
+    29% {
+      transform: translate3d(0, -3px, 0) rotate(-2.5deg) scale(1);
+    }
+    36% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(-5deg) scale(1.02);
+    }
+    52% {
+      transform: translate3d(28vw, -6vh, 0) rotate(-10deg) scale(0.92);
+    }
+    74% {
+      opacity: 1;
+      transform: translate3d(76vw, -15vh, 0) rotate(7deg) scale(0.68);
+    }
+    88% {
+      opacity: 0.85;
+      transform: translate3d(102vw, -20vh, 0) rotate(11deg) scale(0.52);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(calc(100vw + 18rem), -24vh, 0) rotate(14deg) scale(0.42);
+    }
+  }
+
+  @keyframes ic-bird-body-bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-6px) rotate(-1.5deg); }
+  }
+
+  @keyframes ic-bird-wing-flap {
+    0%, 100% { transform: rotate(3deg) translateY(0) scaleY(1); }
+    45%      { transform: rotate(-18deg) translateY(-12px) scaleY(0.82); }
+    68%      { transform: rotate(12deg) translateY(8px) scaleY(1.08); }
+  }
+
+  @keyframes ic-bird-tail-left {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50%      { transform: rotate(10deg) translateY(-7px); }
+  }
+
+  @keyframes ic-bird-tail-right {
+    0%, 100% { transform: rotate(4deg) translateY(0); }
+    50%      { transform: rotate(-9deg) translateY(-6px); }
+  }
+
+  @keyframes ic-bird-eye-look {
+    0%, 10%  { transform: translateX(0); }
+    18%      { transform: translateX(-9px); }
+    30%      { transform: translateX(5px); }
+    42%      { transform: translateX(-7px); }
+    54%      { transform: translateX(6px); }
+    66%, 100% { transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ic-animated-bird,
+    .ic-animated-bird.is-flying,
+    .ic-animated-bird.is-flying .ic-animated-bird__svg,
+    .ic-animated-bird.is-flying .ic-animated-bird__wing,
+    .ic-animated-bird.is-flying .ic-animated-bird__tail,
+    .ic-animated-bird.is-flying .ic-animated-bird__pupil {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
 }

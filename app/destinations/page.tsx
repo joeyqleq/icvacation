@@ -61,6 +61,9 @@ export default function DestinationsPage() {
         subtitle="Not the everywhere-list. The edited one — places we know intimately, and the weeks of the year worth flying for."
         image="/images/ai/isaac_plane.png"
         imageAlt="A misty forest with stone steps leading up into the hills"
+        imageObjectPosition="center 18%"
+        imageOffsetX="clamp(1rem, 4vw, 3.5rem)"
+        imageScale={1.12}
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "About Isaac", href: "/about-isaac" }}
       />

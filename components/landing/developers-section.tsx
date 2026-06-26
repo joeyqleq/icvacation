@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { Globe } from "@/components/ui/3d-globe";
 
 const journalEntries = [
   {
@@ -57,6 +58,16 @@ export function JournalSection() {
       ref={sectionRef}
       className="relative py-24 lg:py-32 overflow-hidden"
     >
+      {/* 3D Globe — subtle ambient right corner */}
+      <div
+        className={`absolute bottom-0 right-0 w-[420px] h-[420px] pointer-events-none transition-all duration-1000 delay-500 ${
+          isVisible ? "opacity-[0.18]" : "opacity-0"
+        }`}
+        style={{ transform: "translate(20%, 20%)" }}
+      >
+        <Globe dotColor="#26FC00" glowColor="#26FC00" speed={0.002} className="w-full h-full" />
+      </div>
+
       {/* Soft cinematic ambient — destination vista on the right */}
       <div
         className={`absolute bottom-0 right-0 w-[55%] h-[80%] pointer-events-none transition-all duration-1000 delay-300 ${

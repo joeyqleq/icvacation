@@ -123,6 +123,8 @@ export default function AboutIsaacPage() {
         subtitle="Isaac is an independent travel advisor who works from a small desk, with a small list, and a fairly old notebook."
         image="/images/ai/isaac-office-advisor.png"
         imageAlt="Isaac in an IC Vacation advisor office"
+        imageObjectPosition="center 12%"
+        imageOffsetY="clamp(1.5rem, 4svh, 2.75rem)"
         primaryCta={{ label: "Plan a trip with Isaac", href: "/contact" }}
         secondaryCta={{ label: "Field notes", href: "/blog" }}
       />

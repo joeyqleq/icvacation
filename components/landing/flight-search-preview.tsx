@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ArrowUpRight, CalendarDays, MapPin, Plane, Search, Users, Ship, Building2, Map } from "lucide-react";
 import { PixelButton } from "@/components/site/pixel-button";
 import { useContact } from "@/components/site/contact-provider";
+import { AnimatedMascotBird } from "@/components/site/animated-mascot-bird";
 
 interface Location {
   name: string;
@@ -95,13 +96,12 @@ export function FlightSearchPreview() {
     >
       <div className="absolute inset-0 pointer-events-none opacity-70 bg-[radial-gradient(ellipse_55%_45%_at_80%_20%,rgba(255,229,0,0.06),transparent_68%)]" />
       
-      {/* Decorative Bird mascot in brand colors */}
-      <img
-        src="/mascot-bird.svg"
-        alt=""
+      <div
+        className="hidden xl:block absolute inset-x-0 top-6 h-56 overflow-visible pointer-events-none z-[2]"
         aria-hidden="true"
-        className="hidden xl:block absolute right-10 top-12 w-36 opacity-75 rotate-[-8deg] animate-drift-slow pointer-events-none"
-      />
+      >
+        <AnimatedMascotBird className="absolute left-[-7rem] top-4 w-36 xl:w-40" />
+      </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">

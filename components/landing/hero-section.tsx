@@ -5,6 +5,8 @@ import { DiaTextReveal } from "@/components/site/dia-text-reveal";
 import { PixelButton } from "@/components/site/pixel-button";
 import { useContact } from "@/components/site/contact-provider";
 import { ArrowUpRight } from "lucide-react";
+import { GradualBlur } from "@/components/ui/gradual-blur";
+import { ScrollVelocity } from "@/components/ui/scroll-velocity";
 
 const cyclingWords = ["quietly", "thoughtfully", "personally", "beautifully"];
 
@@ -65,6 +67,8 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/58 to-black/12" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background" />
         <div className="absolute inset-x-0 bottom-0 h-[55%] pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.15) 20%, rgba(5,5,5,0.45) 40%, rgba(5,5,5,0.75) 60%, rgba(5,5,5,0.92) 80%, #050505 100%)" }} />
+        {/* GradualBlur — layered blur at bottom edge transitioning to page */}
+        <GradualBlur direction="bottom" blurAmount={8} className="inset-x-0 bottom-0 h-48 z-[5]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_68%_50%,transparent_0%,transparent_42%,rgba(0,0,0,0.42)_100%)]" />
       </div>
 
@@ -208,6 +212,15 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* ScrollVelocity — ghost words tied to page scroll, behind content */}
+      <div className="absolute inset-x-0 bottom-0 z-[1] pointer-events-none overflow-hidden" style={{ height: 180 }}>
+        <ScrollVelocity
+          texts={["BOUTIQUE TRAVEL", "IC VACATION"]}
+          velocity={3}
+          className="text-white/[0.03] font-display text-8xl lg:text-[10rem] uppercase tracking-tight select-none"
+        />
       </div>
     </section>
   );

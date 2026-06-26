@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { DandelionRiver } from "@/components/landing/dandelion-river";
+import { SideRays } from "@/components/ui/side-rays";
 
 const steps = [
   {
@@ -62,6 +63,10 @@ export function ProcessSection() {
       ref={sectionRef}
       className="relative py-24 lg:py-32 bg-[#080808] text-white overflow-hidden"
     >
+      {/* SideRays — ambient brand color glow from edges */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+        <SideRays rayColor1="#26FC00" rayColor2="#FFE500" rayCount={4} origin="both" />
+      </div>
       <div
         className="absolute inset-x-0 top-0 h-40 pointer-events-none"
         style={{

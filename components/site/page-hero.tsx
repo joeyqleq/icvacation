@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { PixelButton } from "@/components/site/pixel-button";
@@ -12,6 +13,11 @@ interface PageHeroProps {
   subtitle: string;
   image: string;
   imageAlt: string;
+  imageObjectPosition?: CSSProperties["objectPosition"];
+  imageOffsetX?: string;
+  imageOffsetY?: string;
+  imageScale?: number;
+  contentOffsetY?: string;
   primaryCta?: { label: string; href?: string; openModal?: boolean };
   secondaryCta?: { label: string; href: string };
 }
@@ -28,6 +34,11 @@ export function PageHero({
   subtitle,
   image,
   imageAlt,
+  imageObjectPosition = "center 20%",
+  imageOffsetX = "0px",
+  imageOffsetY = "0px",
+  imageScale = 1.05,
+  contentOffsetY = "clamp(-2.25rem, -5svh, -1rem)",
   primaryCta,
   secondaryCta,
 }: PageHeroProps) {
@@ -43,15 +54,22 @@ export function PageHero({
 
   return (
     <section
-      className="relative flex items-end overflow-hidden bg-background pt-28 pb-24 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-40"
-      style={{ minHeight: "78svh" }}
+      className="relative flex items-center overflow-hidden bg-background pt-24 pb-10 sm:pt-28 sm:pb-12 lg:pt-28 lg:pb-12"
+      style={{ minHeight: "100svh", boxSizing: "border-box" }}
     >
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 will-change-transform"
-          style={{ transform: `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.05)` }}
+          style={{
+            transform: `translate3d(${imageOffsetX}, calc(${imageOffsetY} + ${scrollY * 0.2}px), 0) scale(${imageScale})`,
+          }}
         >
-          <img src={image} alt={imageAlt} className="w-full h-full object-cover animate-ken-burns" style={{ objectPosition: 'center 20%' }} />
+          <img
+            src={image}
+            alt={imageAlt}
+            className="w-full h-full object-cover animate-ken-burns"
+            style={{ objectPosition: imageObjectPosition }}
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-background" />
@@ -77,7 +95,7 @@ export function PageHero({
       </div>
 
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12">
-        <div className="lg:max-w-[80%]">
+        <div className="lg:max-w-[80%] will-change-transform" style={{ transform: `translateY(${contentOffsetY})` }}>
           <div className="mb-7 sm:mb-9">
             <span className="inline-flex items-center gap-3 label-ticker text-white/70">
               <span className="w-2 h-2 rounded-full pulse-green" />

@@ -6,6 +6,8 @@ import { PixelButton } from "@/components/site/pixel-button";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
 import { useContact } from "@/components/site/contact-provider";
+import { ColorBends } from "@/components/ui/color-bends";
+import { ScrambledText } from "@/components/ui/scrambled-text";
 
 const faqs = [
   {
@@ -49,6 +51,10 @@ export function FaqCtaSection() {
   return (
     <section id="contact" ref={sectionRef} className="relative py-24 lg:py-32 overflow-hidden">
       <BackgroundBoxes variant="mixed" />
+      {/* ColorBends — subtle ambient green glow */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <ColorBends color="#26FC00" intensity={0.8} className="opacity-20" />
+      </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* FAQ */}
@@ -63,7 +69,7 @@ export function FaqCtaSection() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              Before
+              <ScrambledText scrambleChars="ABCDEFGHIJKLMNOPQRSTUVWXYZ" speed={0.4} radius={100}>Before</ScrambledText>
               <br />
               <span className="text-muted-foreground italic">we begin.</span>
             </h2>

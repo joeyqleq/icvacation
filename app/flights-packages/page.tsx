@@ -58,6 +58,8 @@ export default function FlightsPackagesPage() {
         subtitle="A quieter way to put a trip together. You tell us the shape of the journey — we come back with the flights, the stays, and the rhythm in one considered plan."
         image="/images/ai/isaac-flight-transfer.png"
         imageAlt="Isaac in a travel transfer setting, representing flight and package planning"
+        imageObjectPosition="center 14%"
+        imageOffsetY="clamp(0.75rem, 3svh, 1.75rem)"
         primaryCta={{ label: "Start an inquiry", href: "/contact" }}
         secondaryCta={{ label: "About Isaac", href: "/about-isaac" }}
       />

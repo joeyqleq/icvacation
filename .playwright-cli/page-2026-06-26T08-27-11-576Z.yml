@@ -1,0 +1,267 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "IC Vacation home" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - img "IC Vacation" [ref=e5]
+    - generic [ref=e6]:
+      - link "Home" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Cruises" [ref=e8] [cursor=pointer]:
+        - /url: /cruises
+      - link "Hotels" [ref=e9] [cursor=pointer]:
+        - /url: /hotels-resorts
+      - link "Flights" [ref=e10] [cursor=pointer]:
+        - /url: /flights-packages
+      - link "Destinations" [ref=e11] [cursor=pointer]:
+        - /url: /destinations
+      - link "Journal" [ref=e12] [cursor=pointer]:
+        - /url: /blog
+      - link "About" [ref=e13] [cursor=pointer]:
+        - /url: /about-isaac
+    - generic [ref=e14]:
+      - button "Contact" [ref=e15]
+      - link "(407) 810-1670 Unforgettable Experiences" [ref=e16] [cursor=pointer]:
+        - /url: tel:+14078101670
+        - img [ref=e17]
+        - generic [ref=e19]:
+          - generic [ref=e20]: (407) 810-1670
+          - generic [ref=e21]: Unforgettable Experiences
+  - generic [ref=e22]:
+    - img "Isaac in a travel transfer setting, representing flight and package planning" [ref=e25]
+    - generic:
+      - generic: flights & packages
+    - generic [ref=e29]:
+      - generic [ref=e31]:
+        - generic [ref=e33]: "[ 02 ]"
+        - text: // Flights & Packages
+      - heading "Inquiry-first, advisor-built, no algorithm." [level=1] [ref=e35]:
+        - generic [ref=e36]: Inquiry-first,
+        - generic [ref=e37]: advisor-built,
+        - generic [ref=e38]: no algorithm.
+      - paragraph [ref=e39]: A quieter way to put a trip together. You tell us the shape of the journey — we come back with the flights, the stays, and the rhythm in one considered plan.
+      - generic [ref=e40]:
+        - button "Start an inquiry" [ref=e41] [cursor=pointer]:
+          - generic [ref=e42]:
+            - text: Start an inquiry
+            - img [ref=e43]
+        - link "About Isaac →" [ref=e46] [cursor=pointer]:
+          - /url: /about-isaac
+          - generic [ref=e47]:
+            - text: About Isaac
+            - generic [ref=e48]: →
+  - generic [ref=e49]:
+    - generic:
+      - generic:
+        - img
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]: "[ 04 ] // Travel search engine"
+        - heading "Search like a tool. Plan like a human." [level=2] [ref=e55]:
+          - generic [ref=e56]: Search like a tool.
+          - generic [ref=e57]: Plan like a human.
+        - paragraph [ref=e58]: This unified booking assistant provides real-time route path visualizations and direct connection logic for flights, boutique cruises, and luxury accommodations. Refine your scope here and send the exact routing directly to Isaac.
+        - generic [ref=e59]:
+          - generic [ref=e64]: Live Route Monitor
+          - paragraph [ref=e65]: Currently tracking curated Virtuoso flight pathways, private yacht lines in the Mediterranean, and historical ryokan access points.
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - button "All Travel" [ref=e68]:
+            - img [ref=e69]
+            - text: All Travel
+          - button "Flights" [ref=e71]:
+            - img [ref=e72]
+            - text: Flights
+          - button "Hotels" [ref=e74]:
+            - img [ref=e75]
+            - text: Hotels
+          - button "Cruises" [ref=e79]:
+            - img [ref=e80]
+            - text: Cruises
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - img [ref=e87]
+              - generic [ref=e90]: Starting From
+            - textbox "Starting From" [ref=e91]:
+              - /placeholder: e.g. Montreal, Beirut, New York
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - img [ref=e94]
+              - generic [ref=e96]: Destination / Ship
+            - textbox "Destination / Ship" [ref=e97]:
+              - /placeholder: City, resort, or region
+        - generic [ref=e98]:
+          - img
+          - img
+          - img [ref=e99]
+          - paragraph [ref=e101]: No routes match query
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - paragraph [ref=e105]: Unified search results
+              - paragraph [ref=e106]: Interactive routing system. Click card to display route path.
+            - button "Request itinerary" [ref=e107]:
+              - img [ref=e108]
+              - text: Request itinerary
+          - generic [ref=e111]: Querying routes database...
+          - generic [ref=e112]:
+            - button "Send selected routing" [ref=e113] [cursor=pointer]:
+              - generic [ref=e114]:
+                - text: Send selected routing
+                - img [ref=e115]
+            - link "Open planning form" [ref=e118] [cursor=pointer]:
+              - /url: /contact
+              - generic [ref=e119]: Open planning form
+  - generic [ref=e121]:
+    - generic [ref=e122]:
+      - generic [ref=e123]: "[ 03 ] // How it works"
+      - heading "Three steps, no booking funnel." [level=2] [ref=e125]:
+        - text: Three steps,
+        - text: no booking funnel.
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]: "01"
+        - heading "You tell us the shape of the trip" [level=3] [ref=e129]
+        - paragraph [ref=e130]: Where, when, with whom, how you like to fly. A short form, then a real conversation.
+      - generic [ref=e131]:
+        - generic [ref=e132]: "02"
+        - heading "We come back with a built itinerary" [level=3] [ref=e133]
+        - paragraph [ref=e134]: Flights, transfers, hotels, ground time. One quietly considered plan, sometimes a second to compare.
+      - generic [ref=e135]:
+        - generic [ref=e136]: "03"
+        - heading "You confirm. We hold it together." [level=3] [ref=e137]
+        - paragraph [ref=e138]: We hold seats, watch fares, handle changes. You travel without juggling tabs.
+  - generic [ref=e141]:
+    - generic [ref=e142]:
+      - generic [ref=e143]: "[ 04 ] // Packages, simplified"
+      - heading "Four common shapes." [level=2] [ref=e145]:
+        - text: Four common
+        - text: shapes.
+    - generic [ref=e146]:
+      - generic [ref=e147]:
+        - paragraph [ref=e148]: Flight + Hotel
+        - paragraph [ref=e149]: Two-piece itinerary, one bill, one point of contact.
+      - generic [ref=e150]:
+        - paragraph [ref=e151]: Flight + Cruise
+        - paragraph [ref=e152]: Pre-cruise hotel night, transfers, and the cabin-aware flight you actually want.
+      - generic [ref=e153]:
+        - paragraph [ref=e154]: Multi-city + Lodge
+        - paragraph [ref=e155]: Long-form itineraries — Tanzania → Kenya → Mauritius is a typical request.
+      - generic [ref=e156]:
+        - paragraph [ref=e157]: Group & milestone trips
+        - paragraph [ref=e158]: Anniversaries, reunions, family-of-twelve. Quietly choreographed.
+  - generic [ref=e610]:
+    - generic [ref=e611]:
+      - generic [ref=e612]: "[ 05 ] // A small honesty"
+      - heading "What we do and don't do." [level=3] [ref=e614]:
+        - text: What we
+        - text: do and don't do.
+    - list [ref=e615]:
+      - listitem [ref=e616]: We are not a booking engine.
+      - listitem [ref=e617]: We do not promise the cheapest fare on the open web.
+      - listitem [ref=e618]: We do promise the right flight for the trip — class, timing, layover, and seat.
+      - listitem [ref=e619]: Every quote is built by Isaac, then reviewed with you.
+  - generic [ref=e1072]:
+    - generic [ref=e1073]: // Next step
+    - heading "Send the shape of your next trip." [level=2] [ref=e1075]
+    - paragraph [ref=e1076]: A short form, then a real conversation. We'll come back with one quietly built plan.
+    - button "Plan my trip" [ref=e1078] [cursor=pointer]:
+      - generic [ref=e1079]:
+        - text: Plan my trip
+        - img [ref=e1080]
+  - generic [ref=e1087]:
+    - generic [ref=e1088]:
+      - img "A road through Tuscan hills at dusk" [ref=e1089]
+      - img [ref=e1092]
+      - img [ref=e1093]
+      - generic:
+        - paragraph:
+          - text: “The point of a vacation is not where you went.
+          - text: It's who you came back as.”
+    - generic [ref=e1094]:
+      - generic [ref=e1096]:
+        - generic [ref=e1097]:
+          - link "IC Vacation home" [ref=e1098] [cursor=pointer]:
+            - /url: /
+            - img "IC Vacation" [ref=e1099]
+          - paragraph [ref=e1100]: A small, advisor-led travel practice. Personal consultations and quietly curated vacations — shaped by Isaac Chowrimootoo.
+          - generic [ref=e1101]:
+            - link "Email" [ref=e1102] [cursor=pointer]:
+              - /url: mailto:info@icvacation.com
+              - text: Email
+              - img [ref=e1103]
+            - link "Journal" [ref=e1106] [cursor=pointer]:
+              - /url: /blog
+              - text: Journal
+              - img [ref=e1107]
+            - link "AI preview" [ref=e1110] [cursor=pointer]:
+              - /url: /#ai-travel-consultant
+              - text: AI preview
+              - img [ref=e1111]
+        - generic [ref=e1114]:
+          - heading "Travel" [level=3] [ref=e1115]
+          - list [ref=e1116]:
+            - listitem [ref=e1117]:
+              - link "Home" [ref=e1118] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e1119]:
+              - link "AI Travel Consultant" [ref=e1120] [cursor=pointer]:
+                - /url: /#ai-travel-consultant
+            - listitem [ref=e1121]:
+              - link "Destinations" [ref=e1122] [cursor=pointer]:
+                - /url: /destinations
+            - listitem [ref=e1123]:
+              - link "Cruises" [ref=e1124] [cursor=pointer]:
+                - /url: /cruises
+            - listitem [ref=e1125]:
+              - link "Hotels & resorts" [ref=e1126] [cursor=pointer]:
+                - /url: /hotels-resorts
+            - listitem [ref=e1127]:
+              - link "Flights & packages" [ref=e1128] [cursor=pointer]:
+                - /url: /flights-packages
+        - generic [ref=e1129]:
+          - heading "Practice" [level=3] [ref=e1130]
+          - list [ref=e1131]:
+            - listitem [ref=e1132]:
+              - link "Meet Isaac" [ref=e1133] [cursor=pointer]:
+                - /url: /about-isaac
+            - listitem [ref=e1134]:
+              - link "Client stories" [ref=e1135] [cursor=pointer]:
+                - /url: /#stories
+            - listitem [ref=e1136]:
+              - link "Journal" [ref=e1137] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e1138]:
+              - link "Family legacy" [ref=e1139] [cursor=pointer]:
+                - /url: /about-isaac#family-legacy
+        - generic [ref=e1140]:
+          - heading "Contact" [level=3] [ref=e1141]
+          - list [ref=e1142]:
+            - listitem [ref=e1143]:
+              - button "Book consultation" [ref=e1144]
+            - listitem [ref=e1145]:
+              - button "Write to us" [ref=e1146]
+            - listitem [ref=e1147]:
+              - button "Concierge line" [ref=e1148]
+            - listitem [ref=e1149]:
+              - button "Existing clients" [ref=e1150]
+        - generic [ref=e1151]:
+          - heading "Practical" [level=3] [ref=e1152]
+          - list [ref=e1153]:
+            - listitem [ref=e1154]:
+              - link "Privacy" [ref=e1155] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e1156]:
+              - link "Terms" [ref=e1157] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e1158]:
+              - link "Cookies" [ref=e1159] [cursor=pointer]:
+                - /url: /cookies
+            - listitem [ref=e1160]:
+              - link "Accessibility" [ref=e1161] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e1162]:
+        - paragraph [ref=e1163]: © 2026 IC Vacation Ltd. All rights reserved.
+        - generic [ref=e1164]:
+          - generic [ref=e1165]: Accepting new briefs
+          - generic [ref=e1167]: Made quietly in London
