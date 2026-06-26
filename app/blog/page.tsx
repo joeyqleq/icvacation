@@ -18,8 +18,13 @@ export default function BlogIndexPage() {
 
   return (
     <PageShell>
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <img src="/images/ai/isaac_journal.png" alt="" className="w-full h-full object-cover opacity-50 grayscale-[50%]" />
+        <div className="absolute inset-0 bg-background/80" />
+      </div>
+
       {/* HEADER */}
-      <section className="relative pt-40 lg:pt-48 pb-16 lg:pb-20 bg-background overflow-hidden">
+      <section className="relative pt-40 lg:pt-48 pb-16 lg:pb-20 bg-transparent overflow-hidden">
         <img
           src="/dandelion-yellow.svg"
           alt=""
@@ -51,7 +56,7 @@ export default function BlogIndexPage() {
       </section>
 
       {/* FEATURE POST */}
-      <section className="relative pb-24 bg-background">
+      <section className="relative pb-24 bg-transparent z-10">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <Link
             href={`/blog/${feature.slug}`}
@@ -95,7 +100,7 @@ export default function BlogIndexPage() {
       </section>
 
       {/* ARTICLE GRID */}
-      <section className="relative pb-24 bg-background">
+      <section className="relative pb-24 bg-transparent z-10">
         <BackgroundBoxes variant="grey" className="opacity-15" />
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="flex items-baseline justify-between mb-10">

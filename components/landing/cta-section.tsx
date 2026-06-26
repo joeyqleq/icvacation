@@ -80,7 +80,7 @@ export function FaqCtaSection() {
 
             {/* Quiet owl mascot watching over the FAQ */}
             <div className="hidden lg:block mt-12 relative">
-              <Mascot creature="owl" size={180} pose="bob" tint="yellow" glow className="opacity-90" />
+              <Mascot creature="owl" size={260} pose="bob" tint="yellow" glow className="opacity-90" />
             </div>
           </div>
 
@@ -195,7 +195,7 @@ export function FaqCtaSection() {
 
               {/* Right column — bird mascot signals take-flight */}
               <div className="hidden lg:flex flex-col items-end justify-center gap-2 w-[280px] xl:w-[340px] shrink-0">
-                <Mascot creature="bird" size={260} pose="hover" tint="green" glow />
+                <Mascot creature="bird" size={340} pose="hover" tint="green" glow />
               </div>
             </div>
           </div>

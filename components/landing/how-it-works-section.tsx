@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ShootingStars } from "@/components/ui/shooting-stars";
+import { StarsBackground } from "@/components/ui/stars-background";
+import { DandelionRiver } from "@/components/landing/dandelion-river";
 
 const steps = [
   {
@@ -57,15 +60,60 @@ export function ProcessSection() {
     <section
       id="process"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-[#0f0f0f] text-white overflow-hidden"
+      className="relative py-24 lg:py-32 bg-[#080808] text-white overflow-hidden"
     >
+      <div
+        className="absolute inset-x-0 top-0 h-40 pointer-events-none"
+        style={{
+          zIndex: 20,
+          background: "linear-gradient(to bottom, #080808 0%, rgba(8,8,8,0.6) 60%, transparent 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+        style={{
+          zIndex: 20,
+          background: "linear-gradient(to top, #080808 0%, rgba(8,8,8,0.6) 60%, transparent 100%)",
+        }}
+      />
+
+      {/* === LAYER 1: Twinkling star field === */}
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
+        <StarsBackground
+          starDensity={0.00008}
+          allStarsTwinkle={false}
+          twinkleProbability={0.6}
+          minTwinkleSpeed={0.3}
+          maxTwinkleSpeed={1.0}
+          maxStarSize={1.3}
+        />
+      </div>
+
+      {/* === LAYER 2: Shooting stars === */}
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
+        <ShootingStars
+          minSpeed={10}
+          maxSpeed={26}
+          minDelay={700}
+          maxDelay={2400}
+          starColor="#ffffff"
+          trailColor="#b0b8e8"
+          starWidth={200}
+          starHeight={2}
+          maxStars={5}
+        />
+      </div>
+
+      {/* === LAYER 3: Dandelion river S-curve === */}
+      <DandelionRiver />
+
       {/* Soft ambient blob */}
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-brand-green/[0.03] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-brand-green/[0.03] blur-[120px] pointer-events-none" style={{ zIndex: 4 }} />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header — title + bird accent */}
         <div className="relative mb-16 grid lg:grid-cols-2 gap-6 lg:gap-12 items-end">
-          <div className="overflow-hidden pb-0 lg:pb-24">
+          <div className="pb-0 lg:pb-24">
             <div
               className={`transition-all duration-1000 ${
                 isVisible
@@ -103,7 +151,7 @@ export function ProcessSection() {
 
           {/* Bird in flight — quiet ambient mascot */}
           <div
-            className={`relative h-[260px] lg:h-[520px] overflow-hidden transition-all duration-1000 delay-200 ${
+            className={`relative h-[260px] lg:h-[520px] transition-all duration-1000 delay-200 ${
               isVisible ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -111,16 +159,8 @@ export function ProcessSection() {
               src="/mascot-bird.svg"
               alt=""
               aria-hidden="true"
-              className="absolute right-8 bottom-8 lg:right-20 lg:bottom-20 w-48 lg:w-72 h-auto animate-drift-slow"
+              className="absolute right-4 bottom-4 lg:right-12 lg:bottom-12 w-56 lg:w-96 h-auto animate-drift-slow"
             />
-            <img
-              src="/dandelion-yellow.svg"
-              alt=""
-              aria-hidden="true"
-              className="absolute left-12 top-12 w-20 h-auto opacity-50 animate-drift"
-            />
-            {/* Cinematic fade */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f0f] via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
 

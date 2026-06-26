@@ -59,7 +59,7 @@ export default function DestinationsPage() {
           { type: "emph",  text: "personally walked.", color: "yellow" },
         ]}
         subtitle="Not the everywhere-list. The edited one — places we know intimately, and the weeks of the year worth flying for."
-        image="/destination-japan.jpg"
+        image="/images/ai/isaac_plane.png"
         imageAlt="A misty forest with stone steps leading up into the hills"
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "About Isaac", href: "/about-isaac" }}

@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useContact } from "@/components/site/contact-provider";
+import { AutoScroll } from "@/components/site/auto-scroll";
 
 const destinations = [
   {
@@ -115,10 +116,10 @@ export function DestinationsSection() {
             <Link
               key={dest.name}
               href="/destinations"
-              className={`group relative aspect-[4/3] overflow-hidden border transition-all duration-500 ${
+              className={`group relative aspect-[4/3] overflow-hidden img-frame transition-all duration-500 ${
                 hoveredIndex === index
                   ? "border-brand-green/60"
-                  : "border-foreground/10"
+                  : ""
               } ${
                 isVisible
                   ? "opacity-100 translate-y-0"
@@ -128,6 +129,8 @@ export function DestinationsSection() {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
+              <span className="img-frame-tr" aria-hidden="true" />
+              <span className="img-frame-bl" aria-hidden="true" />
               <img
                 src={dest.image}
                 alt={dest.name}
@@ -177,29 +180,16 @@ export function DestinationsSection() {
           ))}
         </div>
 
-        {/* Quiet region tags */}
+        {/* Auto-scrolling region tags carousel */}
         <div
           className={`pt-12 border-t border-foreground/10 transition-all duration-1000 delay-500 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="flex flex-wrap items-center justify-between gap-8">
-            <div>
-              <span className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground block mb-5">
-                And quietly, also
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {regionTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1.5 text-sm border border-foreground/15 text-foreground/70 hover:border-brand-green/50 hover:text-foreground transition-colors cursor-default"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
+          <div className="flex items-center justify-between mb-6">
+            <span className="text-xs font-mono uppercase tracking-[0.22em] text-muted-foreground">
+              And quietly, also
+            </span>
             <button
               onClick={openContact}
               type="button"
@@ -211,6 +201,19 @@ export function DestinationsSection() {
               </span>
             </button>
           </div>
+
+          <AutoScroll speed={0.4} pauseOnHover className="py-2">
+            <div className="flex gap-3 shrink-0 pr-3">
+              {regionTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-4 py-2 text-sm border border-foreground/15 text-foreground/70 whitespace-nowrap hover:border-brand-green/50 hover:text-foreground transition-colors cursor-default"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </AutoScroll>
         </div>
       </div>
     </section>

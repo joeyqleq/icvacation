@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/site/page-shell";
 import { PageCta } from "@/components/site/page-cta";
 import { posts, getPost, getRelated } from "@/lib/blog-data";
+import { getBlogBody } from "@/lib/blog-bodies";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 interface Props {
@@ -24,49 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// Reusable placeholder body. Slug-aware would be better, but consistent length keeps the editorial layout calm.
-const body = (post: NonNullable<ReturnType<typeof getPost>>) => [
-  {
-    type: "p" as const,
-    text: `There is a version of this category that everyone seems to write. It opens with a sweeping claim, lists ten things, and tells you that the writer has Just Been. I have read those. I have, in less fortunate seasons of my own work, written one or two. This is not one of those.`,
-  },
-  {
-    type: "p" as const,
-    text: `${post.dek} The trouble with the long-form takes you find online is that they are written from a distance — researched, aggregated, lightly edited. The advisor's view is closer in. It is the view of someone who is on the phone at six in the morning when a flight reroutes, who has stood in the lobby of a property and watched how the night manager handles a complaint, who has tried the tasting menu, twice, and noticed both times.`,
-  },
-  { type: "h" as const, text: "A small framing" },
-  {
-    type: "p" as const,
-    text: `Before any of the specifics, three things are worth saying out loud. The first is that taste is a discipline, not a feeling. The second is that the right trip is almost never the most expensive one. And the third — perhaps the most important — is that the difference between a good trip and a remembered one is almost always made in the quiet hours of planning, not on the road itself.`,
-  },
-  {
-    type: "pull" as const,
-    text: "The difference between a good trip and a remembered one is almost always made in the quiet hours of planning.",
-  },
-  { type: "h" as const, text: "What we look for" },
-  {
-    type: "p" as const,
-    text: `In the property, we look for service that disappears. We look for design that does not announce itself. We look for a general manager who knows the staff by name, and a kitchen that buys local and writes its own menu. None of these things are listed on the website. All of them are felt within an hour of arrival.`,
-  },
-  {
-    type: "p" as const,
-    text: `In the itinerary, we look for breathing room. The empty afternoon, the unscheduled walk, the dinner reservation you do not have to keep. The rhythm of a trip is built in the gaps, and the gaps are the first thing a packaged product cuts to fit the brochure.`,
-  },
-  { type: "h" as const, text: "Three small recommendations" },
-  {
-    type: "p" as const,
-    text: `If you are reading this because you are about to plan something — a fortnight, a long weekend, an anniversary trip that has been delayed two years — here are three small disciplines. First: start the conversation earlier than you think you need to. Second: tell us what you want to feel, not where you want to go. Third: be honest about the things you do not enjoy. That last one saves more trips than any positive preference ever will.`,
-  },
-  {
-    type: "p" as const,
-    text: `Beyond that, you will find — and this is the strange and quiet pleasure of the work — that almost every trip is in the end a small act of editing. Choosing what to leave out. Resisting the urge to fit one more thing in. Trusting that the right week, in the right place, with the right company, does not need to be filled.`,
-  },
-  { type: "h" as const, text: "A note in closing" },
-  {
-    type: "p" as const,
-    text: `If any of this resonates, the next step is simple. Tell us the shape of the trip. We will read it carefully. And then, in a day or two, we will come back to you with one quietly considered plan.`,
-  },
-];
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
@@ -74,7 +32,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const related = getRelated(slug, 3);
-  const blocks = body(post);
+  const blocks = getBlogBody(slug);
 
   return (
     <PageShell>

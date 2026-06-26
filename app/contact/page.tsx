@@ -79,7 +79,7 @@ export default function ContactPage() {
               <div className="mt-12 sm:mt-16 grid sm:grid-cols-3 gap-5 sm:gap-6 max-w-2xl">
                 {[
                   { icon: Mail,  label: "Email",       value: "info@icvacation.com", href: "mailto:info@icvacation.com" },
-                  { icon: Phone, label: "Phone",       value: "+44 (0)20 0000 0000",  href: "tel:+442000000000"           },
+                  { icon: Phone, label: "Consultation", value: "By appointment",       href: "mailto:info@icvacation.com" },
                   { icon: Clock, label: "Reply time",  value: "Within one working day"                                   },
                 ].map((row) => (
                   <div key={row.label} className="flex flex-col gap-1 border-l border-brand-green/40 pl-4">

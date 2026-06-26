@@ -161,7 +161,7 @@ export function FooterSection() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 text-[10px] sm:text-xs font-mono uppercase tracking-[0.18em] text-white/40">
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
-              Booking spring 2026 now
+              Accepting new briefs
             </span>
             <span className="hidden sm:inline text-white/30">
               Made quietly in London

@@ -49,7 +49,7 @@ export default function CookiesPage() {
                 1. What Are Cookies?
               </h2>
               <p>
-                Cookies are small text files stored on your device when you visit our website. They help us understand how you use IC Vacation and improve your experience.
+                Cookies are small text files stored on your device when you visit our website. They help us understand how visitors use IC Vacation and allow basic site functionality.
               </p>
             </div>
             <div>
@@ -57,28 +57,42 @@ export default function CookiesPage() {
                 2. Essential Cookies
               </h2>
               <p>
-                We use essential cookies to keep our website secure and functional. These cookies are necessary for basic site operations and cannot be disabled.
+                Required for the site to function. These handle form state, session continuity, and security. They cannot be disabled without breaking site functionality.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
                 3. Analytics Cookies
               </h2>
-              <p>
-                We use analytics cookies (Matomo + Tianji) to understand how visitors interact with our site. This data is self-hosted and never sold to third parties.
+              <p className="mb-3">
+                We use self-hosted analytics (Matomo and Tianji) to understand traffic patterns and improve the site. Key points:
               </p>
+              <ul className="list-disc pl-5 space-y-1 text-foreground/65">
+                <li>Data is stored on our own servers, not sent to third-party ad networks</li>
+                <li>No personal data is sold or shared for advertising</li>
+                <li>IP addresses are anonymised</li>
+                <li>You can opt out using your browser&apos;s Do Not Track setting</li>
+              </ul>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                4. Your Cookie Choices
+                4. Third-Party Cookies
               </h2>
               <p>
-                You can control cookies through your browser settings. Most browsers allow you to refuse cookies or alert you when cookies are being sent.
+                When you follow links to external booking platforms (e.g. Signature Travel Network cruise or hotel pages), those sites may set their own cookies. We have no control over those cookies — refer to the respective site&apos;s cookie policy.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                5. Questions?
+                5. Managing Your Preferences
+              </h2>
+              <p>
+                Most browsers allow you to refuse or delete cookies. Note that disabling essential cookies may affect site functionality. You can also enable &ldquo;Do Not Track&rdquo; in your browser to opt out of analytics.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
+                6. Questions?
               </h2>
               <p>
                 Contact us at{" "}

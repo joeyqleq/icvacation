@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContact } from "@/components/site/contact-provider";
@@ -12,34 +12,25 @@ const navLinks = [
   { name: "Hotels",       href: "/hotels-resorts"           },
   { name: "Flights",      href: "/flights-packages"         },
   { name: "Destinations", href: "/destinations"             },
-  { name: "AI Preview",   href: "/#ai-travel-consultant"    },
   { name: "Journal",      href: "/blog"                     },
   { name: "About",        href: "/about-isaac"              },
 ];
 
-export function Navigation() {
-  const [expanded, setExpanded] = useState(false);
-  const [hasBooted, setHasBooted] = useState(false);
+export function Navigation({ splashDone }: { splashDone?: boolean }) {
+  const pathname = usePathname();
+  const [expanded, setExpanded] = useState(pathname !== "/");
+  const [hasBooted, setHasBooted] = useState(pathname !== "/");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const pathname = usePathname();
   const { openContact } = useContact();
 
-  // Expand automatically on homepage after 1200ms
+  // When splash finishes, expand the nav immediately
   useEffect(() => {
-    if (pathname === "/") {
-      const timer = setTimeout(() => {
-        setExpanded((exp) => {
-          if (!exp) {
-            setTimeout(() => setHasBooted(true), 950);
-            return true;
-          }
-          return exp;
-        });
-      }, 1200);
-      return () => clearTimeout(timer);
+    if (splashDone && pathname === "/" && !expanded) {
+      setExpanded(true);
+      setTimeout(() => setHasBooted(true), 950);
     }
-  }, [pathname]);
+  }, [splashDone, pathname, expanded]);
 
   // Scroll triggers expansion too
   useEffect(() => {
@@ -47,7 +38,7 @@ export function Navigation() {
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        if (window.scrollY > 24 && !expanded) {
+        if (window.scrollY > 80 && !expanded) {
           setExpanded(true);
           setTimeout(() => setHasBooted(true), 950);
         }
@@ -103,56 +94,57 @@ export function Navigation() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pointer-events-none">
+    <header
+      className="fixed inset-x-0 top-0 z-50 pointer-events-none"
+      style={{ opacity: (pathname === "/" && !splashDone) ? 0 : 1, transition: "opacity 0.5s ease" }}
+    >
       <div className="flex justify-center pt-3 sm:pt-5">
-        {/* === ORB MODE — circular neon yellow halo containing the rotating dandelion === */}
+        {/* === ORB MODE === */}
         {!expanded ? (
           <div
-            className="nav-orb pointer-events-auto relative flex items-center justify-center rounded-full cursor-pointer"
-            style={{ width: 88, height: 88 }}
+            className="nav-orb nav-orb-gradient pointer-events-auto relative flex items-center justify-center rounded-full cursor-pointer"
+            style={{ width: 120, height: 120 }}
             role="banner"
             aria-label="IC Vacation — scroll to enter"
             onMouseEnter={triggerExpand}
             onClick={triggerExpand}
           >
-            <div className="nav-orb-spin w-[68%] h-[68%] relative">
+            <div className="nav-orb-spin w-[60%] h-[60%] relative">
               <img
-                src="/dandelion-grey.svg"
+                src="/dandelion-yellow.svg"
                 alt=""
                 aria-hidden="true"
-                className="w-full h-full object-contain"
-                style={{ filter: "brightness(1.6) saturate(0)" }}
+                className="w-full h-full object-contain drop-shadow-[0_0_16px_rgba(255,229,0,0.6)]"
                 draggable={false}
               />
             </div>
-            {/* center brand-green dot pulse */}
             <span
               aria-hidden="true"
-              className="absolute w-1.5 h-1.5 rounded-full pulse-green"
-              style={{ boxShadow: "0 0 12px rgba(38, 252, 0, 0.85)" }}
+              className="absolute w-2.5 h-2.5 rounded-full pulse-green"
+              style={{ boxShadow: "0 0 18px rgba(38, 252, 0, 0.9)" }}
             />
           </div>
         ) : (
           <nav
             key="pill"
             className={`nav-island pointer-events-auto flex items-center rounded-full transition-all duration-500
-              h-12 sm:h-14 px-3 sm:px-4 max-w-[1240px] w-[calc(100%-1.5rem)]
+              h-12 sm:h-14 px-3 sm:px-5 max-w-[1320px] w-[calc(100%-1.5rem)] mx-auto
               ${hasBooted ? "" : "terminal-boot"}
             `}
             aria-label="Primary"
           >
-            {/* Logo lockup — increased padding-right to shift Home away from Wordmark */}
+            {/* Logo lockup */}
             <Link
               href="/"
               aria-label="IC Vacation home"
-              className="flex items-center shrink-0 group pr-8 sm:pr-12 nav-item-cascade"
+              className="flex items-center shrink-0 group pr-4 xl:pr-8 nav-item-cascade"
               style={{ animationDelay: hasBooted ? "0ms" : "300ms" }}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <img
                 src="/ic-wordmark-yellow.svg"
                 alt="IC Vacation"
-                className="h-8 sm:h-9 w-auto transition-transform group-hover:scale-[1.04]"
+                className="h-7 lg:h-8 xl:h-9 w-auto transition-transform group-hover:scale-[1.04]"
               />
             </Link>
 
@@ -170,8 +162,8 @@ export function Navigation() {
               ))}
             </div>
 
-            {/* Right side CTA */}
-            <div className="hidden lg:flex items-center gap-2 shrink-0 pl-3">
+            {/* Right side CTA — shimmer phone button */}
+            <div className="hidden lg:flex items-center gap-2 shrink-0 pl-2">
               <button
                 onClick={openContact}
                 className="nav-link nav-item-cascade"
@@ -180,26 +172,28 @@ export function Navigation() {
               >
                 Contact
               </button>
-              <button
-                onClick={openContact}
-                type="button"
-                className="btn-primary group h-9 px-4 text-[12px] rounded-full nav-item-cascade font-command tracking-[0.06em] uppercase"
+              <a
+                href="tel:+14078101670"
+                className="nav-phone-cta nav-shimmer-pill nav-item-cascade"
                 style={{ animationDelay: hasBooted ? "0ms" : "860ms" }}
               >
-                Plan my trip
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
+                <Phone className="w-3.5 h-3.5 shrink-0" strokeWidth={2.5} />
+                <span className="flex flex-col items-start leading-none">
+                  <span className="text-[11px] xl:text-[12px] font-command tracking-[0.04em]">(407) 810-1670</span>
+                  <span className="hidden xl:block text-[9px] font-mono tracking-[0.02em] opacity-75 mt-[2px]">Unforgettable Experiences</span>
+                </span>
+              </a>
             </div>
 
             {/* Mobile right side */}
             <div className="lg:hidden flex flex-1 items-center justify-end gap-2">
-              <button
-                onClick={openContact}
-                type="button"
-                className="btn-primary h-9 px-3 text-[11px] rounded-full font-command tracking-[0.06em] uppercase"
+              <a
+                href="tel:+14078101670"
+                className="nav-phone-cta nav-phone-cta--mobile"
               >
-                Plan trip
-              </button>
+                <Phone className="w-3 h-3 shrink-0" strokeWidth={2.5} />
+                <span className="text-[10px] font-command tracking-[0.04em]">Call</span>
+              </a>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2 text-white"
@@ -251,17 +245,17 @@ export function Navigation() {
             }`}
             style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
           >
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                openContact();
-              }}
-              type="button"
-              className="btn-primary w-full justify-center h-14 text-base rounded-full font-command tracking-[0.08em] uppercase"
+            <a
+              href="tel:+14078101670"
+              className="nav-phone-cta w-full justify-center h-14 text-base"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Plan my trip
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
+              <Phone className="w-4 h-4 shrink-0" strokeWidth={2.5} />
+              <span className="flex flex-col items-center leading-none">
+                <span className="text-[14px] font-command tracking-[0.04em]">(407) 810-1670</span>
+                <span className="text-[10px] font-mono tracking-[0.02em] opacity-75 mt-[2px]">Call For Unforgettable Experiences</span>
+              </span>
+            </a>
           </div>
         </div>
       </div>

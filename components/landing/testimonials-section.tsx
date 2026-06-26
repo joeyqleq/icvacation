@@ -7,7 +7,7 @@ const testimonials = [
   {
     quote:
       "Isaac doesn't just plan trips, he listens. Our anniversary in the Dolomites felt like it had been imagined by someone who has known us for years.",
-    author: "Helena & Marc V.",
+    author: "H. & M.",
     role: "Returning clients",
     trip: "Northern Italy, 12 nights",
     metric: { value: "4×", label: "trips planned, so far" },
@@ -15,7 +15,7 @@ const testimonials = [
   {
     quote:
       "Every choice was deliberate. The lodge in the Mara, the timing of the migration crossing, even the bookshop he sent us to in Nairobi. Quietly extraordinary.",
-    author: "James K.",
+    author: "J.K.",
     role: "Solo traveler",
     trip: "Kenya, 9 nights",
     metric: { value: "0", label: "moments of doubt" },
@@ -23,7 +23,7 @@ const testimonials = [
   {
     quote:
       "We're picky travelers. We don't want guides, we don't want crowds, we don't want a brochure. Isaac gave us a Kyoto we'll be telling friends about for a decade.",
-    author: "Priya & Sam",
+    author: "P. & S.",
     role: "Honeymoon",
     trip: "Japan, 16 nights",
     metric: { value: "16", label: "perfectly paced nights" },
@@ -31,7 +31,7 @@ const testimonials = [
   {
     quote:
       "When our flight rerouted mid-trip, Isaac had a new lodge, a new transfer, and a written apology from the airline by the time we landed. That's what an advisor is.",
-    author: "The Hartwood Family",
+    author: "The H. Family",
     role: "Four travelers",
     trip: "Iceland, 8 nights",
     metric: { value: "24h", label: "support, always" },
@@ -73,7 +73,7 @@ export function TestimonialsSection() {
     <section
       id="stories"
       ref={sectionRef}
-      className="relative py-28 lg:py-40 bg-background text-foreground overflow-hidden"
+      className="relative pt-28 lg:pt-40 pb-16 lg:pb-24 bg-background text-foreground"
     >
       {/* Atmospheric backdrop — radial glow + dandelion crop */}
       <div
@@ -88,13 +88,13 @@ export function TestimonialsSection() {
         src="/dandelion-grey.svg"
         alt=""
         aria-hidden="true"
-        className="absolute -top-16 -left-24 w-[28rem] h-[28rem] opacity-[0.04] animate-drift-slow"
+        className="absolute -top-16 -left-24 w-[28rem] h-[28rem] opacity-[0.04] nav-orb-spin"
       />
       <img
         src="/dandelion-yellow.svg"
         alt=""
         aria-hidden="true"
-        className="absolute -bottom-32 -right-24 w-[26rem] h-[26rem] opacity-[0.06] animate-drift"
+        className="absolute -bottom-32 -right-24 w-[26rem] h-[26rem] opacity-[0.06] nav-orb-spin"
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">

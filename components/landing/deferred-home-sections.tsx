@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { SectionBreak } from "@/components/site/section-break";
 
 const AdvisorSection = dynamic(
   () => import("@/components/landing/infrastructure-section").then((mod) => mod.AdvisorSection),
@@ -42,10 +43,6 @@ const JournalSection = dynamic(
   { ssr: false },
 );
 
-const PricingSection = dynamic(
-  () => import("@/components/landing/pricing-section").then((mod) => mod.PricingSection),
-  { ssr: false },
-);
 
 const ConsultantSection = dynamic(
   () => import("@/components/landing/features-section").then((mod) => mod.ConsultantSection),
@@ -71,15 +68,18 @@ export function DeferredHomeSections() {
   return (
     <>
       <AdvisorSection />
+      <SectionBreak variant={0} />
       <ProcessSection />
       <DestinationsSection />
+      <SectionBreak variant={1} />
       <FlightSearchPreview />
       <NumbersSection />
+      <SectionBreak variant={2} />
       <TestimonialsSection />
       <PhilosophySection />
+      <SectionBreak variant={0} />
       <JournalSection />
       <ConsultantSection />
-      <PricingSection />
       <FamilyLegacySection />
       <FaqCtaSection />
       <FooterSection />

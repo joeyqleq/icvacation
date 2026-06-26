@@ -60,7 +60,7 @@ export function PhilosophySection() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative py-32 lg:py-40 overflow-hidden"
+      className="relative pt-12 lg:pt-16 pb-32 lg:pb-40 overflow-hidden"
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header */}
@@ -112,13 +112,13 @@ export function PhilosophySection() {
               src="/ic-penguin.svg"
               alt=""
               aria-hidden="true"
-              className="absolute -bottom-6 -right-6 w-44 h-auto opacity-90 animate-drift-slow"
+              className="absolute -bottom-12 -right-16 lg:-right-32 w-72 h-auto opacity-90 animate-drift-slow scale-x-[-1]"
             />
             <img
               src="/ic-dandelion.svg"
               alt=""
               aria-hidden="true"
-              className="absolute top-10 right-16 w-12 h-12 opacity-20 animate-drift"
+              className="absolute top-10 right-16 w-12 h-12 opacity-20 nav-orb-spin"
             />
 
             <div className="relative z-10 max-w-md">

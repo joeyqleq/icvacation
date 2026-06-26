@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef } from "react";
 
 const numbers = [
-  { value: "11", suffix: " yrs", label: "Shaping personal trips" },
-  { value: "62", suffix: "", label: "Countries personally visited" },
+  { value: "14", suffix: " yrs", label: "Independent advisory practice" },
+  { value: "50", suffix: "+", label: "Countries personally visited" },
   { value: "100", suffix: "%", label: "Hand-built itineraries" },
   { value: "24", suffix: "h", label: "Response, on the road" },
 ];
@@ -129,13 +129,13 @@ export function NumbersSection() {
 
           {/* Bottom strip — quiet tags */}
           <div className="relative z-10 border-t border-black/20 px-8 lg:px-14 py-5 flex flex-wrap items-center gap-x-8 gap-y-2 text-[11px] font-mono uppercase tracking-[0.18em] text-black/65">
-            <span>Virtuoso member</span>
+            <span>Independent advisor</span>
             <span className="w-1 h-1 rounded-full bg-black/40" />
-            <span>ASTA verified</span>
+            <span>Signature Travel Network</span>
             <span className="w-1 h-1 rounded-full bg-black/40" />
-            <span>Travel + Leisure A-List, 2023</span>
+            <span>Consultation-first practice</span>
             <span className="w-1 h-1 rounded-full bg-black/40 hidden lg:block" />
-            <span className="hidden lg:inline">Condé Nast Traveler Top Advisor</span>
+            <span className="hidden lg:inline">50+ countries walked</span>
           </div>
         </div>
       </div>

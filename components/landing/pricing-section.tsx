@@ -240,13 +240,18 @@ export function PricingSection() {
               Existing clients: skip the line
             </span>
           </div>
-          <button
-            onClick={openContact}
-            type="button"
-            className="text-sm underline underline-offset-4 hover:text-foreground transition-colors"
-          >
-            Have a question first? Ask Isaac →
-          </button>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <span className="text-xs text-muted-foreground italic">
+              Indicative pricing · final fee discussed during consultation
+            </span>
+            <button
+              onClick={openContact}
+              type="button"
+              className="text-sm underline underline-offset-4 hover:text-foreground transition-colors"
+            >
+              Have a question first? Ask Isaac →
+            </button>
+          </div>
         </div>
       </div>
     </section>

@@ -147,7 +147,7 @@ export function ConsultantSection() {
           src="/mascot-owl.svg"
           alt=""
           aria-hidden="true"
-          className="hidden lg:block absolute top-12 right-12 w-28 xl:w-36 h-auto opacity-90 z-[2] animate-drift-slow pointer-events-none"
+          className="hidden lg:block absolute top-8 right-8 w-44 xl:w-56 h-auto opacity-90 z-[2] animate-drift-slow pointer-events-none"
         />
 
         {/* Header */}

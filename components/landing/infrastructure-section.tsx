@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { ParallaxMascot } from "@/components/site/parallax-mascot";
 
 const credentials = [
   { name: "Italy", years: "since 2014", note: "Hand-picked agriturismi, hill towns, the slower Tuscan north" },
@@ -40,13 +39,6 @@ export function AdvisorSection() {
       ref={sectionRef}
       className="relative py-32 lg:py-40 overflow-hidden"
     >
-      {/* Floating scroll-parallax owl mascot overlapping the bottom of the video hero */}
-      <ParallaxMascot
-        type="owl"
-        size="lg"
-        variant="neon"
-        className="absolute -top-[160px] left-[10%] z-20 pointer-events-none hidden lg:block"
-      />
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="mb-20">
@@ -68,10 +60,12 @@ export function AdvisorSection() {
                   : "opacity-0 translate-y-8"
               }`}
             >
-              <div className="relative aspect-[4/5] overflow-hidden border border-foreground/10">
+              <div className="relative aspect-[4/5] overflow-hidden img-frame">
+                <span className="img-frame-tr" aria-hidden="true" />
+                <span className="img-frame-bl" aria-hidden="true" />
                 <img
-                  src="/advisor-desk.jpg"
-                  alt="Isaac's travel desk — journal, compass, vintage maps"
+                  src="/images/ai/isaac-beach-advisor.png"
+                  alt="Isaac advising on travel plans"
                   className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
@@ -80,7 +74,7 @@ export function AdvisorSection() {
                   src="/mascot-owl.svg"
                   alt=""
                   aria-hidden="true"
-                  className="absolute -bottom-3 -right-3 w-20 h-auto opacity-90 animate-drift-slow"
+                  className="absolute -bottom-4 -right-3 w-36 h-auto opacity-90 animate-drift-slow"
                 />
               </div>
               <div className="mt-6 flex items-center gap-3">
@@ -128,15 +122,15 @@ export function AdvisorSection() {
               >
                 <span className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-brand-green" />
-                  Virtuoso network member
+                  Independent advisor since 2014
                 </span>
                 <span className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-brand-green" />
-                  ASTA verified advisor
+                  Signature Travel Network
                 </span>
                 <span className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-brand-green" />
-                  62 countries personally visited
+                  50+ countries personally visited
                 </span>
               </div>
             </div>

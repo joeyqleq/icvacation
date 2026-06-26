@@ -49,7 +49,7 @@ export default function TermsPage() {
                 1. Acceptance of Terms
               </h2>
               <p>
-                By accessing and using IC Vacation services, you agree to be bound by these terms. If you do not agree, please do not use our services.
+                By accessing and using IC Vacation&apos;s website and services, you agree to be bound by these terms. If you do not agree, please do not use our services.
               </p>
             </div>
             <div>
@@ -57,36 +57,52 @@ export default function TermsPage() {
                 2. Service Description
               </h2>
               <p>
-                IC Vacation provides personalized travel consultation and itinerary planning services. Consultations are tailored to individual preferences and requirements.
+                IC Vacation provides personalised travel consultation and itinerary planning services. We act as an independent advisor — we are not a tour operator, airline, or hotel. We coordinate with third-party travel suppliers on your behalf. Final bookings are subject to the terms and conditions of those suppliers.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                3. Payment and Booking
+                3. Consultation Fees
               </h2>
               <p>
-                Consultation fees and booking terms will be discussed during your initial consultation with Isaac. Payment terms are agreed upon before service commencement.
+                Consultation fees are discussed and agreed upon before service begins. The consultation fee is credited in full toward a Custom or Atelier itinerary if you proceed. Fees are indicative and may vary based on trip complexity.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                4. Cancellation Policy
+                4. Bookings &amp; Third Parties
               </h2>
               <p>
-                Cancellations must be made with at least 14 days notice for a full refund. Cancellations within 14 days are subject to a 50% fee.
+                When we book travel on your behalf, we act as your agent with airlines, hotels, cruise lines, and ground operators. Those bookings are governed by the supplier&apos;s own terms, cancellation policies, and liability limitations. We recommend reviewing supplier terms before confirming.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                5. Limitation of Liability
+                5. Cancellation &amp; Changes
               </h2>
               <p>
-                IC Vacation is not responsible for any travel delays, cancellations, or incidents beyond our control. We recommend travel insurance for all bookings.
+                Cancellation of the consultation itself must be made at least 48 hours in advance for a full refund. Trip cancellations are subject to the policies of the relevant travel suppliers. We will assist with cancellation processes but cannot override supplier policies.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                6. Contact
+                6. Limitation of Liability
+              </h2>
+              <p>
+                IC Vacation is not liable for delays, cancellations, schedule changes, or incidents caused by airlines, hotels, weather, government action, or other circumstances beyond our control. We strongly recommend comprehensive travel insurance for all bookings.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
+                7. Website Content
+              </h2>
+              <p>
+                Prices, availability, and destination information on this website are for illustrative purposes and may change without notice. Confirmed pricing is provided during the consultation process.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
+                8. Contact
               </h2>
               <p>
                 For questions regarding these terms, please contact{" "}
@@ -95,6 +111,9 @@ export default function TermsPage() {
                 </a>
               </p>
             </div>
+            <p className="text-xs text-foreground/40 italic pt-4 border-t border-foreground/10">
+              These terms are a general guide and do not constitute legal advice.
+            </p>
           </div>
         </div>
       </section>

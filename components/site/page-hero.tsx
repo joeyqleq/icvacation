@@ -43,7 +43,7 @@ export function PageHero({
 
   return (
     <section
-      className="relative flex items-end overflow-hidden bg-background pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-28"
+      className="relative flex items-end overflow-hidden bg-background pt-28 pb-24 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-40"
       style={{ minHeight: "78svh" }}
     >
       <div className="absolute inset-0 z-0">
@@ -51,14 +51,14 @@ export function PageHero({
           className="absolute inset-0 will-change-transform"
           style={{ transform: `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.05)` }}
         >
-          <img src={image} alt={imageAlt} className="w-full h-full object-cover animate-ken-burns" />
+          <img src={image} alt={imageAlt} className="w-full h-full object-cover animate-ken-burns" style={{ objectPosition: 'center 20%' }} />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-background" />
       </div>
 
       <div
-        className="absolute -top-8 right-[5%] z-[2] pointer-events-none hidden lg:block animate-drift-slow opacity-[0.10]"
+        className="absolute -top-8 right-[5%] z-[2] pointer-events-none hidden lg:block nav-orb-spin opacity-[0.10]"
         aria-hidden="true"
       >
         <img src="/dandelion-yellow.svg" alt="" className="w-[360px] h-[360px]" />
@@ -66,7 +66,7 @@ export function PageHero({
 
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-[2%] z-[1] pointer-events-none flex justify-end overflow-hidden"
+        className="absolute inset-x-0 bottom-[12%] z-[1] pointer-events-none flex justify-end overflow-hidden"
       >
         <span
           className="font-serif italic text-white/[0.04] leading-none select-none whitespace-nowrap"

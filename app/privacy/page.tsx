@@ -48,37 +48,61 @@ export default function PrivacyPage() {
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
                 1. Information We Collect
               </h2>
-              <p>
-                We collect information you provide directly to us, such as when you fill out a contact form or book a consultation. This includes your name, email address, phone number, and details about your travel preferences.
+              <p className="mb-3">
+                We collect information you provide directly when you fill out our inquiry form, book a consultation, or correspond with us. This includes:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-foreground/65">
+                <li>Name, email address, and phone number</li>
+                <li>Travel preferences, dates, destinations, and party size</li>
+                <li>Budget indications and special requirements</li>
+                <li>Any other details you choose to share about your trip</li>
+              </ul>
+              <p className="mt-3">
+                We also collect basic analytics data (pages visited, time on site) through self-hosted analytics tools. No data is sent to third-party advertising networks.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
                 2. How We Use Your Information
               </h2>
-              <p>
-                Your information is used solely to provide travel consultation services, respond to inquiries, and improve our service. We do not sell, trade, or share your personal data with third parties.
+              <p className="mb-3">Your information is used to:</p>
+              <ul className="list-disc pl-5 space-y-1 text-foreground/65">
+                <li>Provide personalised travel consultation and itinerary planning</li>
+                <li>Respond to your inquiries and follow up on trip briefs</li>
+                <li>Coordinate with third-party travel suppliers (airlines, hotels, cruise lines) on your behalf</li>
+                <li>Improve our website and services based on aggregate usage patterns</li>
+              </ul>
+              <p className="mt-3">
+                We do not sell, rent, or trade your personal data to third parties for marketing purposes.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                3. Data Security
+                3. Third-Party Services
               </h2>
               <p>
-                We implement industry-standard security measures to protect your information. All communications are encrypted, and your data is stored securely.
+                When you book a trip through IC Vacation, we may share relevant details (name, dates, preferences) with travel suppliers such as airlines, hotels, cruise lines, and ground operators to fulfil your itinerary. These suppliers have their own privacy policies. We also use third-party booking platforms (e.g. Signature Travel Network) whose links may appear on this site — when you follow those links, their privacy policies apply.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                4. Your Rights
+                4. Data Security &amp; Retention
               </h2>
               <p>
-                You have the right to access, modify, or delete your personal information at any time. Contact us directly to request changes to your data.
+                We use encrypted communications and secure hosting. Your inquiry data is retained for up to 24 months after your last interaction to support ongoing travel planning. You may request earlier deletion at any time.
               </p>
             </div>
             <div>
               <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
-                5. Contact Us
+                5. Your Rights
+              </h2>
+              <p>
+                You have the right to access, correct, or delete your personal information at any time. You may also withdraw consent for future communications. To exercise these rights, contact us directly.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display-tight text-white text-xl mb-3" style={{ letterSpacing: "-0.02em" }}>
+                6. Contact Us
               </h2>
               <p>
                 Questions about this privacy policy?{" "}
@@ -87,6 +111,9 @@ export default function PrivacyPage() {
                 </a>
               </p>
             </div>
+            <p className="text-xs text-foreground/40 italic pt-4 border-t border-foreground/10">
+              This policy is a general guide and does not constitute legal advice. We recommend consulting a qualified professional for compliance with specific jurisdictions.
+            </p>
           </div>
         </div>
       </section>
