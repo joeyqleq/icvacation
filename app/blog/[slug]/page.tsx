@@ -38,7 +38,7 @@ export default async function BlogPostPage({ params }: Props) {
     <PageShell>
       {/* HERO */}
       <article>
-        <header className="relative pt-32 lg:pt-40 pb-12 lg:pb-16 bg-background overflow-hidden">
+        <header className="relative pt-28 lg:pt-32 pb-8 lg:pb-10 bg-background overflow-hidden">
           <img
             src="/dandelion-yellow.svg"
             alt=""
@@ -48,12 +48,12 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="relative z-10 max-w-[860px] mx-auto px-6 lg:px-12">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 label-ticker text-white/55 hover:text-brand-green transition-colors mb-10"
+              className="inline-flex items-center gap-2 label-ticker text-white/55 hover:text-brand-green transition-colors mb-6"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to field notes
             </Link>
-            <div className="flex flex-wrap items-center gap-4 label-ticker text-white/55 mb-8">
+            <div className="flex flex-wrap items-center gap-4 label-ticker text-white/55 mb-5">
               <span className="text-brand-green">{post.category}</span>
               <span className="w-1 h-1 rounded-full bg-white/30" />
               <span>{post.date}</span>
@@ -67,12 +67,12 @@ export default async function BlogPostPage({ params }: Props) {
               {post.title}
             </h1>
             <p
-              className="mt-8 font-editorial italic text-[20px] lg:text-[24px] text-white/75 leading-[1.5]"
+              className="mt-5 font-editorial italic text-[18px] lg:text-[22px] text-white/75 leading-[1.5]"
               style={{ textWrap: "pretty" }}
             >
               {post.dek}
             </p>
-            <div className="mt-10 pt-6 border-t border-foreground/10 flex items-center gap-4">
+            <div className="mt-6 pt-5 border-t border-foreground/10 flex items-center gap-4">
               <div className="w-11 h-11 rounded-full bg-brand-yellow/15 border border-brand-yellow/40 flex items-center justify-center font-display text-brand-yellow">
                 {post.author.charAt(0)}
               </div>
@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
         </header>
 
         {/* COVER IMAGE */}
-        <div className="relative bg-background pb-12 lg:pb-20">
+        <div className="relative bg-background pb-8 lg:pb-12">
           <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
             <div className="relative aspect-[16/9] overflow-hidden">
               <img
