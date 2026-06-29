@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Plane, ArrowRight, Loader2 } from "lucide-react";
+import { Plane, ArrowRight, ArrowLeftRight, Loader2 } from "lucide-react";
 
 interface FlightResult {
   id: string; airline: string; from: string; to: string;
@@ -8,16 +8,88 @@ interface FlightResult {
   stops: number; price: string; cabin: string;
 }
 
+const CABIN_OPTIONS = ["Economy", "Premium Economy", "Business", "First"];
+const PAX_OPTIONS = ["1 passenger", "2 passengers", "3 passengers", "4 passengers", "5 passengers", "6 passengers"];
+
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="block font-mono text-[9px] tracking-[0.2em] uppercase text-white/40 mb-1">
+      {children}
+    </span>
+  );
+}
+
+function SelectField({ label, value, onChange, options }: {
+  label: string; value: string; onChange: (v: string) => void; options: string[];
+}) {
+  return (
+    <div>
+      <FieldLabel>{label}</FieldLabel>
+      <select
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="w-full bg-[#0a0a0a] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 focus:outline-none focus:border-[#26FC00] appearance-none cursor-pointer"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2326FC00' opacity='0.5'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 10px center" }}
+      >
+        {options.map(o => <option key={o} value={o} className="bg-[#0a0a0a]">{o}</option>)}
+      </select>
+    </div>
+  );
+}
+
+function TextField({ label, value, onChange, placeholder, hint }: {
+  label: string; value: string; onChange: (v: string) => void; placeholder?: string; hint?: string;
+}) {
+  return (
+    <div>
+      <FieldLabel>{label}</FieldLabel>
+      <input
+        className="w-full bg-[#0a0a0a] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 placeholder:text-white/25 focus:outline-none focus:border-[#26FC00] uppercase"
+        placeholder={placeholder}
+        value={value}
+        onChange={e => onChange(e.target.value.toUpperCase().slice(0, 3))}
+        maxLength={3}
+      />
+      {hint && <span className="font-mono text-[8px] text-white/25 mt-0.5 block">{hint}</span>}
+    </div>
+  );
+}
+
+function DateField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <FieldLabel>{label}</FieldLabel>
+      <input
+        type="date"
+        className="w-full bg-[#0a0a0a] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 focus:outline-none focus:border-[#26FC00] [color-scheme:dark]"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        min={new Date().toISOString().split("T")[0]}
+      />
+    </div>
+  );
+}
+
 export function FlightsTab() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState("");
+  const [cabin, setCabin] = useState("Economy");
+  const [pax, setPax] = useState("1 passenger");
   const [results, setResults] = useState<FlightResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searched, setSearched] = useState(false);
+
+  function swap() {
+    const tmp = from;
+    setFrom(to);
+    setTo(tmp);
+  }
 
   async function search() {
     if (!from || !to) return;
     setLoading(true);
+    setSearched(true);
     try {
       const r = await fetch(`/api/liam-search/flights?from=${from}&to=${to}&date=${date}`);
       const d = await r.json();
@@ -29,58 +101,71 @@ export function FlightsTab() {
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      <div className="grid grid-cols-2 gap-2">
-        <input
-          className="bg-[#050505] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 placeholder:text-white/30 focus:outline-none focus:border-[#26FC00]"
-          placeholder="From (e.g. NYC)"
-          value={from}
-          onChange={e => setFrom(e.target.value.toUpperCase())}
-          maxLength={3}
-        />
-        <input
-          className="bg-[#050505] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 placeholder:text-white/30 focus:outline-none focus:border-[#26FC00]"
-          placeholder="To (e.g. CDG)"
-          value={to}
-          onChange={e => setTo(e.target.value.toUpperCase())}
-          maxLength={3}
-        />
-      </div>
-      <div className="flex gap-2">
-        <input
-          type="date"
-          className="flex-1 bg-[#050505] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 focus:outline-none focus:border-[#26FC00]"
-          value={date}
-          onChange={e => setDate(e.target.value)}
-        />
+      {/* Origin / Destination row */}
+      <div className="flex gap-2 items-end">
+        <div className="flex-1">
+          <TextField label="From" value={from} onChange={setFrom} placeholder="JFK" hint="3-letter airport code" />
+        </div>
         <button
-          onClick={search}
-          className="px-4 py-2 bg-[#26FC00] text-black font-mono text-xs tracking-[0.2em] uppercase hover:bg-[#FFE500] transition-colors flex items-center gap-2"
+          onClick={swap}
+          className="mb-0.5 p-2 border border-white/15 text-white/40 hover:border-[#26FC00]/50 hover:text-[#26FC00] transition-colors flex-shrink-0"
+          title="Swap airports"
         >
-          {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plane className="w-3.5 h-3.5" />}
-          Search
+          <ArrowLeftRight className="w-3.5 h-3.5" />
         </button>
+        <div className="flex-1">
+          <TextField label="To" value={to} onChange={setTo} placeholder="CDG" hint="3-letter airport code" />
+        </div>
       </div>
+
+      {/* Date */}
+      <DateField label="Departure date" value={date} onChange={setDate} />
+
+      {/* Cabin + Pax */}
+      <div className="grid grid-cols-2 gap-2">
+        <SelectField label="Cabin class" value={cabin} onChange={setCabin} options={CABIN_OPTIONS} />
+        <SelectField label="Passengers" value={pax} onChange={setPax} options={PAX_OPTIONS} />
+      </div>
+
+      {/* Search button */}
+      <button
+        onClick={search}
+        disabled={!from || !to || loading}
+        className="w-full px-4 py-2.5 bg-[#26FC00] text-black font-mono text-xs tracking-[0.2em] uppercase hover:bg-[#FFE500] transition-colors flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+      >
+        {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plane className="w-3.5 h-3.5" />}
+        Search flights
+      </button>
+
+      {/* Results */}
       <div className="flex-1 overflow-y-auto space-y-2">
         {results.map(f => (
-          <div key={f.id} className="border border-white/10 p-3 flex flex-col gap-1 hover:border-[#26FC00]/40 transition-colors">
+          <div key={f.id} className="border border-white/10 p-3 flex flex-col gap-1.5 hover:border-[#26FC00]/40 transition-colors">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] tracking-[0.2em] text-[#26FC00] uppercase">{f.airline}</span>
-              <span className="font-display text-[#FFE500] text-sm">{f.price}</span>
+              <span className="font-display text-[#FFE500] text-sm font-semibold">{f.price}</span>
             </div>
             <div className="flex items-center gap-2 text-white/80 font-mono text-xs">
-              <span>{f.from} {f.departTime}</span>
-              <ArrowRight className="w-3 h-3 text-white/30" />
-              <span>{f.to} {f.arriveTime}</span>
+              <span className="font-semibold">{f.from}</span>
+              <span className="text-white/40">{f.departTime}</span>
+              <ArrowRight className="w-3 h-3 text-white/25 flex-shrink-0" />
+              <span className="font-semibold">{f.to}</span>
+              <span className="text-white/40">{f.arriveTime}</span>
             </div>
-            <div className="flex items-center justify-between font-mono text-[10px] text-white/40">
+            <div className="flex items-center gap-3 font-mono text-[9px] text-white/35">
               <span>{f.duration}</span>
+              <span className="text-white/20">·</span>
               <span>{f.stops === 0 ? "Direct" : `${f.stops} stop${f.stops > 1 ? "s" : ""}`}</span>
+              <span className="text-white/20">·</span>
               <span>{f.cabin}</span>
             </div>
           </div>
         ))}
-        {results.length === 0 && !loading && (
-          <p className="font-serif italic text-sm text-white/35 text-center pt-8">Enter origin, destination, and date to search flights</p>
+        {searched && results.length === 0 && !loading && (
+          <p className="font-serif italic text-sm text-white/35 text-center pt-8">No flights found. Try different airports or dates.</p>
+        )}
+        {!searched && (
+          <p className="font-serif italic text-sm text-white/25 text-center pt-8">Enter origin and destination to search</p>
         )}
       </div>
     </div>

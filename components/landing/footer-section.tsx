@@ -20,7 +20,7 @@ const footerLinks: Record<string, FooterAction[]> = {
   ],
   Practice: [
     { name: "Meet Isaac",  href: "/about-isaac"    },
-    { name: "Client stories", href: "/#stories"   },
+    { name: "Client stories", href: "/#stories"    },
     { name: "Journal",     href: "/blog"           },
     { name: "Family legacy", href: "/about-isaac#family-legacy" },
   ],
@@ -41,7 +41,7 @@ const footerLinks: Record<string, FooterAction[]> = {
 const quickLinks = [
   { name: "Email", href: "mailto:info@icvacation.com" },
   { name: "Journal", href: "/blog" },
-  { name: "AI preview", href: "/#ai-travel-consultant" },
+  { name: "Liam AI", href: "/liam" },
 ];
 
 export function FooterSection() {

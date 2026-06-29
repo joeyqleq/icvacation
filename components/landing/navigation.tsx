@@ -12,7 +12,7 @@ const navLinks = [
   { name: "Hotels",       href: "/hotels-resorts"           },
   { name: "Flights",      href: "/flights-packages"         },
   { name: "Destinations", href: "/destinations"             },
-  { name: "Liam AI",      href: "/liam"                     },
+  { name: "Liam",         href: "/liam"                     },
   { name: "Journal",      href: "/blog"                     },
   { name: "About",        href: "/about-isaac"              },
 ];

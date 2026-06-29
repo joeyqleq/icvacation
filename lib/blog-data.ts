@@ -21,7 +21,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "6 min read",
     date: "May 2026",
-    image: "/advisor-desk.jpg",
+    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&h=530&fit=crop",
     author: "Isaac",
     feature: true,
   },
@@ -32,7 +32,7 @@ export const posts: Post[] = [
     category: "Destinations",
     read: "8 min read",
     date: "April 2026",
-    image: "/destination-alps.jpg",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -42,7 +42,7 @@ export const posts: Post[] = [
     category: "Flights",
     read: "5 min read",
     date: "April 2026",
-    image: "/footer-horizon.jpg",
+    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -52,7 +52,7 @@ export const posts: Post[] = [
     category: "Destinations",
     read: "9 min read",
     date: "March 2026",
-    image: "/destination-japan.jpg",
+    image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -62,7 +62,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "March 2026",
-    image: "/destination-coast.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=530&fit=crop&q=80",
     author: "Isaac",
   },
   {
@@ -72,7 +72,7 @@ export const posts: Post[] = [
     category: "Destinations",
     read: "11 min read",
     date: "February 2026",
-    image: "/destination-coast.jpg",
+    image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -82,7 +82,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "6 min read",
     date: "February 2026",
-    image: "/cta-vista.jpg",
+    image: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -92,7 +92,7 @@ export const posts: Post[] = [
     category: "Safari",
     read: "10 min read",
     date: "January 2026",
-    image: "/destination-safari.jpg",
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -102,7 +102,7 @@ export const posts: Post[] = [
     category: "Romance",
     read: "8 min read",
     date: "January 2026",
-    image: "/destination-alps.jpg",
+    image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -112,7 +112,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "4 min read",
     date: "December 2025",
-    image: "/hero-landscape.jpg",
+    image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -122,7 +122,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "9 min read",
     date: "December 2025",
-    image: "/destination-coast.jpg",
+    image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -132,7 +132,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "7 min read",
     date: "November 2025",
-    image: "/destination-japan.jpg",
+    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -142,7 +142,7 @@ export const posts: Post[] = [
     category: "Essays",
     read: "6 min read",
     date: "November 2025",
-    image: "/cta-vista.jpg",
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -152,7 +152,7 @@ export const posts: Post[] = [
     category: "Hotels",
     read: "8 min read",
     date: "October 2025",
-    image: "/destination-coast.jpg",
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -162,7 +162,7 @@ export const posts: Post[] = [
     category: "Family",
     read: "7 min read",
     date: "October 2025",
-    image: "/destination-safari.jpg",
+    image: "https://images.unsplash.com/photo-1502780402662-acc01917949e?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -172,7 +172,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "5 min read",
     date: "September 2025",
-    image: "/advisor-desk.jpg",
+    image: "https://images.unsplash.com/photo-1423347834838-5162bb452ca4?w=800&h=530&fit=crop",
     author: "Isaac",
   },
   {
@@ -202,7 +202,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "11 min read",
     date: "May 2026",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -232,7 +232,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "9 min read",
     date: "April 2026",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1600002415506-dd5716cbf3e3?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -292,7 +292,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "10 min read",
     date: "January 2026",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -302,7 +302,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "December 2025",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -342,7 +342,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "October 2025",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1524673450801-b5aa9b621b76?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -352,7 +352,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "10 min read",
     date: "October 2025",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -372,7 +372,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "September 2025",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -382,7 +382,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "August 2025",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -392,7 +392,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "August 2025",
-    image: "https://images.unsplash.com/photo-1496449903678-68ddad06e82f?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1521673461164-de300ebcfb17?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -412,7 +412,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "July 2025",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1543512214-318c7553f230?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -422,7 +422,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "June 2025",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -432,7 +432,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "June 2025",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1519659528534-7fd733a832a0?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -442,7 +442,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "May 2025",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop",
     author: "Isaac",
   },
   {
@@ -472,7 +472,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "April 2025",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&h=600&fit=crop",
     author: "Isaac",
   },
 ];
