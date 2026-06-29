@@ -38,7 +38,7 @@ export default async function BlogPostPage({ params }: Props) {
     <PageShell>
       {/* HERO */}
       <article>
-        <header className="relative pt-28 lg:pt-32 pb-8 lg:pb-10 bg-background overflow-hidden">
+        <header className="relative pt-24 lg:pt-28 pb-5 lg:pb-7 bg-background overflow-hidden">
           <img
             src="/dandelion-yellow.svg"
             alt=""
@@ -87,9 +87,9 @@ export default async function BlogPostPage({ params }: Props) {
         </header>
 
         {/* COVER IMAGE */}
-        <div className="relative bg-background pb-8 lg:pb-12">
-          <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
-            <div className="relative aspect-[16/9] overflow-hidden">
+        <div className="relative bg-background pb-6 lg:pb-8">
+          <div className="max-w-[900px] mx-auto px-6 lg:px-12">
+            <div className="relative aspect-[21/9] overflow-hidden">
               <img
                 src={post.image}
                 alt=""

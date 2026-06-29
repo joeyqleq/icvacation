@@ -5,6 +5,8 @@ import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
 import { FlightSearchPreview } from "@/components/landing/flight-search-preview";
+import { LiamCtaBand } from "@/components/site/liam-cta-band";
+import { StarsBackground } from "@/components/ui/stars-background";
 
 export const metadata: Metadata = {
   title: "Flights & Packages · IC Vacation",
@@ -47,7 +49,9 @@ const honesty = [
 export default function FlightsPackagesPage() {
   return (
     <PageShell>
-      <PageHero
+      <div className="relative overflow-hidden">
+        <StarsBackground starDensity={0.0003} starColor="#FFE500" className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
+        <PageHero
         index="[ 02 ]"
         kicker="// Flights & Packages"
         title={[
@@ -62,7 +66,8 @@ export default function FlightsPackagesPage() {
         imageOffsetY="clamp(0.75rem, 3svh, 1.75rem)"
         primaryCta={{ label: "Start an inquiry", href: "/contact" }}
         secondaryCta={{ label: "About Isaac", href: "/about-isaac" }}
-      />
+        />
+      </div>
 
       <FlightSearchPreview />
 
@@ -165,6 +170,11 @@ export default function FlightsPackagesPage() {
           </ul>
         </div>
       </section>
+
+      <LiamCtaBand
+        headline="Liam AI can build the full itinerary around your flights."
+        subline="Routes, timing, layovers — Liam connects the dots before Isaac finalizes the plan."
+      />
 
       <PageCta
         eyebrow="// Next step"

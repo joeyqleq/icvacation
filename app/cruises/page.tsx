@@ -5,6 +5,10 @@ import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
 import { Ship, Anchor, Compass, Sparkles } from "lucide-react";
+import { LiamCtaBand } from "@/components/site/liam-cta-band";
+import { StarsBackground } from "@/components/ui/stars-background";
+import { ShootingStars } from "@/components/ui/shooting-stars";
+import { GradualBlur } from "@/components/ui/gradual-blur";
 
 export const metadata: Metadata = {
   title: "Cruises · IC Vacation",
@@ -54,7 +58,11 @@ const styles = [
 export default function CruisesPage() {
   return (
     <PageShell>
-      <PageHero
+      <div className="relative overflow-hidden">
+        <StarsBackground starDensity={0.0003} starColor="#FFE500" className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
+        <ShootingStars className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
+        <GradualBlur direction="bottom" blurAmount={6} className="absolute inset-x-0 bottom-0 h-32 z-[2] pointer-events-none" aria-hidden="true" />
+        <PageHero
         index="[ 02 ]"
         kicker="// Cruises"
         title={[
@@ -66,7 +74,8 @@ export default function CruisesPage() {
         imageAlt="Isaac at the helm of a ship, representing cruise planning"
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "Talk to Isaac", href: "/about-isaac" }}
-      />
+        />
+      </div>
 
       {/* PROCESS — 4-step advisor flow */}
       <section className="relative py-24 lg:py-32 bg-background overflow-hidden">
@@ -178,6 +187,11 @@ export default function CruisesPage() {
           </div>
         </div>
       </section>
+
+      <LiamCtaBand
+        headline="Planning a cruise? Liam AI knows every ship."
+        subline="Tell Liam your style — expedition, river, or ocean luxury. Get a shortlist in seconds."
+      />
 
       <PageCta
         eyebrow="// Next step"

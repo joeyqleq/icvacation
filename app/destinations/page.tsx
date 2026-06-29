@@ -3,6 +3,8 @@ import { PageShell } from "@/components/site/page-shell";
 import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
+import { LiamCtaBand } from "@/components/site/liam-cta-band";
+import { ShapeGrid } from "@/components/ui/shape-grid";
 
 export const metadata: Metadata = {
   title: "Destinations · IC Vacation",
@@ -70,6 +72,9 @@ export default function DestinationsPage() {
 
       {/* STYLES */}
       <section className="relative py-24 lg:py-32 bg-background overflow-hidden">
+        <div className="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
+          <ShapeGrid hoverColor="#26FC00" shape="hexagon" size={28} gap={3} className="w-full h-full" />
+        </div>
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-10 items-end mb-16">
             <div className="lg:col-span-7">
@@ -180,6 +185,11 @@ export default function DestinationsPage() {
           </p>
         </div>
       </section>
+
+      <LiamCtaBand
+        headline="Curious about a destination? Liam AI knows it deeply."
+        subline="Ask about the best month, what to skip, what nobody books. Then call Isaac."
+      />
 
       <PageCta
         eyebrow="// Next step"

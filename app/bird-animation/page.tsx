@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/site/page-shell";
+import { Navigation } from "@/components/landing/navigation";
 import { BirdAnimationStage } from "@/components/site/bird-animation-stage";
 
 export const metadata: Metadata = {
@@ -9,8 +9,9 @@ export const metadata: Metadata = {
 
 export default function BirdAnimationPage() {
   return (
-    <PageShell>
+    <main className="relative min-h-screen overflow-x-hidden bg-background">
+      <Navigation />
       <BirdAnimationStage />
-    </PageShell>
+    </main>
   );
 }

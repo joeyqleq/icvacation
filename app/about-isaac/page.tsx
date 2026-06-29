@@ -5,6 +5,8 @@ import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
 import { FamilyLegacySection } from "@/components/landing/family-legacy-section";
+import { LiamCtaBand } from "@/components/site/liam-cta-band";
+import { MetallicPaint } from "@/components/ui/metallic-paint";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -112,7 +114,9 @@ export default function AboutIsaacPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <PageHero
+      <div className="relative overflow-hidden">
+        <MetallicPaint imageUrl="/dandelion-yellow.svg" color="#FFE500" metalIntensity={0.6} className="absolute top-12 right-[8%] w-24 h-24 opacity-60 pointer-events-none z-[3]" alt="" aria-hidden="true" />
+        <PageHero
         index="[ 04 ]"
         kicker="// About Isaac"
         title={[
@@ -127,7 +131,8 @@ export default function AboutIsaacPage() {
         imageOffsetY="clamp(1.5rem, 4svh, 2.75rem)"
         primaryCta={{ label: "Plan a trip with Isaac", href: "/contact" }}
         secondaryCta={{ label: "Field notes", href: "/blog" }}
-      />
+        />
+      </div>
 
       {/* INTRO ESSAY */}
       <section className="relative py-24 lg:py-32 bg-background overflow-hidden">
@@ -329,6 +334,11 @@ export default function AboutIsaacPage() {
           }}
         />
       </section>
+
+      <LiamCtaBand
+        headline="Talk to Liam AI before you call Isaac."
+        subline="Liam is Isaac's AI — it thinks the way he does. Start there, arrive prepared."
+      />
 
       <PageCta
         eyebrow="// Next step"

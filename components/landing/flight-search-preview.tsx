@@ -427,9 +427,13 @@ export function FlightSearchPreview() {
               )}
 
               {/* Bottom Buttons */}
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 flex-wrap">
                 <PixelButton variant="yellow" onClick={openContact}>
                   Send selected routing
+                  <ArrowUpRight className="w-4 h-4" />
+                </PixelButton>
+                <PixelButton variant="grey" href="/liam">
+                  Ask Liam AI instead
                   <ArrowUpRight className="w-4 h-4" />
                 </PixelButton>
                 <PixelButton variant="grey" href="/contact">

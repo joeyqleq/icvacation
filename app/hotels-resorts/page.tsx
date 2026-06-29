@@ -4,6 +4,8 @@ import { PageHero } from "@/components/site/page-hero";
 import { PageCta } from "@/components/site/page-cta";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
 import { Mascot } from "@/components/site/mascot";
+import { LiamCtaBand } from "@/components/site/liam-cta-band";
+import { ColorBends } from "@/components/ui/color-bends";
 
 export const metadata: Metadata = {
   title: "Hotels & Resorts · IC Vacation",
@@ -61,7 +63,9 @@ const properties = [
 export default function HotelsResortsPage() {
   return (
     <PageShell>
-      <PageHero
+      <div className="relative overflow-hidden">
+        <ColorBends color="#26FC00" intensity={0.5} className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" />
+        <PageHero
         index="[ 02 ]"
         kicker="// Hotels & Resorts"
         title={[
@@ -76,7 +80,8 @@ export default function HotelsResortsPage() {
         imageOffsetY="clamp(1.25rem, 4svh, 2.5rem)"
         primaryCta={{ label: "Plan my trip", href: "/contact" }}
         secondaryCta={{ label: "See destinations", href: "/destinations" }}
-      />
+        />
+      </div>
 
       {/* MOODS — 4 editorial cards */}
       <section className="relative py-24 lg:py-32 bg-background overflow-hidden">
@@ -193,6 +198,11 @@ export default function HotelsResortsPage() {
           </div>
         </div>
       </section>
+
+      <LiamCtaBand
+        headline="Not sure which property fits? Ask Liam AI."
+        subline="Describe how the trip should feel. Liam matches the stay, not just the stars."
+      />
 
       <PageCta
         eyebrow="// Next step"

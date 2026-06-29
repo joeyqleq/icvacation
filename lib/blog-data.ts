@@ -21,7 +21,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "6 min read",
     date: "May 2026",
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&h=530&fit=crop",
+    image: "/images/blog/why-we-still-call-it-an-advisor.jpg",
     author: "Isaac",
     feature: true,
   },
@@ -32,7 +32,7 @@ export const posts: Post[] = [
     category: "Destinations",
     read: "8 min read",
     date: "April 2026",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=530&fit=crop",
+    image: "/images/blog/the-dolomites-in-late-may.jpg",
     author: "Isaac",
   },
   {
@@ -42,7 +42,7 @@ export const posts: Post[] = [
     category: "Flights",
     read: "5 min read",
     date: "April 2026",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=530&fit=crop",
+    image: "/images/blog/cabin-class-isnt-a-personality.jpg",
     author: "Isaac",
   },
   {
@@ -52,7 +52,7 @@ export const posts: Post[] = [
     category: "Destinations",
     read: "9 min read",
     date: "March 2026",
-    image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=530&fit=crop",
+    image: "/images/blog/kyoto-without-the-list.jpg",
     author: "Isaac",
   },
   {
@@ -62,7 +62,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "March 2026",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=530&fit=crop&q=80",
+    image: "/images/blog/the-quiet-case-for-river-cruises.jpg",
     author: "Isaac",
   },
   {
@@ -72,7 +72,7 @@ export const posts: Post[] = [
     category: "Destinations",
     read: "11 min read",
     date: "February 2026",
-    image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&h=530&fit=crop",
+    image: "/images/blog/what-mexico-isnt.jpg",
     author: "Isaac",
   },
   {
@@ -82,7 +82,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "6 min read",
     date: "February 2026",
-    image: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&h=530&fit=crop",
+    image: "/images/blog/an-advisors-packing-list.jpg",
     author: "Isaac",
   },
   {
@@ -92,7 +92,7 @@ export const posts: Post[] = [
     category: "Safari",
     read: "10 min read",
     date: "January 2026",
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=530&fit=crop",
+    image: "/images/blog/the-migration-isnt-a-month.jpg",
     author: "Isaac",
   },
   {
@@ -102,7 +102,7 @@ export const posts: Post[] = [
     category: "Romance",
     read: "8 min read",
     date: "January 2026",
-    image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&h=530&fit=crop",
+    image: "/images/blog/honeymoons-that-arent-pre-packaged.jpg",
     author: "Isaac",
   },
   {
@@ -112,7 +112,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "4 min read",
     date: "December 2025",
-    image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&h=530&fit=crop",
+    image: "/images/blog/the-virtue-of-an-empty-day.jpg",
     author: "Isaac",
   },
   {
@@ -122,7 +122,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "9 min read",
     date: "December 2025",
-    image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&h=530&fit=crop",
+    image: "/images/blog/expedition-cruising-honest.jpg",
     author: "Isaac",
   },
   {
@@ -132,7 +132,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "7 min read",
     date: "November 2025",
-    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=530&fit=crop",
+    image: "/images/blog/shoulder-weeks-we-actually-book.jpg",
     author: "Isaac",
   },
   {
@@ -142,7 +142,7 @@ export const posts: Post[] = [
     category: "Essays",
     read: "6 min read",
     date: "November 2025",
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=530&fit=crop",
+    image: "/images/blog/what-luxury-quietly-means.jpg",
     author: "Isaac",
   },
   {
@@ -152,7 +152,7 @@ export const posts: Post[] = [
     category: "Hotels",
     read: "8 min read",
     date: "October 2025",
-    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=530&fit=crop",
+    image: "/images/blog/the-private-villa-question.jpg",
     author: "Isaac",
   },
   {
@@ -162,7 +162,7 @@ export const posts: Post[] = [
     category: "Family",
     read: "7 min read",
     date: "October 2025",
-    image: "https://images.unsplash.com/photo-1502780402662-acc01917949e?w=800&h=530&fit=crop",
+    image: "/images/blog/family-travel-after-eleven.jpg",
     author: "Isaac",
   },
   {
@@ -172,7 +172,7 @@ export const posts: Post[] = [
     category: "Field notes",
     read: "5 min read",
     date: "September 2025",
-    image: "https://images.unsplash.com/photo-1423347834838-5162bb452ca4?w=800&h=530&fit=crop",
+    image: "/images/blog/on-staying-reachable.jpg",
     author: "Isaac",
   },
   {
@@ -182,7 +182,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "10 min read",
     date: "June 2026",
-    image: "https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&h=600&fit=crop",
+    image: "/images/blog/why-cruise-dining-is-the-quiet-secret.jpg",
     author: "Isaac",
   },
   {
@@ -192,7 +192,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "8 min read",
     date: "June 2026",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop",
+    image: "/images/blog/the-danube-in-september.jpg",
     author: "Isaac",
   },
   {
@@ -202,7 +202,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "11 min read",
     date: "May 2026",
-    image: "https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=800&h=600&fit=crop",
+    image: "/images/blog/mediterranean-beyond-the-floating-city.jpg",
     author: "Isaac",
   },
   {
@@ -212,7 +212,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "May 2026",
-    image: "https://images.unsplash.com/photo-1552733407-5d5c46b3da3b?w=800&h=600&fit=crop",
+    image: "/images/blog/small-ship-cruising-the-case-for-discipline.jpg",
     author: "Isaac",
   },
   {
@@ -222,7 +222,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "May 2026",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+    image: "/images/blog/what-we-learned-watching-dawn-at-sea.jpg",
     author: "Isaac",
   },
   {
@@ -232,7 +232,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "9 min read",
     date: "April 2026",
-    image: "https://images.unsplash.com/photo-1600002415506-dd5716cbf3e3?w=800&h=600&fit=crop",
+    image: "/images/blog/alaska-off-season-when-the-glaciers-speak.jpg",
     author: "Isaac",
   },
   {
@@ -242,7 +242,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "8 min read",
     date: "April 2026",
-    image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop",
+    image: "/images/blog/balcony-versus-suite-the-real-answer.jpg",
     author: "Isaac",
   },
   {
@@ -252,7 +252,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "10 min read",
     date: "March 2026",
-    image: "https://images.unsplash.com/photo-1489493072403-79f7e8e96f5d?w=800&h=600&fit=crop",
+    image: "/images/blog/the-galápagos-at-depth.jpg",
     author: "Isaac",
   },
   {
@@ -262,7 +262,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "9 min read",
     date: "March 2026",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
+    image: "/images/blog/caribbean-beyond-the-resort-pier.jpg",
     author: "Isaac",
   },
   {
@@ -272,7 +272,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "11 min read",
     date: "February 2026",
-    image: "https://images.unsplash.com/photo-1473496045625-2405badf714d?w=800&h=600&fit=crop",
+    image: "/images/blog/transatlantic-crossing-the-luxury-of-slowness.jpg",
     author: "Isaac",
   },
   {
@@ -282,7 +282,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "9 min read",
     date: "January 2026",
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=600&fit=crop",
+    image: "/images/blog/peruvian-amazon-by-riverboat.jpg",
     author: "Isaac",
   },
   {
@@ -292,7 +292,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "10 min read",
     date: "January 2026",
-    image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&h=600&fit=crop",
+    image: "/images/blog/asia-pacific-cruising-the-quiet-compass.jpg",
     author: "Isaac",
   },
   {
@@ -302,7 +302,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "December 2025",
-    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=800&h=600&fit=crop",
+    image: "/images/blog/ports-we-tell-nobody-about.jpg",
     author: "Isaac",
   },
   {
@@ -312,7 +312,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "December 2025",
-    image: "https://images.unsplash.com/photo-1503428516099-af0c2a194e12?w=800&h=600&fit=crop",
+    image: "/images/blog/night-sailing-the-romance-is-real.jpg",
     author: "Isaac",
   },
   {
@@ -322,7 +322,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "November 2025",
-    image: "https://images.unsplash.com/photo-1496449903678-68ddad06e82f?w=800&h=600&fit=crop",
+    image: "/images/blog/the-captain-knows.jpg",
     author: "Isaac",
   },
   {
@@ -332,7 +332,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "8 min read",
     date: "November 2025",
-    image: "https://images.unsplash.com/photo-1472745942893-3da635d451b1?w=800&h=600&fit=crop",
+    image: "/images/blog/norwegian-fjords-in-the-midnight-sun.jpg",
     author: "Isaac",
   },
   {
@@ -342,7 +342,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "October 2025",
-    image: "https://images.unsplash.com/photo-1524673450801-b5aa9b621b76?w=800&h=600&fit=crop",
+    image: "/images/blog/canal-cruising-art-and-engineering.jpg",
     author: "Isaac",
   },
   {
@@ -352,7 +352,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "10 min read",
     date: "October 2025",
-    image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=800&h=600&fit=crop",
+    image: "/images/blog/adventure-cruising-with-purpose.jpg",
     author: "Isaac",
   },
   {
@@ -362,7 +362,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "September 2025",
-    image: "https://images.unsplash.com/photo-1537047902294-fb2b3b1a9bbb?w=800&h=600&fit=crop",
+    image: "/images/blog/the-dining-room-at-eight.jpg",
     author: "Isaac",
   },
   {
@@ -372,7 +372,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "September 2025",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop",
+    image: "/images/blog/champagne-and-sunsets-the-ritual.jpg",
     author: "Isaac",
   },
   {
@@ -382,7 +382,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "August 2025",
-    image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=600&fit=crop",
+    image: "/images/blog/deck-chairs-and-philosophy.jpg",
     author: "Isaac",
   },
   {
@@ -392,7 +392,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "August 2025",
-    image: "https://images.unsplash.com/photo-1521673461164-de300ebcfb17?w=800&h=600&fit=crop",
+    image: "/images/blog/crew-conversations-the-human-element.jpg",
     author: "Isaac",
   },
   {
@@ -402,7 +402,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "July 2025",
-    image: "https://images.unsplash.com/photo-1507842072343-583f20270319?w=800&h=600&fit=crop",
+    image: "/images/blog/library-at-sea-when-books-float.jpg",
     author: "Isaac",
   },
   {
@@ -412,7 +412,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "July 2025",
-    image: "https://images.unsplash.com/photo-1543512214-318c7553f230?w=800&h=600&fit=crop",
+    image: "/images/blog/itinerary-discipline-the-unbooked-day.jpg",
     author: "Isaac",
   },
   {
@@ -422,7 +422,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "June 2025",
-    image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&h=600&fit=crop",
+    image: "/images/blog/secret-spots-hidden-on-big-ships.jpg",
     author: "Isaac",
   },
   {
@@ -432,7 +432,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "June 2025",
-    image: "https://images.unsplash.com/photo-1519659528534-7fd733a832a0?w=800&h=600&fit=crop",
+    image: "/images/blog/spring-cruising-the-season-nobody-books.jpg",
     author: "Isaac",
   },
   {
@@ -442,7 +442,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "5 min read",
     date: "May 2025",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop",
+    image: "/images/blog/the-first-morning-at-sea.jpg",
     author: "Isaac",
   },
   {
@@ -452,7 +452,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "7 min read",
     date: "May 2025",
-    image: "https://images.unsplash.com/photo-1510812431401-41d2cab2707d?w=800&h=600&fit=crop",
+    image: "/images/blog/wine-and-water-tasting-the-voyage.jpg",
     author: "Isaac",
   },
   {
@@ -462,7 +462,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "April 2025",
-    image: "https://images.unsplash.com/photo-1444080748397-f442aa95c3e5?w=800&h=600&fit=crop",
+    image: "/images/blog/star-gazing-from-a-moving-ship.jpg",
     author: "Isaac",
   },
   {
@@ -472,7 +472,7 @@ export const posts: Post[] = [
     category: "Cruises",
     read: "6 min read",
     date: "April 2025",
-    image: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&h=600&fit=crop",
+    image: "/images/blog/crossing-the-date-line-time-travel.jpg",
     author: "Isaac",
   },
 ];

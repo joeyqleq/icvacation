@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Plane, ArrowRight, ArrowLeftRight, Loader2 } from "lucide-react";
 
 interface FlightResult {
@@ -7,6 +7,8 @@ interface FlightResult {
   departTime: string; arriveTime: string; duration: string;
   stops: number; price: string; cabin: string;
 }
+
+interface AirportOption { code: string; label: string; city: string; country: string; }
 
 const CABIN_OPTIONS = ["Economy", "Premium Economy", "Business", "First"];
 const PAX_OPTIONS = ["1 passenger", "2 passengers", "3 passengers", "4 passengers", "5 passengers", "6 passengers"];
@@ -37,20 +39,89 @@ function SelectField({ label, value, onChange, options }: {
   );
 }
 
-function TextField({ label, value, onChange, placeholder, hint }: {
-  label: string; value: string; onChange: (v: string) => void; placeholder?: string; hint?: string;
+function AirportField({ label, value, onChange, placeholder }: {
+  label: string; value: string; onChange: (code: string) => void; placeholder?: string;
 }) {
+  const [query, setQuery] = useState(value);
+  const [suggestions, setSuggestions] = useState<AirportOption[]>([]);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { setQuery(value); }, [value]);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const fetch_ = useCallback((q: string) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      if (!q || q.length < 1) { setSuggestions([]); return; }
+      try {
+        const r = await fetch(`/api/liam-search/airports?q=${encodeURIComponent(q.toUpperCase())}`);
+        const d = await r.json();
+        setSuggestions(d.airports ?? []);
+        setOpen((d.airports ?? []).length > 0);
+      } catch { setSuggestions([]); }
+    }, 150);
+  }, []);
+
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const v = e.target.value.toUpperCase().slice(0, 20);
+    setQuery(v);
+    setSelected(false);
+    fetch_(v);
+  }
+
+  function pick(a: AirportOption) {
+    setQuery(a.code);
+    onChange(a.code);
+    setSelected(true);
+    setSuggestions([]);
+    setOpen(false);
+  }
+
+  function handleBlur() {
+    setTimeout(() => {
+      setOpen(false);
+      // If the typed value is exactly a 3-letter code, accept it
+      if (query.length === 3 && !selected) onChange(query);
+    }, 150);
+  }
+
   return (
-    <div>
+    <div ref={wrapRef} className="relative">
       <FieldLabel>{label}</FieldLabel>
       <input
         className="w-full bg-[#0a0a0a] border border-white/15 px-3 py-2 text-sm font-mono text-white/80 placeholder:text-white/25 focus:outline-none focus:border-[#26FC00] uppercase"
-        placeholder={placeholder}
-        value={value}
-        onChange={e => onChange(e.target.value.toUpperCase().slice(0, 3))}
-        maxLength={3}
+        placeholder={placeholder ?? "e.g. JFK or New York"}
+        value={query}
+        onChange={handleInput}
+        onBlur={handleBlur}
+        autoComplete="off"
       />
-      {hint && <span className="font-mono text-[8px] text-white/25 mt-0.5 block">{hint}</span>}
+      {open && suggestions.length > 0 && (
+        <div className="absolute z-50 left-0 right-0 top-full mt-0.5 bg-[#111] border border-white/15 shadow-xl max-h-52 overflow-y-auto">
+          {suggestions.map(a => (
+            <button
+              key={a.code}
+              type="button"
+              onMouseDown={() => pick(a)}
+              className="w-full text-left px-3 py-2 hover:bg-[#26FC00]/10 border-b border-white/5 last:border-0 flex items-center gap-2 group"
+            >
+              <span className="font-mono text-[11px] text-[#26FC00] font-semibold w-9 shrink-0">{a.code}</span>
+              <span className="font-mono text-[10px] text-white/60 truncate">{a.city}</span>
+              <span className="font-mono text-[9px] text-white/25 ml-auto shrink-0">{a.country}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -104,7 +175,7 @@ export function FlightsTab() {
       {/* Origin / Destination row */}
       <div className="flex gap-2 items-end">
         <div className="flex-1">
-          <TextField label="From" value={from} onChange={setFrom} placeholder="JFK" hint="3-letter airport code" />
+          <AirportField label="From" value={from} onChange={setFrom} placeholder="JFK or New York" />
         </div>
         <button
           onClick={swap}
@@ -114,7 +185,7 @@ export function FlightsTab() {
           <ArrowLeftRight className="w-3.5 h-3.5" />
         </button>
         <div className="flex-1">
-          <TextField label="To" value={to} onChange={setTo} placeholder="CDG" hint="3-letter airport code" />
+          <AirportField label="To" value={to} onChange={setTo} placeholder="CDG or Paris" />
         </div>
       </div>
 
@@ -165,7 +236,7 @@ export function FlightsTab() {
           <p className="font-serif italic text-sm text-white/35 text-center pt-8">No flights found. Try different airports or dates.</p>
         )}
         {!searched && (
-          <p className="font-serif italic text-sm text-white/25 text-center pt-8">Enter origin and destination to search</p>
+          <p className="font-serif italic text-sm text-white/25 text-center pt-8">Type a city or airport code to search</p>
         )}
       </div>
     </div>

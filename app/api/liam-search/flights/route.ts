@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 interface FlightResult {
   id: string;
   airline: string;
@@ -22,43 +25,77 @@ const MOCK_FLIGHTS: FlightResult[] = [
   { id: "f6", airline: "JAL", from: "NRT", to: "LAX", departTime: "16:30", arriveTime: "10:05", duration: "10h 35m", stops: 0, price: "from $1,340", cabin: "Economy" },
 ];
 
-export async function GET(req: NextRequest) {
-  const from = req.nextUrl.searchParams.get("from") ?? "";
-  const to = req.nextUrl.searchParams.get("to") ?? "";
-  const amadeusId = process.env.AMADEUS_CLIENT_ID;
-  const amadeusSecret = process.env.AMADEUS_CLIENT_SECRET;
+function parseDuration(minutes: number): string {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return `${h}h ${m}m`;
+}
 
-  if (amadeusId && amadeusSecret) {
+function formatTime(isoString: string): string {
+  if (!isoString) return "";
+  try {
+    return isoString.slice(11, 16);
+  } catch {
+    return isoString;
+  }
+}
+
+export async function GET(req: NextRequest) {
+  const from = req.nextUrl.searchParams.get("from")?.toUpperCase() ?? "";
+  const to = req.nextUrl.searchParams.get("to")?.toUpperCase() ?? "";
+  const date = req.nextUrl.searchParams.get("date") ?? new Date().toISOString().slice(0, 10);
+  const serpApiKey = process.env.NEXT_PUBLIC_SERPAPI_API_KEY;
+
+  if (serpApiKey && from && to) {
     try {
-      const tokenRes = await fetch("https://test.api.amadeus.com/v1/security/oauth2/token", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          grant_type: "client_credentials",
-          client_id: amadeusId,
-          client_secret: amadeusSecret,
-        }),
+      const params = new URLSearchParams({
+        engine: "google_flights",
+        departure_id: from,
+        arrival_id: to,
+        outbound_date: date,
+        currency: "USD",
+        hl: "en",
+        api_key: serpApiKey,
+        type: "2", // one-way
       });
-      const { access_token } = await tokenRes.json();
-      const date = req.nextUrl.searchParams.get("date") ?? new Date().toISOString().slice(0, 10);
-      const searchRes = await fetch(
-        `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${from}&destinationLocationCode=${to}&departureDate=${date}&adults=1&max=5`,
-        { headers: { Authorization: `Bearer ${access_token}` } }
-      );
-      const data = await searchRes.json();
-      const flights: FlightResult[] = (data.data ?? []).map((o: any, i: number) => ({
-        id: o.id ?? `f${i}`,
-        airline: o.validatingAirlineCodes?.[0] ?? "Various",
-        from: o.itineraries?.[0]?.segments?.[0]?.departure?.iataCode ?? from,
-        to: o.itineraries?.[0]?.segments?.at(-1)?.arrival?.iataCode ?? to,
-        departTime: o.itineraries?.[0]?.segments?.[0]?.departure?.at?.slice(11, 16) ?? "",
-        arriveTime: o.itineraries?.[0]?.segments?.at(-1)?.arrival?.at?.slice(11, 16) ?? "",
-        duration: o.itineraries?.[0]?.duration?.replace("PT", "").replace("H", "h ").replace("M", "m") ?? "",
-        stops: (o.itineraries?.[0]?.segments?.length ?? 1) - 1,
-        price: `from $${Math.round(parseFloat(o.price?.total ?? "999"))}`,
-        cabin: o.travelerPricings?.[0]?.fareDetailsBySegment?.[0]?.cabin ?? "Economy",
-      }));
-      return NextResponse.json({ flights, live: true });
+
+      const res = await fetch(`https://serpapi.com/search?${params.toString()}`, {
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const rawFlights = [
+          ...(data.best_flights ?? []),
+          ...(data.other_flights ?? []),
+        ].slice(0, 8);
+
+        if (rawFlights.length > 0) {
+          const flights: FlightResult[] = rawFlights.map((f: any, i: number) => {
+            const firstSeg = f.flights?.[0] ?? {};
+            const lastSeg = f.flights?.at(-1) ?? {};
+            const airline = firstSeg.airline ?? "Various";
+            const stops = Math.max(0, (f.flights?.length ?? 1) - 1);
+            const durationMin = f.total_duration ?? 0;
+            const price = f.price ? `from $${f.price.toLocaleString()}` : "Price TBD";
+            const cabin = firstSeg.travel_class ?? "Economy";
+
+            return {
+              id: `s${i}`,
+              airline,
+              from: firstSeg.departure_airport?.id ?? from,
+              to: lastSeg.arrival_airport?.id ?? to,
+              departTime: formatTime(firstSeg.departure_airport?.time ?? ""),
+              arriveTime: formatTime(lastSeg.arrival_airport?.time ?? ""),
+              duration: durationMin ? parseDuration(durationMin) : "",
+              stops,
+              price,
+              cabin,
+            };
+          });
+          return NextResponse.json({ flights, live: true, source: "serpapi" });
+        }
+      }
     } catch {}
   }
 

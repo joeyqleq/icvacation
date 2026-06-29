@@ -7,12 +7,11 @@ import { usePathname } from "next/navigation";
 import { useContact } from "@/components/site/contact-provider";
 
 const navLinks = [
-  { name: "Home",         href: "/"                         },
   { name: "Cruises",      href: "/cruises"                  },
   { name: "Hotels",       href: "/hotels-resorts"           },
   { name: "Flights",      href: "/flights-packages"         },
   { name: "Destinations", href: "/destinations"             },
-  { name: "Liam",         href: "/liam"                     },
+  { name: "Liam AI",      href: "/liam"                     },
   { name: "Journal",      href: "/blog"                     },
   { name: "About",        href: "/about-isaac"              },
 ];

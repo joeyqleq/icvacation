@@ -6,7 +6,6 @@ import { PixelButton } from "@/components/site/pixel-button";
 import { useContact } from "@/components/site/contact-provider";
 import { ArrowUpRight } from "lucide-react";
 import { GradualBlur } from "@/components/ui/gradual-blur";
-import { ScrollVelocity } from "@/components/ui/scroll-velocity";
 
 const cyclingWords = ["quietly", "thoughtfully", "personally", "beautifully"];
 
@@ -214,14 +213,6 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
         </div>
       </div>
 
-      {/* ScrollVelocity — ghost words tied to page scroll, behind content */}
-      <div className="absolute inset-x-0 bottom-0 z-[1] pointer-events-none overflow-hidden" style={{ height: 180 }}>
-        <ScrollVelocity
-          texts={["BOUTIQUE TRAVEL", "IC VACATION"]}
-          velocity={3}
-          className="text-white/[0.03] font-display text-8xl lg:text-[10rem] uppercase tracking-tight select-none"
-        />
-      </div>
     </section>
   );
 }

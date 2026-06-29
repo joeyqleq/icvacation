@@ -8,9 +8,18 @@ import { PixelButton } from "@/components/site/pixel-button";
 
 export function BirdAnimationStage() {
   const [run, setRun] = useState(0);
+  const [showBird, setShowBird] = useState(true);
+
+  const replay = () => {
+    setShowBird(false);
+    requestAnimationFrame(() => {
+      setRun((value) => value + 1);
+      requestAnimationFrame(() => setShowBird(true));
+    });
+  };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background pt-28 pb-16 sm:pt-32 lg:pt-36">
+    <section className="relative min-h-screen overflow-hidden bg-background pt-24 pb-8 sm:pt-28 lg:pt-32">
       <BackgroundBoxes variant="green" className="opacity-20" />
 
       <div className="absolute inset-0 pointer-events-none">
@@ -18,8 +27,8 @@ export function BirdAnimationStage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-9rem)] max-w-[1440px] flex-col px-6 lg:px-12">
-        <div className="max-w-3xl">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-8rem)] max-w-[1440px] flex-col px-6 lg:px-12">
+        <div className="max-w-2xl">
           <span className="mb-5 inline-flex items-center gap-3 label-ticker text-white/70">
             <span className="w-2 h-2 rounded-full pulse-green" />
             <span className="font-mono">[ bird ]</span>
@@ -36,18 +45,20 @@ export function BirdAnimationStage() {
           </h1>
         </div>
 
-        <div className="relative mt-8 min-h-[360px] flex-1 overflow-visible sm:mt-10 lg:mt-6">
-          <div className="absolute inset-x-0 top-[18%] h-[420px]">
-            <AnimatedMascotBird
-              key={run}
-              playOnView={false}
-              className="absolute left-[-8rem] top-8 w-32 sm:w-44 md:w-52 lg:w-60"
-            />
+        <div className="relative mt-4 min-h-[310px] flex-1 overflow-visible sm:mt-6 lg:mt-2">
+          <div className="absolute inset-x-0 top-0 h-[430px]">
+            {showBird && (
+              <AnimatedMascotBird
+                key={run}
+                playOnView={false}
+                className="absolute left-0 top-8 w-40 sm:w-52 md:w-60 lg:w-72"
+              />
+            )}
           </div>
         </div>
 
         <div className="relative z-20 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <PixelButton variant="yellow" onClick={() => setRun((value) => value + 1)}>
+          <PixelButton variant="yellow" onClick={replay}>
             Replay
             <RotateCcw className="w-4 h-4" />
           </PixelButton>
