@@ -11,6 +11,9 @@ export default function MapView({ className }: { className?: string }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    let raf: number;
+    let resizeObserver: ResizeObserver | null = null;
+
     async function init() {
       const L = (await import("leaflet")).default;
       await import("leaflet/dist/leaflet.css");
@@ -22,31 +25,47 @@ export default function MapView({ className }: { className?: string }) {
         shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
       });
 
-      if (!mapRef.current || mapInstanceRef.current) return;
+      if (!mapRef.current) return;
 
-      const map = L.map(mapRef.current, {
-        center: [20, 0],
-        zoom: 2,
-        zoomControl: true,
-        attributionControl: true,
+      if (!mapInstanceRef.current) {
+        const map = L.map(mapRef.current, {
+          center: [20, 0],
+          zoom: 2,
+          zoomControl: true,
+          attributionControl: true,
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          maxZoom: 19,
+        }).addTo(map);
+
+        mapInstanceRef.current = map;
+
+        // Watch for container resize and re-measure — catches mobile tab reveals
+        resizeObserver = new ResizeObserver(() => {
+          mapInstanceRef.current?.invalidateSize();
+        });
+        resizeObserver.observe(mapRef.current);
+      }
+
+      // Defer invalidateSize until after browser paints the new layout
+      raf = requestAnimationFrame(() => {
+        mapInstanceRef.current?.invalidateSize();
       });
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 19,
-      }).addTo(map);
-
-      mapInstanceRef.current = map;
     }
 
     init();
 
     return () => {
+      cancelAnimationFrame(raf);
+      resizeObserver?.disconnect();
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -1,88 +1,102 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DestinationProvider } from "@/components/liam/destination-context";
 import { SearchPanel } from "@/components/liam/search-panel";
 import { ChatPanel } from "@/components/liam/chat-panel";
 import { Navigation } from "@/components/landing/navigation";
-import { MessageSquare, Map } from "lucide-react";
+import { MessageSquare, Map, Plane, Hotel, BarChart2 } from "lucide-react";
 
-type MobileTab = "chat" | "map";
+type MobileTab = "chat" | "map" | "flights" | "cruises" | "hotels" | "utilities";
+type SearchTabId = "map" | "flights" | "cruises" | "hotels" | "utilities";
+
+const BOTTOM_NAV: { id: MobileTab; label: string; Icon: React.ElementType }[] = [
+  { id: "chat",      label: "Chat",    Icon: MessageSquare },
+  { id: "map",       label: "Map",     Icon: Map           },
+  { id: "flights",   label: "Flights", Icon: Plane         },
+  { id: "hotels",    label: "Hotels",  Icon: Hotel         },
+  { id: "utilities", label: "Tools",   Icon: BarChart2     },
+];
 
 export function LiamClient() {
   const [mobileTab, setMobileTab] = useState<MobileTab>("chat");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  const isSearchTab = mobileTab !== "chat";
+  const searchTabId: SearchTabId = isSearchTab ? (mobileTab as SearchTabId) : "map";
 
   return (
     <div className="flex flex-col h-[100dvh] bg-[#050505] overflow-hidden">
       <Navigation splashDone />
       <DestinationProvider>
-        {/* Sub-header bar */}
-        <div className="flex-shrink-0 border-b border-white/10 bg-black/50 backdrop-blur px-4 md:px-6 py-2.5 flex items-center justify-between mt-[56px]">
-          <div className="flex items-center gap-2.5">
-            <span className="font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase">[ AI ]</span>
-            <h1 className="font-sans font-bold text-white text-lg md:text-xl tracking-tight">
-              Liam <span className="text-[#26FC00]">AI</span>
-            </h1>
-            <span className="hidden sm:block font-mono text-[9px] tracking-[0.2em] text-white/30">
-              // Travel Consultant · IC Vacation
-            </span>
-          </div>
-          <p className="hidden lg:block font-serif italic text-sm text-white/35">
+        {/* Sub-header */}
+        <div className="flex-shrink-0 border-b border-white/10 bg-black/50 backdrop-blur px-4 md:px-6 py-2 md:py-2.5 flex items-center gap-3 mt-[56px]">
+          <span className="hidden sm:block font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase">[ AI ]</span>
+          <h1 className="font-sans font-bold text-white text-base md:text-xl tracking-tight">
+            Liam <span className="text-[#26FC00]">AI</span>
+          </h1>
+          <span className="hidden lg:block font-mono text-[9px] tracking-[0.2em] text-white/30">
+            // Travel Consultant · IC Vacation
+          </span>
+          <p className="hidden lg:block ml-auto font-serif italic text-sm text-white/35">
             Your personalized boutique vacation, shaped by Liam. Delivered by Isaac.
           </p>
-
-          {/* Mobile tab switcher */}
-          <div className="flex md:hidden items-center gap-1 bg-white/5 border border-white/10 p-0.5">
-            <button
-              onClick={() => setMobileTab("chat")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] uppercase transition-colors ${
-                mobileTab === "chat"
-                  ? "bg-[#26FC00] text-black"
-                  : "text-white/50 hover:text-white"
-              }`}
-            >
-              <MessageSquare className="w-3 h-3" />
-              Chat
-            </button>
-            <button
-              onClick={() => setMobileTab("map")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] uppercase transition-colors ${
-                mobileTab === "map"
-                  ? "bg-[#26FC00] text-black"
-                  : "text-white/50 hover:text-white"
-              }`}
-            >
-              <Map className="w-3 h-3" />
-              Map
-            </button>
-          </div>
         </div>
 
-        {/* Desktop: side-by-side split | Mobile: tab-switched */}
+        {/* Main content */}
         <div className="flex flex-1 overflow-hidden">
-          {/* Left: Search + Map panel */}
-          {/* Desktop: always visible at 42% | Mobile: shown when map tab active */}
+          {/* Search/map panel — desktop: always visible 42%; mobile: visible when search tab active */}
           <div
-            className={`
-              overflow-hidden border-white/10 flex-shrink-0
+            className={`overflow-hidden border-white/10 flex-shrink-0
               md:block md:w-[42%] md:border-r
-              ${mobileTab === "map" ? "flex-1 block" : "hidden"}
+              ${isSearchTab ? "flex-1 block" : "hidden"}
             `}
           >
-            <SearchPanel />
+            <SearchPanel
+              externalTab={isMobile ? searchTabId : undefined}
+              hideTabs={isMobile}
+            />
           </div>
 
-          {/* Right: Chat panel */}
-          {/* Desktop: always visible flex-1 | Mobile: shown when chat tab active */}
+          {/* Chat panel — desktop: always visible; mobile: visible when chat tab active */}
           <div
-            className={`
-              overflow-hidden
-              md:flex md:flex-1
+            className={`overflow-hidden md:flex md:flex-1
               ${mobileTab === "chat" ? "flex flex-1" : "hidden"}
             `}
           >
             <ChatPanel />
           </div>
         </div>
+
+        {/* Mobile bottom navigation */}
+        <nav
+          className="md:hidden flex-shrink-0 border-t border-white/10 bg-[#050505]/95 backdrop-blur"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+        >
+          <div className="flex">
+            {BOTTOM_NAV.map(({ id, label, Icon }) => (
+              <button
+                key={id}
+                onClick={() => setMobileTab(id)}
+                className={`flex-1 flex flex-col items-center gap-0.5 py-2.5 transition-colors ${
+                  mobileTab === id
+                    ? "text-[#26FC00]"
+                    : "text-white/35 active:text-white/60"
+                }`}
+              >
+                <Icon className="w-[18px] h-[18px]" />
+                <span className="font-mono text-[7px] tracking-[0.12em] uppercase">{label}</span>
+              </button>
+            ))}
+          </div>
+        </nav>
       </DestinationProvider>
     </div>
   );

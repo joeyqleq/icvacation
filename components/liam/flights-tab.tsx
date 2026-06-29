@@ -107,7 +107,7 @@ function AirportField({ label, value, onChange, placeholder }: {
         autoComplete="off"
       />
       {open && suggestions.length > 0 && (
-        <div className="absolute z-50 left-0 right-0 top-full mt-0.5 bg-[#111] border border-white/15 shadow-xl max-h-52 overflow-y-auto">
+        <div className="absolute z-50 left-0 right-0 top-full mt-0.5 bg-[#111] border border-white/15 shadow-xl max-h-44 overflow-y-auto">
           {suggestions.map(a => (
             <button
               key={a.code}
