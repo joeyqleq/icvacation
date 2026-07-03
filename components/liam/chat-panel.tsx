@@ -11,6 +11,7 @@ interface Message {
 }
 
 const SESSION_KEY = "liam_session";
+const USER_ID_KEY = "liam_user_id";
 
 interface LiamSession {
   userName: string | null;
@@ -30,6 +31,34 @@ function saveSession(session: LiamSession) {
   if (typeof window === "undefined") return;
   try {
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  } catch {}
+}
+
+/** Stable anonymous user ID persisted in localStorage across sessions */
+function getUserId(): string {
+  if (typeof window === "undefined") return "anon";
+  try {
+    const existing = localStorage.getItem(USER_ID_KEY);
+    if (existing) return existing;
+    const id = `u_${Math.random().toString(36).slice(2, 10)}_${Date.now().toString(36)}`;
+    localStorage.setItem(USER_ID_KEY, id);
+    return id;
+  } catch {
+    return "anon";
+  }
+}
+
+async function saveProfileAsync(
+  userId: string,
+  userName: string | null,
+  messages: { role: string; content: string }[]
+) {
+  try {
+    await fetch("/api/liam-profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, userName, messages }),
+    });
   } catch {}
 }
 
@@ -57,6 +86,7 @@ const WELCOME_MESSAGE: Message = {
 export function ChatPanel() {
   const savedSession = loadSession();
 
+  const [userId] = useState<string>(() => getUserId());
   const [userName, setUserName] = useState<string | null>(savedSession.userName);
   const [messages, setMessages] = useState<Message[]>(() => {
     if (savedSession.messages.length > 0) {
@@ -92,6 +122,25 @@ export function ChatPanel() {
     });
   }, [messages, userName]);
 
+  // Save profile signals to Upstash when user leaves (if there are user messages)
+  useEffect(() => {
+    const hasUserMessages = messages.some((m) => m.role === "user");
+    if (!hasUserMessages) return;
+
+    const handleUnload = () => {
+      const payload = messages.map((m) => ({ role: m.role, content: m.content }));
+      // Use sendBeacon for reliability on page unload
+      const blob = new Blob(
+        [JSON.stringify({ userId, userName, messages: payload })],
+        { type: "application/json" }
+      );
+      navigator.sendBeacon("/api/liam-profile", blob);
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [messages, userId, userName]);
+
   const sendMessage = useCallback(async () => {
     if (!input.trim() || isStreaming) return;
 
@@ -126,7 +175,7 @@ export function ChatPanel() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: newMessages.map((m) => ({ role: m.role, content: m.content })),
-          sessionContext: { userName: userName ?? extractName(trimmed) },
+          sessionContext: { userName: userName ?? extractName(trimmed), userId },
         }),
       });
 
@@ -176,8 +225,13 @@ export function ChatPanel() {
       );
     } finally {
       setIsStreaming(false);
+      // Fire-and-forget profile save after each completed assistant turn
+      setMessages((current) => {
+        saveProfileAsync(userId, userName, current.map((m) => ({ role: m.role, content: m.content })));
+        return current;
+      });
     }
-  }, [input, isStreaming, messages, userName, setDestination]);
+  }, [input, isStreaming, messages, userName, userId, setDestination]);
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter" && !e.shiftKey) {

@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { LIAM_SYSTEM_PROMPT } from "@/lib/liam-system-prompt";
 import { retrieveRAGContext } from "@/lib/azure-search-rag";
+import { getProfile, buildProfileBlock } from "@/lib/user-profile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,6 +13,7 @@ interface ChatMessage {
 
 interface SessionContext {
   userName?: string | null;
+  userId?: string | null;
 }
 
 const ENDPOINT = process.env.AZURE_OPENAI_ENDPOINT!;
@@ -61,19 +63,28 @@ export async function POST(req: NextRequest) {
   const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
   const userQuery = lastUserMessage?.content ?? "";
 
-  // Run RAG retrieval and Tavily search in parallel
-  const [ragContext, tavilyResult] = await Promise.all([
+  // Run RAG, Tavily, and profile fetch in parallel
+  const [ragContext, tavilyResult, userProfile] = await Promise.all([
     lastUserMessage ? retrieveRAGContext(userQuery, 6) : Promise.resolve(""),
     lastUserMessage ? tavilySearch(userQuery) : Promise.resolve({ context: "", status: "skipped" }),
+    sessionContext?.userId ? getProfile(sessionContext.userId) : Promise.resolve(null),
   ]);
   const webContext = tavilyResult.context;
   const tavilyStatus = tavilyResult.status;
 
-  // Build system prompt with session context + knowledge
+  // Build system prompt with profile + session context + knowledge
   let systemContent = LIAM_SYSTEM_PROMPT;
 
-  if (sessionContext?.userName) {
-    systemContent += `\n\n## SESSION CONTEXT\nThe client's name is ${sessionContext.userName}. Use their name naturally in the conversation — warmly, not excessively.`;
+  // Inject persistent user profile (cross-session memory)
+  if (userProfile) {
+    const profileBlock = buildProfileBlock(userProfile);
+    if (profileBlock) systemContent += `\n\n${profileBlock}`;
+  }
+
+  // Override name from session if we have it (session wins over profile for current name)
+  const resolvedName = sessionContext?.userName ?? userProfile?.name ?? null;
+  if (resolvedName) {
+    systemContent += `\n\n## SESSION CONTEXT\nThe client's name is ${resolvedName}. Use their name naturally — warmly, not excessively.`;
   }
 
   if (ragContext) systemContent += `\n\n${ragContext}`;
@@ -159,7 +170,9 @@ export async function POST(req: NextRequest) {
             debug: {
               rag_docs: ragContext ? ragContext.split("---").length : 0,
               tavily: tavilyStatus,
-              session_user: sessionContext?.userName ?? null,
+              session_user: resolvedName ?? null,
+              profile_loaded: !!userProfile,
+              returning_client: (userProfile?.conversationCount ?? 0) > 0,
             },
           })}\n\n`
         )
