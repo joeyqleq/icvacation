@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getProfile, upsertProfile, extractSignals } from "@/lib/user-profile";
+import { getProfile, upsertProfile, extractSignals, updateAggregateInsights } from "@/lib/user-profile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,11 +14,14 @@ export async function GET(req: NextRequest) {
 
 /** POST /api/liam-profile — save completed conversation signals */
 export async function POST(req: NextRequest) {
-  const { userId, userName, messages } = await req.json() as {
+  const body = await req.json() as {
     userId: string;
     userName?: string | null;
     messages: { role: string; content: string }[];
+    updateAggregate?: boolean;
   };
+
+  const { userId, userName, messages, updateAggregate } = body;
 
   if (!userId || !messages?.length) {
     return NextResponse.json({ ok: false, reason: "missing_fields" }, { status: 400 });
@@ -27,6 +30,13 @@ export async function POST(req: NextRequest) {
   const signals = extractSignals(messages);
   if (userName) signals.name = userName;
 
+  // Always update the per-device profile
   await upsertProfile(userId, signals);
+
+  // Optionally update aggregate insights (called after each conversation)
+  if (updateAggregate) {
+    await updateAggregateInsights(signals);
+  }
+
   return NextResponse.json({ ok: true });
 }

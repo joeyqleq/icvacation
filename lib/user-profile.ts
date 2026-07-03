@@ -24,7 +24,17 @@ export interface UserProfile {
   conversationCount: number;
 }
 
+export interface AggregateInsights {
+  topDestinations: { name: string; count: number }[];  // top 10
+  topTravelStyles: { style: string; count: number }[];  // top 8
+  topInterests: { interest: string; count: number }[];  // top 8
+  commonBudgetTier: string;  // most frequent
+  totalConversations: number;
+  lastUpdated: string;
+}
+
 const TTL_SECONDS = 60 * 60 * 24 * 180; // 6 months
+const AGGREGATE_KEY = "liam:aggregate:insights";
 const key = (userId: string) => `liam:profile:${userId}`;
 
 export async function getProfile(userId: string): Promise<UserProfile | null> {
@@ -58,7 +68,84 @@ export async function upsertProfile(
   }
 }
 
-export function buildProfileBlock(profile: UserProfile): string {
+export async function getAggregateInsights(): Promise<AggregateInsights | null> {
+  try {
+    const raw = await redis.get<AggregateInsights>(AGGREGATE_KEY);
+    return raw ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function updateAggregateInsights(
+  signals: Partial<Omit<UserProfile, "userId">>
+): Promise<void> {
+  try {
+    const existing: AggregateInsights = (await redis.get<AggregateInsights>(AGGREGATE_KEY)) ?? {
+      topDestinations: [],
+      topTravelStyles: [],
+      topInterests: [],
+      commonBudgetTier: "",
+      totalConversations: 0,
+      lastUpdated: "",
+    };
+
+    // Merge destinations
+    const destMap = new Map<string, number>(existing.topDestinations.map((d) => [d.name, d.count]));
+    for (const dest of signals.destinations ?? []) {
+      destMap.set(dest, (destMap.get(dest) ?? 0) + 1);
+    }
+    const topDestinations = [...destMap.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([name, count]) => ({ name, count }));
+
+    // Merge travel styles
+    const styleMap = new Map<string, number>(existing.topTravelStyles.map((s) => [s.style, s.count]));
+    for (const style of signals.travelStyle ?? []) {
+      styleMap.set(style, (styleMap.get(style) ?? 0) + 1);
+    }
+    const topTravelStyles = [...styleMap.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([style, count]) => ({ style, count }));
+
+    // Merge interests
+    const interestMap = new Map<string, number>(existing.topInterests.map((i) => [i.interest, i.count]));
+    for (const interest of signals.interests ?? []) {
+      interestMap.set(interest, (interestMap.get(interest) ?? 0) + 1);
+    }
+    const topInterests = [...interestMap.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([interest, count]) => ({ interest, count }));
+
+    // Track budget tier frequency — store as tally in a simple string key
+    const budgetTallyKey = `liam:aggregate:budget`;
+    const budgetTally = (await redis.get<Record<string, number>>(budgetTallyKey)) ?? {};
+    if (signals.budget) {
+      budgetTally[signals.budget] = (budgetTally[signals.budget] ?? 0) + 1;
+      await redis.set(budgetTallyKey, budgetTally);
+    }
+    const commonBudgetTier = Object.entries(budgetTally).sort((a, b) => b[1] - a[1])[0]?.[0] ?? existing.commonBudgetTier;
+
+    const updated: AggregateInsights = {
+      topDestinations,
+      topTravelStyles,
+      topInterests,
+      commonBudgetTier,
+      totalConversations: existing.totalConversations + 1,
+      lastUpdated: new Date().toISOString().split("T")[0],
+    };
+
+    await redis.set(AGGREGATE_KEY, updated);
+  } catch {
+    // Non-fatal — aggregate is enhancement only
+  }
+}
+
+export function buildProfileBlock(profile: UserProfile | null): string {
+  if (!profile) return "";
   const lines: string[] = [];
   if (profile.name) lines.push(`Name: ${profile.name}`);
   if (profile.travelStyle.length) lines.push(`Travel style: ${profile.travelStyle.join(", ")}`);

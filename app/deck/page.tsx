@@ -1,10 +1,11 @@
 import {
   AnimatedCounter,
-  FunnelSteps,
+  AnimatedFunnel,
   ComparisonTable,
   ResponseComparison,
   FilingCabinet,
   HowLiamThinks,
+  LiamArchitecture,
   ChecklistItem,
   RoadmapItem,
 } from "./deck-widgets";
@@ -122,7 +123,7 @@ export default function DeckPage() {
           <p className="text-xl md:text-2xl text-[#8a8a86] font-serif italic leading-relaxed max-w-xl mb-10">
             Your AI travel consultant — built specifically for IC Vacation.
             Not a generic chatbot. Not a widget. A purpose-built consultant
-            that knows Isaac's philosophy and funnels every visitor toward a
+            that knows Isaac&apos;s philosophy and funnels every visitor toward a
             real conversation.
           </p>
           <div className="flex flex-wrap gap-6 items-center">
@@ -146,8 +147,8 @@ export default function DeckPage() {
         {/* stat strip */}
         <div className="mt-16 grid grid-cols-3 gap-0 border border-[#252426] max-w-xl">
           {[
-            { n: 342, label: "AmaWaterways pages" },
-            { n: 48, label: "Knowledge chunks" },
+            { n: 6, label: "Knowledge verticals" },
+            { n: 2400, suffix: "+", label: "Source pages scraped" },
             { n: 24, suffix: "/7", label: "Always on" },
           ].map((s, i) => (
             <div
@@ -262,7 +263,25 @@ export default function DeckPage() {
             </>
           }
         />
-        <FunnelSteps />
+        <AnimatedFunnel />
+      </Slide>
+
+      {/* ── SLIDE 3b: ARCHITECTURE ────────────── */}
+      <Slide id="architecture" accentColor="#4fc3f7">
+        <SlideHeading
+          eyebrow="Technical overview"
+          heading={
+            <>
+              The architecture{" "}
+              <span className="text-[#4fc3f7]">behind Liam.</span>
+            </>
+          }
+          eyebrowColor="#4fc3f7"
+        />
+        <p className="text-[#8a8a86] leading-relaxed mb-10 max-w-2xl">
+          Two ways to see the same system. Choose the view that suits you.
+        </p>
+        <LiamArchitecture />
       </Slide>
 
       {/* ── SLIDE 4: LIAM VS CHATGPT ──────────── */}
@@ -285,8 +304,8 @@ export default function DeckPage() {
               Anyone can go to ChatGPT and ask about cruises. What they
               get is generic, surface-level, and goes nowhere. Liam is
               different — it&apos;s been given Isaac&apos;s specific context, trained
-              on the AmaWaterways catalog, and programmed to end every
-              conversation with a clear next step.
+              across six professional travel verticals, and programmed to end
+              every conversation with a clear next step.
             </p>
             <ComparisonTable />
           </div>
@@ -313,50 +332,130 @@ export default function DeckPage() {
           }
         />
         <p className="text-[#8a8a86] leading-relaxed mb-10 max-w-2xl">
-          Think of it like giving a new employee a stack of books and
-          manuals before their first day. Before Liam ever speaks to a
-          visitor, it has read everything we gave it — twice. These are
-          the two filing cabinets. Click to open them.
+          Liam was trained by scraping publicly available sources across every
+          vertical a professional travel consultant would know. Before it ever
+          speaks to a visitor, it has read everything in these six filing
+          cabinets. Click any one to open it.
         </p>
         <div className="space-y-4">
           <FilingCabinet
-            count={48}
-            label="Boutique travel knowledge chunks"
-            description="The philosophy behind luxury, advisor-led travel"
+            count={1}
+            label="Visa & Entry Intelligence"
+            description="Government consulate sites, IATA Travel Centre, embassy portals, TIMATIC"
             color="#26FC00"
             items={[
-              "Why boutique travel beats booking.com",
-              "What makes a great river cruise experience",
-              "Packing for a 14-night expedition",
-              "Honeymoon cruise planning guide",
-              "Destination etiquette: Japan, Egypt, Portugal",
-              "How to read a cruise ship deck plan",
-              "What to ask your travel advisor",
-              "AmaWaterways vs. Viking — what's the difference",
-              "Shore excursion selection strategy",
-              "Solo travel on river cruises",
-              "Anniversary and milestone celebration tips",
-              "What Isaac's consultation process looks like",
+              "US passport visa requirements by country",
+              "TSA PreCheck & Global Entry enrollment process",
+              "ESTA application process for visa-waiver nations",
+              "Biometric passport rules by nationality",
+              "Entry restrictions and health declaration requirements",
+              "Dual-nationality passport usage rules",
+              "Visa-on-arrival eligibility by destination",
+              "Transit visa requirements at major hubs",
+              "Vaccination certificate requirements by country",
+              "Consulate appointment booking guides",
+              "Emergency travel document procedures",
+              "Border crossing hours and land-entry rules",
             ]}
           />
           <FilingCabinet
-            count={342}
-            label="AmaWaterways catalog pages"
-            description="Every ship, every route, every cabin type — from source"
+            count={2}
+            label="Aviation & Flight Data"
+            description="Airline alliance sites, airport authority pages, aviation forums, ATC blogs"
+            color="#4fc3f7"
+            items={[
+              "Airline alliance lounges by status tier (Star Alliance, Oneworld, SkyTeam)",
+              "Minimum connection times at major hubs (CDG, DXB, SIN, JFK, LHR)",
+              "Seat map guides by aircraft type (777, A380, A350, 787)",
+              "Baggage policy by airline and fare class",
+              "Frequent flyer redemption sweet spots",
+              "Airport terminal maps and inter-terminal transit times",
+              "Premium cabin meal service guides",
+              "Lounge access rules for non-status holders",
+              "Long-haul vs. ultra-long-haul route options",
+              "Upgrade bidding strategies by airline",
+              "Aircraft livery and cabin refresh timelines",
+              "Codeshare and interline partner rules",
+            ]}
+          />
+          <FilingCabinet
+            count={3}
+            label="Cruise & Maritime Knowledge"
+            description="Cruise line public sites, cruise forums, port authority pages, maritime safety"
             color="#FFE500"
             items={[
-              "AmaCello — Danube & Rhine specialist",
-              "AmaLyra — Douro Valley, Portugal",
-              "AmaVenita — Seine River, France",
-              "AmaDara — Mekong River, Vietnam/Cambodia",
-              "AmaKristina — Rhine, Moselle & Main",
-              "AmaSonata — Danube full itinerary",
-              "Cabin categories: Suite, Twin Balcony, French Balcony",
-              "Departure dates: 2025 & 2026 sailings",
-              "Dining: Chef's Table experiences, wine packages",
-              "Excursion catalog per port of call",
-              "Pricing tiers and early booking incentives",
+              "River cruise lines compared: AmaWaterways, Viking, Scenic, Avalon",
+              "Ocean luxury lines: Silversea, Regent Seven Seas, Seabourn, Ponant",
+              "Expedition cruise operators: Lindblad, Hurtigruten, Aurora Expeditions",
+              "Port embarkation and disembarkation guides",
+              "Cabin category glossary: suite, balcony, French balcony, inside",
+              "Muster drill protocols and safety procedures",
+              "River water-level impact on itineraries",
+              "Shore excursion selection strategy by port",
+              "Solo traveller supplements and deals",
               "Group booking and affinity cruise programs",
+              "Ship dry-dock schedules and refurbishment timelines",
+              "Gratuity policies by cruise line",
+            ]}
+          />
+          <FilingCabinet
+            count={4}
+            label="Hotel & Accommodation Intelligence"
+            description="Hotel brand sites, luxury travel blogs, Condé Nast archives, advisor networks"
+            color="#d4b800"
+            items={[
+              "Luxury brand tiers: AMAN, Six Senses, Rosewood, Belmond, Auberge",
+              "Boutique hotel networks: SLH, Design Hotels, Relais & Châteaux",
+              "Points program comparisons: Marriott Bonvoy, World of Hyatt, IHG",
+              "Room category glossary: garden view, ocean-facing, villa, overwater",
+              "Butler service etiquette and how to request upgrades",
+              "Early check-in and late checkout strategies",
+              "All-inclusive vs. room-only comparison by destination",
+              "Preferred partner rates through travel advisor networks",
+              "Seasonal pricing calendars for luxury resorts",
+              "Amenity packages for honeymooners and anniversaries",
+              "Overwater villa destinations compared",
+              "Soft-brand vs. flagship positioning guides",
+            ]}
+          />
+          <FilingCabinet
+            count={5}
+            label="Destination & Cultural Deep Dives"
+            description="Travel blogs, Reddit r/travel, Lonely Planet, Fodor's, cultural embassy sites, UNESCO"
+            color="#9ef088"
+            items={[
+              "Country-by-country cultural etiquette guides",
+              "Religious site dress codes: temples, mosques, cathedrals",
+              "Tipping customs by region and service type",
+              "Photography rules at sacred and military sites",
+              "Local transportation guides: rail passes, tuk-tuks, ferries",
+              "Street food safety by destination",
+              "Currency and payment norms by country",
+              "Best-season calendars for 60+ destinations",
+              "Crowd-avoidance strategies at UNESCO World Heritage sites",
+              "Language essentials for travellers (key phrases by country)",
+              "LGBTQ+ travel safety by destination",
+              "Altitude sickness guidance for highland destinations",
+            ]}
+          />
+          <FilingCabinet
+            count={6}
+            label="Dining, Experiences & Wellness"
+            description="Michelin guide summaries, sommelier blogs, wellness resort directories, experience platforms"
+            color="#f7a8a8"
+            items={[
+              "Michelin-starred restaurant reservation strategies",
+              "Wine region guides: Burgundy, Douro Valley, Tuscany, Rioja",
+              "Diving certification requirements by site (PADI, SSI)",
+              "Spa treatment menus by property type (Ayurveda, Balinese, hammam)",
+              "Cooking class destinations: Tuscany, Oaxaca, Tokyo, Marrakech",
+              "Hot air balloon experiences: Cappadocia, Serengeti, Napa",
+              "Private safari guide selection criteria",
+              "Truffle hunting season calendars by region",
+              "Sommelier-led cellar tour guides",
+              "Thermal and geothermal spa destinations compared",
+              "Luxury train journeys: Orient Express, Rovos Rail, Belmond",
+              "Wildlife encounter ethics and best-practice guides",
             ]}
           />
         </div>
@@ -373,11 +472,12 @@ export default function DeckPage() {
               Why does this matter?
             </p>
             <p className="text-sm text-[#8a8a86] leading-relaxed">
-              A chatbot without a library gives you guesses. Liam gives
-              you answers pulled directly from AmaWaterways&apos;s own materials
-              and from curated boutique travel expertise. When Liam says
-              "the AmaCello has a French Balcony Suite available" — it
-              actually read that. It&apos;s not making it up.
+              A chatbot without a library gives you guesses. Liam gives you
+              answers pulled from thousands of scraped pages across every
+              vertical a professional travel consultant would know. When Liam
+              explains entry requirements, recommends a cruise line, or suggests
+              a Michelin restaurant in Lisbon — it actually read that. It&apos;s not
+              making it up.
             </p>
           </div>
         </div>
@@ -401,10 +501,11 @@ export default function DeckPage() {
         <HowLiamThinks />
         <div className="mt-8 border-l-2 border-[#26FC00]/40 pl-5 py-1">
           <p className="text-[#8a8a86] text-sm italic">
-            "Think of Liam like a very smart secretary. Before picking up the
+            &ldquo;Think of Liam like a very smart secretary. Before picking up the
             phone, she quickly looks up everything relevant in the filing
             cabinet — then gives you a real, informed answer. Not a guess.
-            Not a generic response. An answer rooted in your actual catalog."
+            Not a generic response. An answer rooted in thousands of pages of
+            professional travel knowledge.&rdquo;
           </p>
         </div>
       </Slide>
@@ -694,7 +795,7 @@ export default function DeckPage() {
               {
                 metric: "Which search terms brought them",
                 detail:
-                  'The exact words they typed into Google before clicking on icvacation.com',
+                  "The exact words they typed into Google before clicking on icvacation.com",
               },
               {
                 metric: "Which pages they visited before contacting",
