@@ -39,9 +39,14 @@ export function LiamClient() {
         {/* Sub-header */}
         <div className="flex-shrink-0 border-b border-white/10 bg-black/50 backdrop-blur px-4 md:px-6 py-2 md:py-2.5 flex items-center gap-3 mt-[56px]">
           <span className="hidden sm:block font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase">[ AI ]</span>
-          <h1 className="font-sans font-bold text-white text-base md:text-xl tracking-tight">
-            Liam <span className="text-[#26FC00]">AI</span>
-          </h1>
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-black border border-[#26FC00]/30 overflow-hidden flex-shrink-0">
+              <img src="/liam-ai_logo.png" alt="Liam AI" className="w-full h-full object-cover" />
+            </div>
+            <h1 className="font-sans font-bold text-base md:text-xl tracking-tight leading-none">
+              <span className="text-white">Liam </span><span className="text-[#26FC00]">AI</span>
+            </h1>
+          </div>
           <span className="hidden lg:block font-mono text-[9px] tracking-[0.2em] text-white/30">
             // Travel Consultant · IC Vacation
           </span>

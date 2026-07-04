@@ -104,7 +104,7 @@ function buildTranscriptContent(messages: Message[]): string {
   return messages
     .filter((m) => m.content.trim())
     .map((m) => {
-      const label = m.role === "user" ? "You" : "Liam";
+      const label = m.role === "user" ? "You" : "Liam AI";
       return `${label}: ${m.content}`;
     })
     .join("\n\n");
@@ -196,14 +196,9 @@ function EmailModal({ type, content, packageTitle, prefillName, onClose }: Email
         {/* Header */}
         <div className="px-6 pt-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-2 mb-1">
-            <img
-              src="/ic-bird.svg"
-              alt=""
-              className="w-4 h-4 opacity-80"
-              style={{
-                filter: "invert(68%) sepia(98%) saturate(426%) hue-rotate(56deg) brightness(103%) contrast(101%)",
-              }}
-            />
+            <div className="w-4 h-4 rounded-full bg-black border border-[#26FC00]/30 overflow-hidden flex-shrink-0">
+              <img src="/liam-ai_logo.png" alt="" className="w-full h-full object-cover" />
+            </div>
             <span className="font-mono text-[9px] tracking-[0.25em] text-[#26FC00] uppercase">
               Liam AI · IC Vacation
             </span>
@@ -545,22 +540,16 @@ export function ChatPanel() {
         />
       )}
 
-      <div className="flex flex-col h-full bg-[#050505] w-full">
+      <div className="flex flex-col h-full bg-[#050505] w-full overflow-hidden">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-black/30 flex-shrink-0">
-          <div className="w-10 h-10 rounded-full bg-[#26FC00]/10 border border-[#26FC00]/30 flex items-center justify-center flex-shrink-0">
-            <img
-              src="/ic-bird.svg"
-              alt="Liam"
-              className="w-6 h-6"
-              style={{
-                filter:
-                  "invert(68%) sepia(98%) saturate(426%) hue-rotate(56deg) brightness(103%) contrast(101%)",
-              }}
-            />
+          <div className="w-10 h-10 rounded-full bg-black border border-[#26FC00]/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="/liam-ai_logo.png" alt="Liam AI" className="w-9 h-9 object-cover" />
           </div>
           <div className="min-w-0">
-            <p className="font-sans font-semibold text-white text-base tracking-tight">Liam AI</p>
+            <p className="font-sans font-bold text-base tracking-tight leading-none">
+              <span className="text-white">Liam </span><span className="text-[#26FC00]">AI</span>
+            </p>
             <p className="font-mono text-[9px] tracking-[0.2em] text-[#26FC00] uppercase truncate">
               ● Online · {greeting}
             </p>
@@ -576,20 +565,12 @@ export function ChatPanel() {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
+        <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
           {messages.map((msg) => (
             <div key={msg.id} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
               {msg.role === "assistant" && (
-                <div className="w-7 h-7 flex-shrink-0 rounded-full bg-[#26FC00]/10 border border-[#26FC00]/30 flex items-center justify-center mt-0.5">
-                  <img
-                    src="/ic-bird.svg"
-                    alt=""
-                    className="w-4 h-4"
-                    style={{
-                      filter:
-                        "invert(68%) sepia(98%) saturate(426%) hue-rotate(56deg) brightness(103%) contrast(101%)",
-                    }}
-                  />
+                <div className="w-7 h-7 flex-shrink-0 rounded-full bg-black border border-[#26FC00]/30 flex items-center justify-center mt-0.5 overflow-hidden">
+                  <img src="/liam-ai_logo.png" alt="" className="w-7 h-7 object-cover" />
                 </div>
               )}
               <div className="flex flex-col max-w-[85%] md:max-w-[82%]">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   AnimatedCounter,
   AnimatedFunnel,
@@ -6,6 +7,10 @@ import {
   FilingCabinet,
   HowLiamThinks,
   LiamArchitecture,
+  LiamLearning,
+  LiamLeads,
+  LiamGuardrails,
+  LiamEvaluation,
   ChecklistItem,
   RoadmapItem,
 } from "./deck-widgets";
@@ -118,7 +123,14 @@ export default function DeckPage() {
           <h1 className="text-6xl md:text-8xl lg:text-[9rem] font-bold leading-[0.9] tracking-tight mb-8">
             <span className="text-[#f7f7f5]">Meet</span>
             <br />
-            <span className="text-[#26FC00]">Liam.</span>
+            <span className="flex items-center gap-4 text-[#26FC00]">
+              <img
+                src="/liam-ai_logo.png"
+                alt="Liam AI"
+                className="w-16 h-16 md:w-24 md:h-24 object-contain inline-block"
+              />
+              Liam AI.
+            </span>
           </h1>
           <p className="text-xl md:text-2xl text-[#8a8a86] font-serif italic leading-relaxed max-w-xl mb-10">
             Your AI travel consultant — built specifically for IC Vacation.
@@ -147,7 +159,7 @@ export default function DeckPage() {
         {/* stat strip */}
         <div className="mt-16 grid grid-cols-3 gap-0 border border-[#252426] max-w-xl">
           {[
-            { n: 6, label: "Knowledge verticals" },
+            { n: 7, label: "Knowledge verticals" },
             { n: 2400, suffix: "+", label: "Source pages scraped" },
             { n: 24, suffix: "/7", label: "Always on" },
           ].map((s, i) => (
@@ -166,10 +178,10 @@ export default function DeckPage() {
         </div>
       </Slide>
 
-      {/* ── SLIDE 2: WHY LIAM EXISTS ──────────── */}
+      {/* ── SLIDE 2: WHY LIAM AI EXISTS ──────── */}
       <Slide id="why" accentColor="#26FC00">
         <SlideHeading
-          eyebrow="The problem Liam solves"
+          eyebrow="The problem Liam AI solves"
           heading={
             <>
               Isaac can&apos;t be on call{" "}
@@ -180,18 +192,18 @@ export default function DeckPage() {
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <div className="space-y-5 text-[#8a8a86] leading-relaxed">
             <p>
-              Before Liam, this is what happened: someone finds IC Vacation
+              Before Liam AI, this is what happened: someone finds IC Vacation
               at midnight — excited, ready to plan a cruise. They have a
               question. There&apos;s nobody there. They leave. That visitor
               is gone.
             </p>
             <p>
-              Liam changes that. The moment a visitor arrives, Liam is
+              Liam AI changes that. The moment a visitor arrives, Liam AI is
               there. It asks questions, listens, and learns exactly what kind
               of trip they&apos;re dreaming of.
             </p>
             <p>
-              By the end of the conversation, Liam has built a profile. And
+              By the end of the conversation, Liam AI has built a profile. And
               then it does the most important thing of all — it tells them to
               call Isaac.
             </p>
@@ -199,46 +211,46 @@ export default function DeckPage() {
           <div className="space-y-3">
             <div className="border border-[#333537] bg-[#0a0a0a] p-5">
               <p className="font-mono text-xs text-[#444444] uppercase tracking-wider mb-3">
-                Before Liam
+                Before Liam AI
               </p>
               <div className="space-y-2 text-sm text-[#8a8a86]">
                 <div className="flex items-center gap-2">
-                  <span className="text-[#333537]">→</span>
+                  <span className="text-[#333537]">&rarr;</span>
                   <span>Visitor arrives at 2am</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#333537]">→</span>
+                  <span className="text-[#333537]">&rarr;</span>
                   <span>Has a question</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#333537]">→</span>
+                  <span className="text-[#333537]">&rarr;</span>
                   <span>Nobody answers</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-red-900/80">→</span>
+                  <span className="text-red-900/80">&rarr;</span>
                   <span className="text-[#444444]">Visitor leaves. Forever.</span>
                 </div>
               </div>
             </div>
-            <div className="border border-[#26FC00]/30 bg-[#26FC00]/05 p-5">
+            <div className="border border-[#26FC00]/30 p-5" style={{ backgroundColor: "rgba(38,252,0,0.05)" }}>
               <p className="font-mono text-xs text-[#26FC00] uppercase tracking-wider mb-3">
-                With Liam
+                With Liam AI
               </p>
               <div className="space-y-2 text-sm text-[#8a8a86]">
                 <div className="flex items-center gap-2">
-                  <span className="text-[#26FC00]">→</span>
+                  <span className="text-[#26FC00]">&rarr;</span>
                   <span>Visitor arrives at 2am</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#26FC00]">→</span>
-                  <span>Liam asks what they&apos;re dreaming of</span>
+                  <span className="text-[#26FC00]">&rarr;</span>
+                  <span>Liam AI asks what they&apos;re dreaming of</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#26FC00]">→</span>
-                  <span>Liam builds a trip brief</span>
+                  <span className="text-[#26FC00]">&rarr;</span>
+                  <span>Liam AI builds a trip brief</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#26FC00]">→</span>
+                  <span className="text-[#26FC00]">&rarr;</span>
                   <span className="text-[#26FC00] font-semibold">
                     &quot;Call Isaac — (407) 810-1670&quot;
                   </span>
@@ -272,8 +284,11 @@ export default function DeckPage() {
           eyebrow="Technical overview"
           heading={
             <>
-              The architecture{" "}
-              <span className="text-[#4fc3f7]">behind Liam.</span>
+              <span className="flex items-center gap-3 flex-wrap">
+                <img src="/liam-ai_logo.png" alt="Liam AI" className="w-10 h-10 object-contain inline-block" />
+                The architecture{" "}
+                <span className="text-[#4fc3f7]">behind Liam AI.</span>
+              </span>
             </>
           }
           eyebrowColor="#4fc3f7"
@@ -284,10 +299,39 @@ export default function DeckPage() {
         <LiamArchitecture />
       </Slide>
 
-      {/* ── SLIDE 4: LIAM VS CHATGPT ──────────── */}
+      {/* ── SLIDE: MEMORY & LEARNING ─────────── */}
+      <Slide id="learning" accentColor="#26FC00">
+        <SlideHeading
+          eyebrow="Memory &amp; Learning"
+          heading={
+            <>
+              Liam AI gets smarter{" "}
+              <span className="text-[#26FC00]">every conversation.</span>
+            </>
+          }
+        />
+        <LiamLearning />
+      </Slide>
+
+      {/* ── SLIDE: EMAIL CAPTURE & LEADS ─────── */}
+      <Slide id="leads" accentColor="#FFE500">
+        <SlideHeading
+          eyebrow="Lead Generation"
+          heading={
+            <>
+              Three ways Liam AI{" "}
+              <span className="text-[#FFE500]">captures your contact.</span>
+            </>
+          }
+          eyebrowColor="#FFE500"
+        />
+        <LiamLeads />
+      </Slide>
+
+      {/* ── SLIDE 4: LIAM AI VS CHATGPT ──────── */}
       <Slide id="comparison" accentColor="#FFE500">
         <SlideHeading
-          eyebrow="Why Liam isn't just ChatGPT"
+          eyebrow="Why Liam AI isn't just ChatGPT"
           heading={
             <>
               Built for{" "}
@@ -302,9 +346,9 @@ export default function DeckPage() {
           <div>
             <p className="text-[#8a8a86] leading-relaxed mb-8">
               Anyone can go to ChatGPT and ask about cruises. What they
-              get is generic, surface-level, and goes nowhere. Liam is
+              get is generic, surface-level, and goes nowhere. Liam AI is
               different — it&apos;s been given Isaac&apos;s specific context, trained
-              across six professional travel verticals, and programmed to end
+              across seven professional travel verticals, and programmed to end
               every conversation with a clear next step.
             </p>
             <ComparisonTable />
@@ -321,10 +365,10 @@ export default function DeckPage() {
       {/* ── SLIDE 5: THE KNOWLEDGE BASE ───────── */}
       <Slide id="knowledge" accentColor="#26FC00">
         <SlideHeading
-          eyebrow="Liam's library"
+          eyebrow="Liam AI's library"
           heading={
             <>
-              We gave Liam{" "}
+              We gave Liam AI{" "}
               <span className="text-[#26FC00]">a library.</span>
               <br />
               Here&apos;s what&apos;s in it.
@@ -332,9 +376,9 @@ export default function DeckPage() {
           }
         />
         <p className="text-[#8a8a86] leading-relaxed mb-10 max-w-2xl">
-          Liam was trained by scraping publicly available sources across every
+          Liam AI was trained by scraping publicly available sources across every
           vertical a professional travel consultant would know. Before it ever
-          speaks to a visitor, it has read everything in these six filing
+          speaks to a visitor, it has read everything in these seven filing
           cabinets. Click any one to open it.
         </p>
         <div className="space-y-4">
@@ -458,6 +502,26 @@ export default function DeckPage() {
               "Wildlife encounter ethics and best-practice guides",
             ]}
           />
+          <FilingCabinet
+            count={7}
+            label="Travel Consultant Acumen"
+            description="Professional hospitality training materials, sales scripts, etiquette guides, lead management playbooks, luxury service standards"
+            color="#c084fc"
+            items={[
+              "Consultative selling frameworks for luxury travel advisors",
+              "Client qualification: budget discovery, timeline, travel style profiling",
+              "Objection handling: price sensitivity, first-time cruisers, nervous travelers",
+              "Luxury hospitality service standards: AMAN, Four Seasons, Ritz-Carlton",
+              "Phone and email etiquette for high-net-worth clients",
+              "Post-trip follow-up sequences and referral generation techniques",
+              "The art of the evocative destination pitch — verbal and written",
+              "Cultural intelligence for advisors: managing client expectations globally",
+              "CRM best practices for boutique travel advisory practices",
+              "Trust-building language patterns in consultative conversations",
+              "Handling group travel dynamics and decision-making hierarchies",
+              "Lead scoring: warm, hot, and 'not yet but track' classification",
+            ]}
+          />
         </div>
         <div className="mt-8 border border-[#252426] bg-[#0a0a0a] p-5 flex items-start gap-4">
           <div className="w-8 h-8 border border-[#26FC00]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -472,36 +536,51 @@ export default function DeckPage() {
               Why does this matter?
             </p>
             <p className="text-sm text-[#8a8a86] leading-relaxed">
-              A chatbot without a library gives you guesses. Liam gives you
+              A chatbot without a library gives you guesses. Liam AI gives you
               answers pulled from thousands of scraped pages across every
-              vertical a professional travel consultant would know. When Liam
+              vertical a professional travel consultant would know. When Liam AI
               explains entry requirements, recommends a cruise line, or suggests
               a Michelin restaurant in Lisbon — it actually read that. It&apos;s not
-              making it up.
+              making it up. Seven professional travel verticals — and a full set of
+              consultant training materials to match.
             </p>
           </div>
         </div>
+        {/* Link to full KB explorer */}
+        <div className="mt-4">
+          <Link
+            href="/deck/knowledge-base"
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#26FC00]/70 hover:text-[#26FC00] border border-[#26FC00]/20 hover:border-[#26FC00]/50 px-4 py-2.5 transition-colors"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="1" y="2" width="10" height="8" rx="0.5" />
+              <line x1="3" y1="5" x2="9" y2="5" />
+              <line x1="3" y1="7" x2="7" y2="7" />
+            </svg>
+            View full knowledge base — every item, line by line
+          </Link>
+        </div>
       </Slide>
 
-      {/* ── SLIDE 6: HOW LIAM THINKS ──────────── */}
+      {/* ── SLIDE 6: HOW LIAM AI THINKS ──────── */}
       <Slide id="how" accentColor="#26FC00">
         <SlideHeading
           eyebrow="Under the hood"
           heading={
             <>
-              How Liam{" "}
+              How Liam AI{" "}
               <span className="text-[#26FC00]">actually thinks.</span>
             </>
           }
         />
         <p className="text-[#8a8a86] leading-relaxed mb-10 max-w-2xl">
           No jargon. Here&apos;s the plain-English version of what happens every
-          time someone sends Liam a message.
+          time someone sends Liam AI a message.
         </p>
         <HowLiamThinks />
         <div className="mt-8 border-l-2 border-[#26FC00]/40 pl-5 py-1">
           <p className="text-[#8a8a86] text-sm italic">
-            &ldquo;Think of Liam like a very smart secretary. Before picking up the
+            &ldquo;Think of Liam AI like a very smart secretary. Before picking up the
             phone, she quickly looks up everything relevant in the filing
             cabinet — then gives you a real, informed answer. Not a guess.
             Not a generic response. An answer rooted in thousands of pages of
@@ -510,10 +589,40 @@ export default function DeckPage() {
         </div>
       </Slide>
 
+      {/* ── SLIDE: GUARDRAILS ────────────────── */}
+      <Slide id="guardrails" accentColor="#FFE500">
+        <SlideHeading
+          eyebrow="Guardrails &amp; Personality"
+          heading={
+            <>
+              Liam AI stays on task.{" "}
+              <span className="text-[#FFE500]">Always.</span>
+            </>
+          }
+          eyebrowColor="#FFE500"
+        />
+        <LiamGuardrails />
+      </Slide>
+
+      {/* ── SLIDE: EVALUATION ────────────────── */}
+      <Slide id="evaluation" accentColor="#4fc3f7">
+        <SlideHeading
+          eyebrow="Quality Measurement"
+          heading={
+            <>
+              How do we know Liam AI is{" "}
+              <span className="text-[#4fc3f7]">actually getting smarter?</span>
+            </>
+          }
+          eyebrowColor="#4fc3f7"
+        />
+        <LiamEvaluation />
+      </Slide>
+
       {/* ── SLIDE 7: REAL-TIME WEB ────────────── */}
       <Slide id="realtime" accentColor="#26FC00">
         <div className="flex gap-6 items-start max-w-2xl">
-          <div className="w-12 h-12 border border-[#26FC00]/30 bg-[#26FC00]/05 flex items-center justify-center flex-shrink-0 mt-1">
+          <div className="w-12 h-12 border border-[#26FC00]/30 flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: "rgba(38,252,0,0.05)" }}>
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#26FC00" strokeWidth="1.5">
               <circle cx="11" cy="11" r="9" />
               <path d="M11 2a14 14 0 010 18M11 2a14 14 0 000 18" />
@@ -525,12 +634,12 @@ export default function DeckPage() {
               Real-time web knowledge
             </p>
             <h3 className="text-2xl font-bold text-[#f7f7f5] mb-3">
-              Liam also checks live sources.
+              Liam AI also checks live sources.
             </h3>
             <p className="text-[#8a8a86] leading-relaxed">
               When a visitor asks about something time-sensitive — current
               flight prices, weather at a destination, recent travel news —
-              Liam can search the web in real time. This means Liam&apos;s
+              Liam AI can search the web in real time. This means Liam AI&apos;s
               answers are never just from a fixed snapshot. The library is
               the foundation. The web keeps it current.
             </p>
@@ -545,13 +654,13 @@ export default function DeckPage() {
             The bottom line
           </p>
           <blockquote className="text-3xl md:text-4xl font-serif italic text-[#f7f7f5] leading-snug mb-8">
-            &ldquo;Liam doesn&apos;t replace Isaac. He prepares your brief so that
+            &ldquo;Liam AI doesn&apos;t replace Isaac. It prepares your brief so that
             when you <span className="text-[#26FC00] not-italic font-bold">do</span>{" "}
             call, every minute counts.&rdquo;
           </blockquote>
           <p className="text-[#8a8a86] leading-relaxed">
             Isaac&apos;s value is in the nuance, the relationships, the
-            judgment call that no AI can make. Liam handles the first
+            judgment call that no AI can make. Liam AI handles the first
             introduction — the qualification, the curiosity, the brief.
             By the time someone dials Isaac&apos;s number, they already know
             what they want. The conversation starts at a completely
@@ -888,7 +997,7 @@ export default function DeckPage() {
               </p>
               <p className="text-[#8a8a86] text-sm">isaac@icvacation.com</p>
             </div>
-            <div className="border border-[#26FC00]/30 bg-[#26FC00]/05 p-5 flex items-center">
+            <div className="border border-[#26FC00]/30 p-5 flex items-center" style={{ backgroundColor: "rgba(38,252,0,0.05)" }}>
               <div>
                 <p className="font-mono text-xs text-[#26FC00] uppercase tracking-wider mb-2">
                   Ready to talk?
