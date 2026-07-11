@@ -75,18 +75,12 @@ export function NumbersSection() {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12 pt-16 pb-0">
         {/* The bold yellow stats band — Template B influence, IC palette */}
         <div className="relative bg-brand-yellow text-black overflow-hidden">
-          {/* Subtle dandelion ambient — large, low opacity, cropped */}
+          {/* Sunflower ambient decoration */}
           <img
-            src="/dandelion-grey.svg"
+            src="/icvacation_sunflower.svg"
             alt=""
             aria-hidden="true"
-            className="absolute -top-16 -right-20 w-80 h-80 opacity-[0.08] animate-drift-slow rotate-12"
-          />
-          <img
-            src="/dandelion-yellow.svg"
-            alt=""
-            aria-hidden="true"
-            className="absolute -bottom-24 -left-16 w-72 h-72 opacity-[0.12] animate-drift -rotate-12"
+            className="absolute -top-12 -right-12 w-52 h-52 opacity-[0.1] animate-drift-slow"
           />
 
           <div className="relative z-10 p-8 lg:p-14">
@@ -152,14 +146,7 @@ export function NumbersSection() {
               "linear-gradient(to bottom, var(--brand-yellow) 0%, rgba(253,249,114,0.45) 25%, rgba(80,68,20,0.7) 60%, var(--background) 100%)",
           }}
         />
-        {/* Layer 2: dandelion silhouette drifting across the bridge */}
-        <img
-          src="/dandelion-grey.svg"
-          alt=""
-          aria-hidden="true"
-          className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-40 h-40 opacity-20 animate-drift-slow"
-        />
-        {/* Layer 3: editorial film grain to mask the gradient banding */}
+        {/* Layer 2: editorial film grain to mask the gradient banding */}
         <div
           className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none"
           style={{

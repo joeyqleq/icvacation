@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Minus, Plus } from "lucide-react";
 import { PixelButton } from "@/components/site/pixel-button";
 import { BackgroundBoxes } from "@/components/site/background-boxes";
-import { Mascot } from "@/components/site/mascot";
 import { useContact } from "@/components/site/contact-provider";
 import { ColorBends } from "@/components/ui/color-bends";
 import { ScrambledText } from "@/components/ui/scrambled-text";
@@ -84,9 +83,9 @@ export function FaqCtaSection() {
               .
             </p>
 
-            {/* Quiet owl mascot watching over the FAQ */}
+            {/* Sunflower decoration */}
             <div className="hidden lg:block mt-12 relative">
-              <Mascot creature="owl" size={260} pose="bob" tint="yellow" glow className="opacity-90" />
+              <img src="/icvacation_sunflower.svg" alt="" aria-hidden="true" className="w-48 h-auto opacity-60 animate-drift-slow" />
             </div>
           </div>
 
@@ -199,9 +198,9 @@ export function FaqCtaSection() {
                 </p>
               </div>
 
-              {/* Right column — bird mascot signals take-flight */}
+              {/* Right column — seal mascot */}
               <div className="hidden lg:flex flex-col items-end justify-center gap-2 w-[280px] xl:w-[340px] shrink-0">
-                <Mascot creature="bird" size={340} pose="hover" tint="green" glow />
+                <img src="/icavacation_seal.svg" alt="" aria-hidden="true" className="w-64 h-auto opacity-90 animate-drift-slow" />
               </div>
             </div>
           </div>

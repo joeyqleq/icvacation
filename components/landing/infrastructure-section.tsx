@@ -69,12 +69,12 @@ export function AdvisorSection() {
                   className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
-                {/* Owl mascot — quiet brand presence, small */}
+                {/* Seal mascot — quiet brand presence, small */}
                 <img
-                  src="/mascot-owl.svg"
+                  src="/icavacation_seal.svg"
                   alt=""
                   aria-hidden="true"
-                  className="absolute -bottom-4 -right-3 w-36 h-auto opacity-90 animate-drift-slow"
+                  className="absolute -bottom-8 -right-4 w-32 h-auto opacity-85 animate-drift-slow"
                 />
               </div>
               <div className="mt-6 flex items-center gap-3">
@@ -147,18 +147,12 @@ export function AdvisorSection() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            {/* Mixed mascots — quiet, ambient */}
+            {/* Dandelion ambient decoration */}
             <img
               src="/ic-dandelion.svg"
               alt=""
               aria-hidden="true"
               className="absolute -top-6 -right-6 w-40 h-40 opacity-15 animate-drift"
-            />
-            <img
-              src="/ic-owl.svg"
-              alt=""
-              aria-hidden="true"
-              className="absolute bottom-8 right-32 w-16 h-16 opacity-10 animate-drift-slow"
             />
 
             <div className="relative z-10">

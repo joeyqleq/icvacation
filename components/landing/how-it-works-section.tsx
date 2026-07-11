@@ -61,7 +61,7 @@ export function ProcessSection() {
     <section
       id="process"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-[#080808] text-white overflow-hidden"
+      className="relative py-16 lg:py-20 bg-[#080808] text-white overflow-hidden"
     >
       {/* SideRays — ambient brand color glow from edges */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
@@ -116,9 +116,11 @@ export function ProcessSection() {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-brand-green/[0.03] blur-[120px] pointer-events-none" style={{ zIndex: 4 }} />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
-        {/* Header — title + bird accent */}
-        <div className="relative mb-16 grid lg:grid-cols-2 gap-6 lg:gap-12 items-end">
-          <div className="pb-0 lg:pb-24">
+        {/* Subtle tree decoration */}
+        <img src="/icvacation_tree.svg" alt="" aria-hidden="true" className="absolute top-0 right-0 w-[280px] h-auto opacity-[0.06] pointer-events-none hidden lg:block" />
+        {/* Header */}
+        <div className="relative mb-16">
+          <div>
             <div
               className={`transition-all duration-1000 ${
                 isVisible
@@ -154,19 +156,6 @@ export function ProcessSection() {
             </p>
           </div>
 
-          {/* Bird in flight — quiet ambient mascot */}
-          <div
-            className={`relative h-[260px] lg:h-[520px] transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src="/mascot-bird.svg"
-              alt=""
-              aria-hidden="true"
-              className="absolute right-4 bottom-4 lg:right-12 lg:bottom-12 w-56 lg:w-96 h-auto animate-drift-slow"
-            />
-          </div>
         </div>
 
         {/* The three quiet process cards — clean, advisor-led, Template B-sharp */}

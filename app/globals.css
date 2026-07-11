@@ -486,7 +486,35 @@
     box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset, 0 14px 40px -16px rgba(0,0,0,0.6);
   }
   .pixel-btn:hover { color: var(--pixel-fg-end); }
-  .pixel-btn-yellow:hover { box-shadow: 0 0 0 1px rgba(0,0,0,0.4) inset, 0 18px 50px -16px rgba(0, 0, 0, 0.7), 0 0 28px rgba(255, 229, 0, 0.25); }
+  .pixel-btn-yellow:hover { box-shadow: 0 0 0 1px rgba(0,0,0,0.4) inset, 0 18px 50px -16px rgba(0, 0, 0, 0.7), 0 0 20px 2px rgba(255,229,0,0.45), 0 0 60px 6px rgba(255,229,0,0.2); }
+  .pixel-btn-grey:hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 18px 50px -16px rgba(0,0,0,0.7), 0 0 20px 2px rgba(255,255,255,0.12), 0 0 50px 4px rgba(255,255,255,0.06); }
+
+  .pixel-btn::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .pixel-btn-yellow::after {
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,229,0,0.35) 0%, transparent 70%);
+    box-shadow: 0 0 0 1px rgba(255,229,0,0.4);
+  }
+  .pixel-btn-grey::after {
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.12) 0%, transparent 70%);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
+  }
+  .pixel-btn:hover::after {
+    opacity: 1;
+    animation: btn-glow-pulse 2s ease-in-out infinite;
+  }
+  @keyframes btn-glow-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.04); }
+  }
 
   .pixel-grid {
     position: absolute;
@@ -595,13 +623,13 @@
     box-shadow: 0 0 0 3px rgba(38, 252, 0, 0.12), 0 0 24px -6px rgba(38, 252, 0, 0.4);
   }
 
-  /* Hero viewport — hero fills exactly one screen minus the marquee strip */
+  /* Hero viewport — hero fills at least one screen minus the marquee strip */
   .hero-viewport {
-    height: calc(100svh - 58px);
+    min-height: calc(100svh - 58px);
   }
   @media (max-width: 639px) {
     .hero-viewport {
-      height: calc(100svh - 50px);
+      min-height: calc(100svh - 50px);
     }
   }
 

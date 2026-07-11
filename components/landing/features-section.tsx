@@ -142,14 +142,6 @@ export function ConsultantSection() {
       className="relative py-24 lg:py-32 overflow-hidden"
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        {/* Owl mascot — noir advisor energy, sparingly */}
-        <img
-          src="/mascot-owl.svg"
-          alt=""
-          aria-hidden="true"
-          className="hidden lg:block absolute top-8 right-8 w-44 xl:w-56 h-auto opacity-90 z-[2] animate-drift-slow pointer-events-none"
-        />
-
         {/* Header */}
         <div className="relative mb-20 lg:mb-28">
           <div className="grid lg:grid-cols-12 gap-8 items-end">

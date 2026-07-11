@@ -17,7 +17,7 @@ interface SearchDoc {
 // Per-index field maps — only request fields that exist in each schema
 const INDEX_SELECT: Record<string, string> = {
   "liam-travel-kb":      "chunk_text,summary,title,category,topics,destinations",
-  "amawaterways-chunks": "chunk_text,body_text,summary,title,category,topics,destinations,travel_brand",
+  "amawaterways-chunks": "chunk_text,body_text,summary,title,topics,destinations,travel_brand",
 };
 
 async function queryIndex(index: string, query: string, top: number): Promise<SearchDoc[]> {

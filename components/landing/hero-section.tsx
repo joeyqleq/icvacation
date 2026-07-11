@@ -33,7 +33,7 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
 
   return (
     <section
-      className="relative w-full bg-background flex flex-col overflow-hidden hero-viewport"
+      className="relative w-full bg-background flex flex-col hero-viewport"
     >
       {/* === Cinematic beach video === */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -71,9 +71,9 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_68%_50%,transparent_0%,transparent_42%,rgba(0,0,0,0.42)_100%)]" />
       </div>
 
-      {/* Floating dandelion accent — top right */}
+      {/* Floating dandelion accent — top right, slow wheel spin */}
       <div
-        className="absolute -top-8 right-[6%] z-[2] pointer-events-none hidden lg:block animate-drift-slow opacity-[0.12]"
+        className="absolute -top-8 right-[6%] z-[2] pointer-events-none hidden lg:block nav-orb-spin opacity-[0.12]"
         aria-hidden="true"
       >
         <img src="/dandelion-yellow.svg" alt="" className="w-[320px] h-[320px]" />
@@ -96,11 +96,11 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
       </div>
 
       {/* === HERO CONTENT — fills the viewport, content + stats use flex === */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end sm:justify-center w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-16 sm:pt-20 pb-4 lg:pb-4">
+      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 pb-6">
         <div className="lg:max-w-[82%]">
           {/* Eyebrow ticker */}
           <div
-            className={`mb-3 sm:mb-5 ${
+            className={`mb-2 sm:mb-5 ${
               isVisible ? "whoosh-down" : "opacity-0"
             }`}
             style={{ animationDelay: isVisible ? "0.05s" : undefined }}
@@ -115,14 +115,14 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
 
           {/* Headline with premium gradient and drop shadow glow effects */}
           <h1
-            className={`text-left mb-3 sm:mb-5 ${
+            className={`text-left mb-2 sm:mb-3 ${
               isVisible ? "whoosh-left" : "opacity-0"
             }`}
             style={{ textWrap: "balance", animationDelay: isVisible ? "0.15s" : undefined }}
           >
             <span
               className="block font-display-tight bg-gradient-to-b from-white via-white to-white/75 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(255,255,255,0.18)]"
-              style={{ fontSize: "clamp(2.4rem, 7.2vw, 7rem)", letterSpacing: "-0.04em", lineHeight: "0.82" }}
+              style={{ fontSize: "clamp(1.6rem, 6.0vw, 5.8rem)", letterSpacing: "-0.04em", lineHeight: "0.85" }}
             >
               Vacations,
             </span>
@@ -130,7 +130,7 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
             <span
               className="block font-serif italic bg-gradient-to-r from-brand-yellow via-brand-yellow/90 to-brand-yellow bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(255,229,0,0.25)]"
               style={{
-                fontSize: "clamp(2rem, 6.6vw, 6.4rem)",
+                fontSize: "clamp(1.35rem, 5.5vw, 5.3rem)",
                 paddingLeft: "0.06em",
                 letterSpacing: "-0.015em",
                 lineHeight: "1.0",
@@ -142,7 +142,7 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
 
             <span
               className="block font-display-wide bg-gradient-to-b from-white via-white/95 to-white/70 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(255,255,255,0.18)]"
-              style={{ fontSize: "clamp(2.4rem, 7.2vw, 7rem)", letterSpacing: "-0.035em", lineHeight: "0.85", marginTop: "-0.02em" }}
+              style={{ fontSize: "clamp(1.6rem, 6.0vw, 5.8rem)", letterSpacing: "-0.035em", lineHeight: "0.88", marginTop: "-0.02em" }}
             >
               around&nbsp;
               <span className="font-serif italic bg-gradient-to-b from-white via-white/80 to-white/60 bg-clip-text text-transparent">you</span>
@@ -152,7 +152,7 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
 
           {/* Subhead */}
           <p
-            className={`max-w-[540px] font-editorial text-[15px] sm:text-[17px] lg:text-[19px] text-white/82 leading-[1.4] mb-3 sm:mb-5 ${
+            className={`max-w-[540px] font-editorial text-[13px] sm:text-[15px] lg:text-[17px] text-white/82 leading-[1.28] mb-3 sm:mb-4 ${
               isVisible ? "whoosh-right" : "opacity-0"
             }`}
             style={{ textWrap: "pretty", fontVariationSettings: "'opsz' 22", animationDelay: isVisible ? "0.3s" : undefined }}
@@ -165,7 +165,7 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
 
           {/* CTAs — pixel cascade buttons */}
           <div
-            className={`flex flex-col sm:flex-row items-stretch sm:items-start gap-3 ${
+            className={`flex flex-wrap items-center gap-3 ${
               isVisible ? "whoosh-up" : "opacity-0"
             }`}
             style={{ animationDelay: isVisible ? "0.45s" : undefined }}
@@ -181,9 +181,9 @@ export function HeroSection({ splashDone = true }: { splashDone?: boolean }) {
           </div>
         </div>
 
-        {/* Stats strip — three quiet measures (in-flow at bottom) */}
+        {/* Stats strip — three quiet measures (hidden on small screens to keep buttons visible) */}
         <div
-          className={`mt-auto pt-2 sm:pt-4 ${
+          className={`hidden sm:block mt-8 ${
             isVisible ? "whoosh-left" : "opacity-0"
           }`}
           style={{ animationDelay: isVisible ? "0.55s" : undefined }}

@@ -107,18 +107,12 @@ export function PhilosophySection() {
                 : "opacity-0 translate-y-8"
             }`}
           >
-            {/* Penguin mascot — quiet, sparing */}
+            {/* Seal mascot — quiet, sparing */}
             <img
-              src="/ic-penguin.svg"
+              src="/icavacation_seal.svg"
               alt=""
               aria-hidden="true"
-              className="absolute -bottom-12 -right-16 lg:-right-32 w-72 h-auto opacity-90 animate-drift-slow scale-x-[-1]"
-            />
-            <img
-              src="/ic-dandelion.svg"
-              alt=""
-              aria-hidden="true"
-              className="absolute top-10 right-16 w-12 h-12 opacity-20 nav-orb-spin"
+              className="absolute -bottom-12 -right-16 lg:-right-32 w-72 h-auto opacity-90 animate-drift-slow"
             />
 
             <div className="relative z-10 max-w-md">

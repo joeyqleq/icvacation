@@ -85,16 +85,10 @@ export function TestimonialsSection() {
         }}
       />
       <img
-        src="/dandelion-grey.svg"
+        src="/icvacation_tree.svg"
         alt=""
         aria-hidden="true"
-        className="absolute -top-16 -left-24 w-[28rem] h-[28rem] opacity-[0.04] nav-orb-spin"
-      />
-      <img
-        src="/dandelion-yellow.svg"
-        alt=""
-        aria-hidden="true"
-        className="absolute -bottom-32 -right-24 w-[26rem] h-[26rem] opacity-[0.06] nav-orb-spin"
+        className="absolute -top-12 -left-20 w-[24rem] h-[24rem] opacity-[0.04] animate-drift-slow"
       />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">

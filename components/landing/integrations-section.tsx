@@ -72,7 +72,7 @@ export function DestinationsSection() {
     <section
       id="destinations"
       ref={sectionRef}
-      className="relative overflow-hidden py-32 lg:py-40"
+      className="relative overflow-hidden py-16 lg:py-24"
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         {/* Header */}

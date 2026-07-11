@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { ArrowUpRight, CalendarDays, MapPin, Plane, Search, Users, Ship, Building2, Map } from "lucide-react";
 import { PixelButton } from "@/components/site/pixel-button";
 import { useContact } from "@/components/site/contact-provider";
-import { AnimatedMascotBird } from "@/components/site/animated-mascot-bird";
 
 interface Location {
   name: string;
@@ -96,13 +95,6 @@ export function FlightSearchPreview() {
     >
       <div className="absolute inset-0 pointer-events-none opacity-70 bg-[radial-gradient(ellipse_55%_45%_at_80%_20%,rgba(255,229,0,0.06),transparent_68%)]" />
       
-      <div
-        className="hidden xl:block absolute inset-x-0 top-6 h-56 overflow-visible pointer-events-none z-[2]"
-        aria-hidden="true"
-      >
-        <AnimatedMascotBird className="absolute left-[-7rem] top-4 w-36 xl:w-40" />
-      </div>
-
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
@@ -116,7 +108,7 @@ export function FlightSearchPreview() {
               className="leading-[0.92] mb-6"
               style={{ fontSize: "clamp(2.2rem, 5.7vw, 5.4rem)", textWrap: "balance" }}
             >
-              <span className="premium-heading block">Search like a tool.</span>
+              <span className="premium-heading block">Search like a machine.</span>
               <span className="premium-heading-yellow block">Plan like a human.</span>
             </h2>
             <p className="font-editorial text-[18px] lg:text-[20px] leading-[1.55] text-white/80 max-w-xl mb-8">
@@ -125,19 +117,6 @@ export function FlightSearchPreview() {
               Refine your scope here and send the exact routing directly to Isaac.
             </p>
 
-            {/* Live Stats indicator */}
-            <div className="border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md rounded-sm max-w-md">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-yellow"></span>
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-brand-yellow">Live Route Monitor</span>
-              </div>
-              <p className="text-xs text-white/60 leading-normal">
-                Currently tracking curated Virtuoso flight pathways, private yacht lines in the Mediterranean, and historical ryokan access points.
-              </p>
-            </div>
           </div>
 
           {/* Right interactive search & map column */}
