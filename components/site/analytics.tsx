@@ -3,9 +3,7 @@
 import Script from "next/script";
 
 export function SiteAnalytics() {
-  const enabled =
-    process.env.NODE_ENV === "production" &&
-    process.env.NEXT_PUBLIC_ENABLE_SITE_ANALYTICS === "true";
+  const enabled = process.env.NEXT_PUBLIC_ENABLE_SITE_ANALYTICS === "true";
 
   if (!enabled) {
     return null;
