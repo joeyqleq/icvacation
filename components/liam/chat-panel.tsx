@@ -5,9 +5,8 @@ import { useDestination } from "./destination-context";
 
 function trackEvent(name: string, data?: Record<string, string | number | boolean>) {
   try {
-    // Tianji is umami-compatible — exposes window.umami
-    (window as unknown as { umami?: { track: (n: string, d?: unknown) => void } })
-      .umami?.track(name, data);
+    (window as unknown as { tianji?: { track: (n: string, d?: unknown) => void } })
+      .tianji?.track(name, data);
   } catch {}
 }
 
