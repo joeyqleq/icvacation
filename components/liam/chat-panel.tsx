@@ -3,6 +3,14 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Send, Phone, Loader2, Mail, X } from "lucide-react";
 import { useDestination } from "./destination-context";
 
+function trackEvent(name: string, data?: Record<string, string | number | boolean>) {
+  try {
+    // Tianji is umami-compatible — exposes window.umami
+    (window as unknown as { umami?: { track: (n: string, d?: unknown) => void } })
+      .umami?.track(name, data);
+  } catch {}
+}
+
 interface Message {
   id: string;
   role: "user" | "assistant";
@@ -394,6 +402,11 @@ export function ChatPanel() {
       if (detected) setUserName(detected);
     }
 
+    // Track conversation start (only on first real user message)
+    const isFirstMessage = messages.filter((m) => m.role === "user").length === 0;
+    if (isFirstMessage) trackEvent("liam_conversation_start", { userId });
+    trackEvent("liam_message_sent", { userId, messageIndex: messages.filter((m) => m.role === "user").length });
+
     // Detect if user is requesting an email before clearing input
     if (userWantsEmail(trimmed)) {
       // Open transcript modal automatically (most generic interpretation)
@@ -459,8 +472,10 @@ export function ChatPanel() {
             }
             if (parsed.destination) {
               setDestination(parsed.destination);
+              trackEvent("liam_destination_shown", { userId, destination: parsed.destination?.name ?? "unknown" });
             }
             if (parsed.email_capture) {
+              trackEvent("liam_email_capture", { userId });
               // Backend detected email_capture block — open email modal automatically
               setEmailModal({
                 open: true,
@@ -484,12 +499,15 @@ export function ChatPanel() {
             m.id === assistantMsgId ? { ...m, content: cleaned } : m
           )
         );
+        trackEvent("liam_package_brief", { userId, packageTitle: extractPackageTitle(cleaned) });
         setEmailModal({
           open: true,
           type: "package",
           content: cleaned,
           packageTitle: extractPackageTitle(cleaned),
         });
+      } else if (isPackageMessage(fullContent)) {
+        trackEvent("liam_package_brief", { userId, packageTitle: extractPackageTitle(fullContent) });
       }
 
       // After streaming finishes, check if Liam offered to email
@@ -557,6 +575,7 @@ export function ChatPanel() {
           <div className="ml-auto flex-shrink-0">
             <a
               href="tel:+14078101670"
+              onClick={() => trackEvent("liam_cta_isaac", { userId, location: "header" })}
               className="flex items-center gap-2 font-mono text-[10px] tracking-[0.15em] uppercase text-white/60 border border-white/15 px-3 py-1.5 hover:border-[#26FC00] hover:text-[#26FC00] transition-colors"
             >
               <Phone className="w-3.5 h-3.5" /> Call Isaac
@@ -648,6 +667,7 @@ export function ChatPanel() {
             </div>
             <a
               href="tel:+14078101670"
+              onClick={() => trackEvent("liam_cta_isaac", { userId, location: "cta_banner" })}
               className="flex-shrink-0 flex items-center gap-2 bg-[#FFE500] text-black font-mono text-[10px] tracking-[0.15em] uppercase px-3 py-2 hover:bg-white transition-colors"
             >
               <Phone className="w-3 h-3" /> (407) 810-1670
