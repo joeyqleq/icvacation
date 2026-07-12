@@ -65,7 +65,7 @@ export default function CookiesPage() {
                 3. Analytics Cookies
               </h2>
               <p className="mb-3">
-                We use self-hosted analytics (Matomo and Tianji) to understand traffic patterns and improve the site. Key points:
+                We use self-hosted analytics (Tianji) to understand traffic patterns and improve the site. Key points:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-foreground/65">
                 <li>Data is stored on our own servers, not sent to third-party ad networks</li>

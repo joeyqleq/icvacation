@@ -816,7 +816,7 @@ export default function DeckPage() {
               </ChecklistItem>
               <ChecklistItem>
                 <strong className="text-[#f7f7f5]">
-                  Privacy-first analytics at matomo.icvacation.com
+                  Privacy-first analytics
                 </strong>{" "}
                 — Not Google Analytics. This means real visitor data without
                 feeding Google your audience information. Isaac can log in
@@ -879,8 +879,7 @@ export default function DeckPage() {
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <div className="space-y-5 text-[#8a8a86] leading-relaxed">
             <p>
-              As visitors come in, Matomo — the analytics dashboard at
-              matomo.icvacation.com — shows Isaac exactly what&apos;s happening.
+              As visitors come in, Tianji — the analytics dashboard — shows Isaac exactly what&apos;s happening.
               In real time. No waiting for monthly reports.
             </p>
             <p>
