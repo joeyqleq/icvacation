@@ -1,67 +1,59 @@
-const SEARCH_ENDPOINT = process.env.AZURE_SEARCH_ENDPOINT!;
-const SEARCH_KEY = process.env.AZURE_SEARCH_ADMIN_KEY!;
-const API_VERSION = "2024-05-01-preview";
-
-interface SearchDoc {
-  chunk_text?: string;
-  body_text?: string;
-  summary?: string;
-  title?: string;
-  category?: string;
-  topics?: string[];
-  destinations?: string[];
-  travel_brand?: string;
-  "@search.score"?: number;
-}
-
-// Per-index field maps — only request fields that exist in each schema
-const INDEX_SELECT: Record<string, string> = {
-  "liam-travel-kb":      "chunk_text,summary,title,category,topics,destinations",
-  "amawaterways-chunks": "chunk_text,body_text,summary,title,topics,destinations,travel_brand",
-};
-
-async function queryIndex(index: string, query: string, top: number): Promise<SearchDoc[]> {
-  const url = `${SEARCH_ENDPOINT}/indexes/${index}/docs/search?api-version=${API_VERSION}`;
-  const select = INDEX_SELECT[index] ?? "chunk_text,summary,title,category";
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "api-key": SEARCH_KEY },
-      body: JSON.stringify({
-        search: query,
-        queryType: "simple",
-        top,
-        select,
-        searchMode: "any",
-      }),
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.value ?? [];
-  } catch {
-    return [];
-  }
-}
-
-function docToContext(doc: SearchDoc): string {
-  const parts: string[] = [];
-  if (doc.title) parts.push(`**${doc.title}**`);
-  if (doc.category || doc.travel_brand) parts.push(`Source: ${doc.travel_brand ?? doc.category}`);
-  if (doc.destinations?.length) parts.push(`Destinations: ${doc.destinations.join(", ")}`);
-  const body = doc.chunk_text || doc.body_text || doc.summary || "";
-  if (body) parts.push(body.slice(0, 800));
-  return parts.join("\n");
-}
-
 export async function retrieveRAGContext(userMessage: string, topK = 6): Promise<string> {
-  const [travelDocs, amaDocs] = await Promise.all([
-    queryIndex("liam-travel-kb", userMessage, topK),
-    queryIndex("amawaterways-chunks", userMessage, 3),
-  ]);
+  const accountId = process.env.CF_CENTRAL_ACCOUNT_ID;
+  const key = process.env.CF_CENTRAL_KEY;
 
-  const all = [...travelDocs, ...amaDocs];
-  if (all.length === 0) return "";
+  if (!accountId || !key) {
+    return '';
+  }
 
-  const context = all.map(docToContext).join("\n\n---\n\n");
-  return `## Retrieved Travel Knowledge\n\n${context}`;
+  try {
+    const authHeaders = {
+      'X-Auth-Email': 'joe.maari@coyotes.usd.edu',
+      'X-Auth-Key': key,
+      'Content-Type': 'application/json',
+    };
+
+    // 1. Embed query
+    const embedRes = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/@cf/baai/bge-base-en-v1.5`,
+      {
+        method: 'POST',
+        headers: authHeaders,
+        body: JSON.stringify({ text: [userMessage.slice(0, 512)] }),
+      }
+    );
+    if (!embedRes.ok) return '';
+    const embedData = await embedRes.json();
+    const vector = embedData?.result?.data?.[0];
+    if (!vector) return '';
+
+    // 2. Query Vectorize
+    const vectorizeRes = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/vectorize/v2/indexes/liam-kb/query`,
+      {
+        method: 'POST',
+        headers: authHeaders,
+        body: JSON.stringify({ vector, topK: 9, returnMetadata: 'all' }),
+      }
+    );
+    if (!vectorizeRes.ok) return '';
+    const vectorizeData = await vectorizeRes.json();
+    const matches = vectorizeData?.result?.matches ?? [];
+    if (matches.length === 0) return '';
+
+    // 3. Format result
+    const chunks = matches.map((match: any) => {
+      const parts: string[] = [];
+      if (match.metadata?.title) parts.push(`**${match.metadata.title}**`);
+      if (match.metadata?.source) parts.push(`Source: ${match.metadata.source}`);
+      if (match.metadata?.text) parts.push(match.metadata.text);
+      return parts.join('\n');
+    }).filter((chunk: string) => chunk.length > 0);
+
+    if (chunks.length === 0) return '';
+
+    return '## Retrieved Travel Knowledge\n\n' + chunks.join('\n\n---\n\n');
+  } catch (error) {
+    return '';
+  }
 }

@@ -16,11 +16,50 @@ interface SessionContext {
   userId?: string | null;
 }
 
-const ENDPOINT = process.env.AZURE_OPENAI_ENDPOINT!;
-const API_KEY = process.env.AZURE_OPENAI_API_KEY!;
-const API_VERSION = process.env.AZURE_OPENAI_API_VERSION ?? "2024-12-01-preview";
-const DEPLOYMENT_PRIMARY = process.env.AZURE_OPENAI_DEPLOYMENT_PRIMARY ?? "liam-primary";
-const DEPLOYMENT_DEEP = process.env.AZURE_OPENAI_DEPLOYMENT_DEEP ?? "liam-deep";
+const CF_ACCOUNTS = [
+  { id: process.env.CF_ACCT_5_ID!, token: process.env.CF_ACCT_5_TOKEN! },
+  { id: process.env.CF_ACCT_6_ID!, token: process.env.CF_ACCT_6_TOKEN! },
+  { id: process.env.CF_ACCT_7_ID!, token: process.env.CF_ACCT_7_TOKEN! },
+  { id: process.env.CF_ACCT_8_ID!, token: process.env.CF_ACCT_8_TOKEN! },
+];
+const CF_MODELS = [
+  '@cf/qwen/qwen3-30b-a3b-fp8',
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/zai-org/glm-5.2',
+];
+
+async function callCFStream(
+  messages: ChatMessage[],
+  systemContent: string
+): Promise<ReadableStream<Uint8Array> | null> {
+  const startIdx = Math.floor(Date.now() / 60000) % CF_ACCOUNTS.length;
+  for (const model of CF_MODELS) {
+    for (let i = 0; i < CF_ACCOUNTS.length; i++) {
+      const acct = CF_ACCOUNTS[(startIdx + i) % CF_ACCOUNTS.length];
+      if (!acct.id || !acct.token) continue;
+      const url = `https://api.cloudflare.com/client/v4/accounts/${acct.id}/ai/run/${model}`;
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${acct.token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            messages: [{ role: 'system', content: systemContent }, ...messages],
+            stream: true,
+            max_tokens: 800,
+            temperature: 0.75,
+          }),
+        });
+        if (res.status === 429) continue;
+        if (!res.ok) continue;
+        return res.body;
+      } catch { continue; }
+    }
+  }
+  return null;
+}
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 
 const DEST_BLOCK_RE = /```destination\s*(\{[\s\S]*?\})\s*```/g;
@@ -101,30 +140,12 @@ export async function POST(req: NextRequest) {
   if (ragContext) systemContent += `\n\n${ragContext}`;
   if (webContext) systemContent += `\n\n${webContext}`;
 
-  const systemMessage: ChatMessage = { role: "system", content: systemContent };
-
-  const deployment = model === "deep" ? DEPLOYMENT_DEEP : DEPLOYMENT_PRIMARY;
-  const url = `${ENDPOINT}/openai/deployments/${deployment}/chat/completions?api-version=${API_VERSION}`;
-
-  const upstream = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": API_KEY,
-    },
-    body: JSON.stringify({
-      messages: [systemMessage, ...messages],
-      stream: true,
-      max_completion_tokens: 800,
-      temperature: 0.75,
-    }),
-  });
-
-  if (!upstream.ok) {
-    const err = await upstream.text();
-    return new Response(`data: ${JSON.stringify({ error: err.slice(0, 200) })}\n\ndata: [DONE]\n\n`, {
-      headers: { "Content-Type": "text/event-stream" },
-    });
+  const upstream = await callCFStream(messages, systemContent);
+  if (!upstream) {
+    return new Response(
+      `data: ${JSON.stringify({ error: 'All CF accounts unavailable' })}\n\ndata: [DONE]\n\n`,
+      { headers: { 'Content-Type': 'text/event-stream' } }
+    );
   }
 
   const encoder = new TextEncoder();
@@ -132,7 +153,7 @@ export async function POST(req: NextRequest) {
 
   const stream = new ReadableStream({
     async start(controller) {
-      const reader = upstream.body!.getReader();
+      const reader = upstream.getReader();
       const decoder = new TextDecoder();
 
       while (true) {
