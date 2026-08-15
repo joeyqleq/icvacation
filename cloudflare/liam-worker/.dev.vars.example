@@ -1,0 +1,2 @@
+# Copy to .dev.vars for local Worker development. Never commit real values.
+SERVICE_TOKEN=replace-with-a-long-random-service-token
