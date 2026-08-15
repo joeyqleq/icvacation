@@ -38,13 +38,8 @@ const CF_MODELS: Record<LiamModelMode, string[]> = {
   ],
 };
 
-// Optional bridge to the Cloudflare-native Agent backend. Until both values
-// are configured, production stays on the existing direct Workers AI path.
 const LIAM_CF_WORKER_URL = process.env.LIAM_CF_WORKER_URL?.replace(/\/$/, "");
 const LIAM_CF_WORKER_TOKEN = process.env.LIAM_CF_WORKER_TOKEN;
-
-// When set ("default" is valid), route direct Workers AI calls through
-// Cloudflare AI Gateway. This remains useful as the fallback path.
 const CF_AI_GATEWAY_ID = process.env.CF_AI_GATEWAY_ID;
 
 async function callLiamAgentStream(
@@ -208,8 +203,6 @@ export async function POST(req: NextRequest) {
   }
   if (webContext) baseSystemContent += `\n\n${webContext}`;
 
-  // The Agent performs its own Vectorize retrieval through a native binding.
-  // The direct fallback receives the existing Vercel-side RAG context.
   let usedAgent = false;
   let upstream = await callLiamAgentStream(
     messages,
@@ -255,7 +248,8 @@ export async function POST(req: NextRequest) {
 
           try {
             const parsed = JSON.parse(data);
-            const delta = parsed.choices?.[0]?.delta?.content;
+            const candidate = parsed.choices?.[0]?.delta?.content ?? parsed.response;
+            const delta = typeof candidate === "string" ? candidate : "";
             if (delta) {
               fullText += delta;
               const visibleDelta = delta
