@@ -16,50 +16,80 @@ interface SessionContext {
   userId?: string | null;
 }
 
+type LiamModelMode = "primary" | "deep";
+
 const CF_ACCOUNTS = [
   { id: process.env.CF_ACCT_5_ID!, token: process.env.CF_ACCT_5_TOKEN! },
   { id: process.env.CF_ACCT_6_ID!, token: process.env.CF_ACCT_6_TOKEN! },
   { id: process.env.CF_ACCT_7_ID!, token: process.env.CF_ACCT_7_TOKEN! },
   { id: process.env.CF_ACCT_8_ID!, token: process.env.CF_ACCT_8_TOKEN! },
-];
-const CF_MODELS = [
-  '@cf/qwen/qwen3-30b-a3b-fp8',
-  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
-  '@cf/zai-org/glm-5.2',
-];
+].filter((account) => account.id && account.token);
+
+const CF_MODELS: Record<LiamModelMode, string[]> = {
+  primary: [
+    "@cf/qwen/qwen3-30b-a3b-fp8",
+    "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "@cf/zai-org/glm-5.2",
+  ],
+  deep: [
+    "@cf/zai-org/glm-5.2",
+    "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "@cf/qwen/qwen3-30b-a3b-fp8",
+  ],
+};
+
+const CF_AI_GATEWAY_ID = process.env.CF_AI_GATEWAY_ID;
+
+function workersAiUrl(accountId: string, model: string) {
+  const base = `https://api.cloudflare.com/client/v4/accounts/${accountId}`;
+  if (CF_AI_GATEWAY_ID) {
+    return `${base}/ai-gateway/gateways/${encodeURIComponent(CF_AI_GATEWAY_ID)}/workers-ai/${model}`;
+  }
+  return `${base}/ai/run/${model}`;
+}
 
 async function callCFStream(
   messages: ChatMessage[],
-  systemContent: string
+  systemContent: string,
+  mode: LiamModelMode
 ): Promise<ReadableStream<Uint8Array> | null> {
+  if (CF_ACCOUNTS.length === 0) return null;
+
   const startIdx = Math.floor(Date.now() / 60000) % CF_ACCOUNTS.length;
-  for (const model of CF_MODELS) {
+  const models = CF_MODELS[mode] ?? CF_MODELS.primary;
+
+  for (const model of models) {
     for (let i = 0; i < CF_ACCOUNTS.length; i++) {
       const acct = CF_ACCOUNTS[(startIdx + i) % CF_ACCOUNTS.length];
-      if (!acct.id || !acct.token) continue;
-      const url = `https://api.cloudflare.com/client/v4/accounts/${acct.id}/ai/run/${model}`;
+      const url = workersAiUrl(acct.id, model);
+
       try {
         const res = await fetch(url, {
-          method: 'POST',
+          method: "POST",
           headers: {
             Authorization: `Bearer ${acct.token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            messages: [{ role: 'system', content: systemContent }, ...messages],
+            messages: [{ role: "system", content: systemContent }, ...messages],
             stream: true,
-            max_tokens: 800,
-            temperature: 0.75,
+            max_tokens: mode === "deep" ? 1200 : 800,
+            temperature: mode === "deep" ? 0.6 : 0.75,
           }),
         });
-        if (res.status === 429) continue;
+
+        if (res.status === 429 || res.status >= 500) continue;
         if (!res.ok) continue;
         return res.body;
-      } catch { continue; }
+      } catch {
+        continue;
+      }
     }
   }
+
   return null;
 }
+
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 
 const DEST_BLOCK_RE = /```destination\s*(\{[\s\S]*?\})\s*```/g;
@@ -96,16 +126,17 @@ async function tavilySearch(query: string): Promise<{ context: string; status: s
 export async function POST(req: NextRequest) {
   const { messages, model = "primary", sessionContext } = await req.json() as {
     messages: ChatMessage[];
-    model?: "primary" | "deep";
+    model?: LiamModelMode;
     sessionContext?: SessionContext;
   };
 
+  const mode: LiamModelMode = model === "deep" ? "deep" : "primary";
   const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
   const userQuery = lastUserMessage?.content ?? "";
 
-  // Run RAG, Tavily, profile fetch, and aggregate insights in parallel
+  // Run RAG, Tavily, profile fetch, and aggregate insights in parallel.
   const [ragContext, tavilyResult, userProfile, aggregateInsights] = await Promise.all([
-    lastUserMessage ? retrieveRAGContext(userQuery, 6) : Promise.resolve(""),
+    lastUserMessage ? retrieveRAGContext(userQuery, mode === "deep" ? 9 : 6) : Promise.resolve(""),
     lastUserMessage ? tavilySearch(userQuery) : Promise.resolve({ context: "", status: "skipped" }),
     sessionContext?.userId ? getProfile(sessionContext.userId) : Promise.resolve(null),
     getAggregateInsights(),
@@ -113,15 +144,13 @@ export async function POST(req: NextRequest) {
   const webContext = tavilyResult.context;
   const tavilyStatus = tavilyResult.status;
 
-  // Build system prompt with profile + session context + knowledge
+  // Build system prompt with profile + session context + knowledge.
   let systemContent = LIAM_SYSTEM_PROMPT;
 
   if (userProfile) {
-    // Inject persistent per-device profile for returning visitors
     const profileBlock = buildProfileBlock(userProfile);
     if (profileBlock) systemContent += `\n\n${profileBlock}`;
   } else if (aggregateInsights && aggregateInsights.totalConversations >= 5) {
-    // For new/anonymous visitors, inject soft aggregate context when we have meaningful data
     const topDests = aggregateInsights.topDestinations.slice(0, 3).map((d) => d.name);
     const topStyles = aggregateInsights.topTravelStyles.slice(0, 3).map((s) => s.style);
     if (topDests.length > 0 || topStyles.length > 0) {
@@ -131,7 +160,6 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Override name from session if we have it (session wins over profile for current name)
   const resolvedName = sessionContext?.userName ?? userProfile?.name ?? null;
   if (resolvedName) {
     systemContent += `\n\n## SESSION CONTEXT\nThe client's name is ${resolvedName}. Use their name naturally — warmly, not excessively.`;
@@ -140,11 +168,11 @@ export async function POST(req: NextRequest) {
   if (ragContext) systemContent += `\n\n${ragContext}`;
   if (webContext) systemContent += `\n\n${webContext}`;
 
-  const upstream = await callCFStream(messages, systemContent);
+  const upstream = await callCFStream(messages, systemContent, mode);
   if (!upstream) {
     return new Response(
-      `data: ${JSON.stringify({ error: 'All CF accounts unavailable' })}\n\ndata: [DONE]\n\n`,
-      { headers: { 'Content-Type': 'text/event-stream' } }
+      `data: ${JSON.stringify({ error: "All CF inference routes unavailable" })}\n\ndata: [DONE]\n\n`,
+      { headers: { "Content-Type": "text/event-stream" } }
     );
   }
 
@@ -173,7 +201,6 @@ export async function POST(req: NextRequest) {
             const delta = parsed.choices?.[0]?.delta?.content;
             if (delta) {
               fullText += delta;
-              // Strip both destination and email_capture code blocks from visible text
               const visibleDelta = delta
                 .replace(/```destination[\s\S]*?```/g, "")
                 .replace(/```email_capture[\s\S]*?```/g, "");
@@ -187,7 +214,6 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // Extract destination block
       const destMatches = [...fullText.matchAll(DEST_BLOCK_RE)];
       if (destMatches.length > 0) {
         const lastMatch = destMatches[destMatches.length - 1];
@@ -199,7 +225,6 @@ export async function POST(req: NextRequest) {
         } catch {}
       }
 
-      // Extract email_capture block
       const emailMatches = [...fullText.matchAll(EMAIL_BLOCK_RE)];
       if (emailMatches.length > 0) {
         const lastMatch = emailMatches[emailMatches.length - 1];
@@ -211,7 +236,6 @@ export async function POST(req: NextRequest) {
         } catch {}
       }
 
-      // Emit brain layer debug info
       controller.enqueue(
         encoder.encode(
           `data: ${JSON.stringify({
@@ -222,6 +246,8 @@ export async function POST(req: NextRequest) {
               profile_loaded: !!userProfile,
               returning_client: (userProfile?.conversationCount ?? 0) > 0,
               aggregate_loaded: !!aggregateInsights,
+              model_mode: mode,
+              ai_gateway: !!CF_AI_GATEWAY_ID,
             },
           })}\n\n`
         )
