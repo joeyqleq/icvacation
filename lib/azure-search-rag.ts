@@ -1,16 +1,26 @@
 export async function retrieveRAGContext(userMessage: string, topK = 6): Promise<string> {
   const accountId = process.env.CF_CENTRAL_ACCOUNT_ID;
   const apiToken = process.env.CF_CENTRAL_API_TOKEN;
+  const legacyKey = process.env.CF_CENTRAL_KEY;
+  const authEmail = process.env.CF_AUTH_EMAIL ?? 'joemaari@gmail.com';
 
-  if (!accountId || !apiToken) {
+  if (!accountId || (!apiToken && !legacyKey)) {
     return '';
   }
 
   try {
-    const authHeaders = {
-      Authorization: `Bearer ${apiToken}`,
+    const authHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
     };
+
+    // Prefer a scoped API token. Keep the legacy Global API Key path only as
+    // a temporary compatibility fallback until production secrets are rotated.
+    if (apiToken) {
+      authHeaders.Authorization = `Bearer ${apiToken}`;
+    } else if (legacyKey) {
+      authHeaders['X-Auth-Email'] = authEmail;
+      authHeaders['X-Auth-Key'] = legacyKey;
+    }
 
     // 1. Embed query
     const embedRes = await fetch(
