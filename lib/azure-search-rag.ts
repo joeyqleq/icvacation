@@ -1,15 +1,14 @@
 export async function retrieveRAGContext(userMessage: string, topK = 6): Promise<string> {
   const accountId = process.env.CF_CENTRAL_ACCOUNT_ID;
-  const key = process.env.CF_CENTRAL_KEY;
+  const apiToken = process.env.CF_CENTRAL_API_TOKEN;
 
-  if (!accountId || !key) {
+  if (!accountId || !apiToken) {
     return '';
   }
 
   try {
     const authHeaders = {
-      'X-Auth-Email': 'joe.maari@coyotes.usd.edu',
-      'X-Auth-Key': key,
+      Authorization: `Bearer ${apiToken}`,
       'Content-Type': 'application/json',
     };
 
@@ -33,7 +32,7 @@ export async function retrieveRAGContext(userMessage: string, topK = 6): Promise
       {
         method: 'POST',
         headers: authHeaders,
-        body: JSON.stringify({ vector, topK: 9, returnMetadata: 'all' }),
+        body: JSON.stringify({ vector, topK, returnMetadata: 'all' }),
       }
     );
     if (!vectorizeRes.ok) return '';
@@ -53,7 +52,7 @@ export async function retrieveRAGContext(userMessage: string, topK = 6): Promise
     if (chunks.length === 0) return '';
 
     return '## Retrieved Travel Knowledge\n\n' + chunks.join('\n\n---\n\n');
-  } catch (error) {
+  } catch {
     return '';
   }
 }
