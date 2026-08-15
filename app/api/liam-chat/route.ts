@@ -38,15 +38,10 @@ const CF_MODELS: Record<LiamModelMode, string[]> = {
   ],
 };
 
+// When set ("default" is valid), route Workers AI through Cloudflare AI
+// Gateway's current REST API for logging, rate limits, caching policy and
+// gateway-level controls. Without it, preserve the existing Workers AI path.
 const CF_AI_GATEWAY_ID = process.env.CF_AI_GATEWAY_ID;
-
-function workersAiUrl(accountId: string, model: string) {
-  const base = `https://api.cloudflare.com/client/v4/accounts/${accountId}`;
-  if (CF_AI_GATEWAY_ID) {
-    return `${base}/ai-gateway/gateways/${encodeURIComponent(CF_AI_GATEWAY_ID)}/workers-ai/${model}`;
-  }
-  return `${base}/ai/run/${model}`;
-}
 
 async function callCFStream(
   messages: ChatMessage[],
@@ -61,21 +56,37 @@ async function callCFStream(
   for (const model of models) {
     for (let i = 0; i < CF_ACCOUNTS.length; i++) {
       const acct = CF_ACCOUNTS[(startIdx + i) % CF_ACCOUNTS.length];
-      const url = workersAiUrl(acct.id, model);
+      const useGateway = !!CF_AI_GATEWAY_ID;
+      const url = useGateway
+        ? `https://api.cloudflare.com/client/v4/accounts/${acct.id}/ai/v1/chat/completions`
+        : `https://api.cloudflare.com/client/v4/accounts/${acct.id}/ai/run/${model}`;
 
-      try {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${acct.token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+      const headers: Record<string, string> = {
+        Authorization: `Bearer ${acct.token}`,
+        "Content-Type": "application/json",
+      };
+      if (useGateway) headers["cf-aig-gateway-id"] = CF_AI_GATEWAY_ID!;
+
+      const body = useGateway
+        ? {
+            model,
             messages: [{ role: "system", content: systemContent }, ...messages],
             stream: true,
             max_tokens: mode === "deep" ? 1200 : 800,
             temperature: mode === "deep" ? 0.6 : 0.75,
-          }),
+          }
+        : {
+            messages: [{ role: "system", content: systemContent }, ...messages],
+            stream: true,
+            max_tokens: mode === "deep" ? 1200 : 800,
+            temperature: mode === "deep" ? 0.6 : 0.75,
+          };
+
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(body),
         });
 
         if (res.status === 429 || res.status >= 500) continue;
@@ -134,7 +145,6 @@ export async function POST(req: NextRequest) {
   const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
   const userQuery = lastUserMessage?.content ?? "";
 
-  // Run RAG, Tavily, profile fetch, and aggregate insights in parallel.
   const [ragContext, tavilyResult, userProfile, aggregateInsights] = await Promise.all([
     lastUserMessage ? retrieveRAGContext(userQuery, mode === "deep" ? 9 : 6) : Promise.resolve(""),
     lastUserMessage ? tavilySearch(userQuery) : Promise.resolve({ context: "", status: "skipped" }),
@@ -144,7 +154,6 @@ export async function POST(req: NextRequest) {
   const webContext = tavilyResult.context;
   const tavilyStatus = tavilyResult.status;
 
-  // Build system prompt with profile + session context + knowledge.
   let systemContent = LIAM_SYSTEM_PROMPT;
 
   if (userProfile) {
