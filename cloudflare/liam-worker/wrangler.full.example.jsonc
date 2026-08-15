@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "icvacation-liam",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": { "binding": "AI" },
+  "vectorize": [
+    { "binding": "VECTORIZE", "index_name": "liam-kb" }
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "LiamAgent", "class_name": "LiamAgent" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["LiamAgent"] }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "liam-data",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "CORPUS",
+      "bucket_name": "liam-corpus"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "POST_CONVERSATION",
+        "queue": "liam-post-conversation"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "liam-post-conversation",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5
+      }
+    ]
+  },
+  "vars": { "AI_GATEWAY_ID": "default" },
+  "observability": { "enabled": true }
+}
