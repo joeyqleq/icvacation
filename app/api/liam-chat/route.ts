@@ -38,10 +38,43 @@ const CF_MODELS: Record<LiamModelMode, string[]> = {
   ],
 };
 
-// When set ("default" is valid), route Workers AI through Cloudflare AI
-// Gateway's current REST API for logging, rate limits, caching policy and
-// gateway-level controls. Without it, preserve the existing Workers AI path.
+// Optional bridge to the Cloudflare-native Agent backend. Until both values
+// are configured, production stays on the existing direct Workers AI path.
+const LIAM_CF_WORKER_URL = process.env.LIAM_CF_WORKER_URL?.replace(/\/$/, "");
+const LIAM_CF_WORKER_TOKEN = process.env.LIAM_CF_WORKER_TOKEN;
+
+// When set ("default" is valid), route direct Workers AI calls through
+// Cloudflare AI Gateway. This remains useful as the fallback path.
 const CF_AI_GATEWAY_ID = process.env.CF_AI_GATEWAY_ID;
+
+async function callLiamAgentStream(
+  messages: ChatMessage[],
+  systemContent: string,
+  mode: LiamModelMode,
+  userId?: string | null
+): Promise<ReadableStream<Uint8Array> | null> {
+  if (!LIAM_CF_WORKER_URL || !LIAM_CF_WORKER_TOKEN || !userId) return null;
+
+  try {
+    const res = await fetch(
+      `${LIAM_CF_WORKER_URL}/agents/liam-agent/${encodeURIComponent(userId)}/chat`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LIAM_CF_WORKER_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages, systemContent, mode }),
+        signal: AbortSignal.timeout(12000),
+      }
+    );
+
+    if (!res.ok) return null;
+    return res.body;
+  } catch {
+    return null;
+  }
+}
 
 async function callCFStream(
   messages: ChatMessage[],
@@ -154,30 +187,45 @@ export async function POST(req: NextRequest) {
   const webContext = tavilyResult.context;
   const tavilyStatus = tavilyResult.status;
 
-  let systemContent = LIAM_SYSTEM_PROMPT;
+  let baseSystemContent = LIAM_SYSTEM_PROMPT;
 
   if (userProfile) {
     const profileBlock = buildProfileBlock(userProfile);
-    if (profileBlock) systemContent += `\n\n${profileBlock}`;
+    if (profileBlock) baseSystemContent += `\n\n${profileBlock}`;
   } else if (aggregateInsights && aggregateInsights.totalConversations >= 5) {
     const topDests = aggregateInsights.topDestinations.slice(0, 3).map((d) => d.name);
     const topStyles = aggregateInsights.topTravelStyles.slice(0, 3).map((s) => s.style);
     if (topDests.length > 0 || topStyles.length > 0) {
       const destLine = topDests.length > 0 ? `most interested in: ${topDests.join(", ")}` : "";
       const styleLine = topStyles.length > 0 ? `Popular travel styles: ${topStyles.join(", ")}` : "";
-      systemContent += `\n\n## CURRENT VISITOR CONTEXT\nBased on recent conversations, visitors to IC Vacation are ${destLine}. ${styleLine}. Use this as soft context — don't reference it directly, just let it subtly inform your suggestions when the visitor hasn't expressed strong preferences yet.`;
+      baseSystemContent += `\n\n## CURRENT VISITOR CONTEXT\nBased on recent conversations, visitors to IC Vacation are ${destLine}. ${styleLine}. Use this as soft context — don't reference it directly, just let it subtly inform your suggestions when the visitor hasn't expressed strong preferences yet.`;
     }
   }
 
   const resolvedName = sessionContext?.userName ?? userProfile?.name ?? null;
   if (resolvedName) {
-    systemContent += `\n\n## SESSION CONTEXT\nThe client's name is ${resolvedName}. Use their name naturally — warmly, not excessively.`;
+    baseSystemContent += `\n\n## SESSION CONTEXT\nThe client's name is ${resolvedName}. Use their name naturally — warmly, not excessively.`;
+  }
+  if (webContext) baseSystemContent += `\n\n${webContext}`;
+
+  // The Agent performs its own Vectorize retrieval through a native binding.
+  // The direct fallback receives the existing Vercel-side RAG context.
+  let usedAgent = false;
+  let upstream = await callLiamAgentStream(
+    messages,
+    baseSystemContent,
+    mode,
+    sessionContext?.userId
+  );
+
+  if (upstream) {
+    usedAgent = true;
+  } else {
+    let fallbackSystemContent = baseSystemContent;
+    if (ragContext) fallbackSystemContent += `\n\n${ragContext}`;
+    upstream = await callCFStream(messages, fallbackSystemContent, mode);
   }
 
-  if (ragContext) systemContent += `\n\n${ragContext}`;
-  if (webContext) systemContent += `\n\n${webContext}`;
-
-  const upstream = await callCFStream(messages, systemContent, mode);
   if (!upstream) {
     return new Response(
       `data: ${JSON.stringify({ error: "All CF inference routes unavailable" })}\n\ndata: [DONE]\n\n`,
@@ -190,7 +238,7 @@ export async function POST(req: NextRequest) {
 
   const stream = new ReadableStream({
     async start(controller) {
-      const reader = upstream.getReader();
+      const reader = upstream!.getReader();
       const decoder = new TextDecoder();
 
       while (true) {
@@ -249,14 +297,15 @@ export async function POST(req: NextRequest) {
         encoder.encode(
           `data: ${JSON.stringify({
             debug: {
-              rag_docs: ragContext ? ragContext.split("---").length : 0,
+              rag_docs: usedAgent ? "agent-native" : (ragContext ? ragContext.split("---").length : 0),
               tavily: tavilyStatus,
               session_user: resolvedName ?? null,
               profile_loaded: !!userProfile,
               returning_client: (userProfile?.conversationCount ?? 0) > 0,
               aggregate_loaded: !!aggregateInsights,
               model_mode: mode,
-              ai_gateway: !!CF_AI_GATEWAY_ID,
+              inference_path: usedAgent ? "cloudflare-agent" : "direct-workers-ai",
+              ai_gateway: usedAgent || !!CF_AI_GATEWAY_ID,
             },
           })}\n\n`
         )
