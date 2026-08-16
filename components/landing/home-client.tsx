@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { Navigation } from "@/components/landing/navigation";
 import { HeroSection } from "@/components/landing/hero-section";
-import { MarqueeStrip } from "@/components/landing/marquee-strip";
+import { CoreServicesSection } from "@/components/landing/core-services-section";
 import { FilmGrain } from "@/components/site/film-grain";
 import { DeferredHomeSections } from "@/components/landing/deferred-home-sections";
 import { SplashScreen } from "@/components/site/splash-screen";
@@ -15,7 +15,7 @@ function hasSeenSplash() {
 
 export function HomeClient() {
   const [splashDone, setSplashDone] = useState(hasSeenSplash);
-  const [showSplash, setShowSplash] = useState(() => !hasSeenSplash());
+  const [showSplash] = useState(() => !hasSeenSplash());
 
   const handleSplashComplete = useCallback(() => {
     setSplashDone(true);
@@ -24,13 +24,11 @@ export function HomeClient() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-background">
-      {showSplash && !splashDone && (
-        <SplashScreen onComplete={handleSplashComplete} />
-      )}
+      {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
       <FilmGrain />
       <Navigation splashDone={splashDone} />
       <HeroSection splashDone={splashDone} />
-      <MarqueeStrip splashDone={splashDone} />
+      <CoreServicesSection />
       <DeferredHomeSections />
     </main>
   );
