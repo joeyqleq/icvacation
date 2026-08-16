@@ -12,16 +12,6 @@ const ProcessSection = dynamic(
   { ssr: false },
 );
 
-const DestinationsSection = dynamic(
-  () => import("@/components/landing/integrations-section").then((mod) => mod.DestinationsSection),
-  { ssr: false },
-);
-
-const FlightSearchPreview = dynamic(
-  () => import("@/components/landing/flight-search-preview").then((mod) => mod.FlightSearchPreview),
-  { ssr: false },
-);
-
 const TestimonialsSection = dynamic(
   () => import("@/components/landing/testimonials-section").then((mod) => mod.TestimonialsSection),
   { ssr: false },
@@ -42,8 +32,6 @@ export function DeferredHomeSections() {
     <>
       <AdvisorSection />
       <ProcessSection />
-      <DestinationsSection />
-      <FlightSearchPreview />
       <TestimonialsSection />
       <FaqCtaSection />
       <FooterSection />
