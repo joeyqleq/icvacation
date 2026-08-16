@@ -27,7 +27,7 @@ export function CoreServicesSection() {
           ))}
         </div>
         <div className="mt-7 flex flex-wrap gap-3">
-          <button onClick={undefined} className="pointer-events-none rounded-full border border-[#FFE500]/30 bg-[#FFE500]/[.06] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[.16em] text-[#FFE500]">Ask Liam · bottom right</button>
+          <span className="rounded-full border border-[#FFE500]/30 bg-[#FFE500]/[.06] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[.16em] text-[#FFE500]">Ask Liam · bottom right</span>
           <a href="tel:+14078101670" className="rounded-full border border-white/15 px-5 py-2.5 font-mono text-[10px] uppercase tracking-[.16em] text-white/70 transition-colors hover:border-[#26FC00]/40 hover:text-[#26FC00]">Call Isaac · (407) 810-1670</a>
         </div>
       </div>
