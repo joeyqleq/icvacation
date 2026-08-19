@@ -14,13 +14,32 @@ type LiamMemory = {
   interests: string[];
 };
 
+type PostConversationEvent = {
+  id?: string;
+  created_at?: string;
+  event_type?: string;
+  user_id?: string | null;
+  destination?: string | null;
+  travel_style?: string | null;
+  party_size?: number | null;
+  nights?: number | null;
+  budget_usd?: number | null;
+  outcome?: string;
+  inference_path?: string;
+  model_mode?: string;
+};
+
 interface Env {
   AI: Ai;
   VECTORIZE: Vectorize;
   LiamAgent: DurableObjectNamespace<LiamAgent>;
+  liam_data: D1Database;
+  liam_corpus: R2Bucket;
+  liam_post_conversation: Queue<PostConversationEvent>;
   AI_GATEWAY_ID: string;
   SERVICE_TOKEN?: string;
 }
+
 
 const MODELS: Record<LiamMode, string[]> = {
   primary: [
@@ -260,4 +279,42 @@ export default {
       new Response("Not found", { status: 404 })
     );
   },
+
+  async queue(batch: MessageBatch<PostConversationEvent>, env: Env): Promise<void> {
+    // Post-conversation evaluation: persist conversation outcomes to D1 for
+    // analytics and future learning. System prompt is NEVER mutated automatically.
+    for (const msg of batch.messages) {
+      try {
+        const event = msg.body;
+        await env.liam_data
+          .prepare(
+            `INSERT OR IGNORE INTO liam_conversation_events
+             (id, created_at, event_type, user_id, destination, travel_style,
+              party_size, nights, budget_usd, outcome, inference_path, model_mode)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          )
+          .bind(
+            event.id ?? crypto.randomUUID(),
+            event.created_at ?? new Date().toISOString(),
+            event.event_type ?? "conversation",
+            event.user_id ?? null,
+            event.destination ?? null,
+            event.travel_style ?? null,
+            event.party_size ?? null,
+            event.nights ?? null,
+            event.budget_usd ?? null,
+            event.outcome ?? "completed",
+            event.inference_path ?? "unknown",
+            event.model_mode ?? "primary"
+          )
+          .run();
+        msg.ack();
+      } catch (err) {
+        // Retry transient failures; permanent failures are logged.
+        console.error("queue consumer error:", err instanceof Error ? err.message : err);
+        msg.retry();
+      }
+    }
+  },
 } satisfies ExportedHandler<Env>;
+

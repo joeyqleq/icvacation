@@ -12,6 +12,8 @@ next.user-config.*
 .env.*
 .env*.local
 !.env.example
+.service-token
+cloudflare/liam-worker/.service-token
 
 # Common ignores
 node_modules

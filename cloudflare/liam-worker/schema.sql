@@ -85,3 +85,21 @@ CREATE TABLE IF NOT EXISTS liam_aggregate_counts (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (dimension, value)
 );
+
+-- Post-conversation queue consumer output table for structured event analytics
+CREATE TABLE IF NOT EXISTS liam_conversation_events (
+  id TEXT PRIMARY KEY,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  event_type TEXT NOT NULL DEFAULT 'conversation',
+  user_id TEXT,
+  destination TEXT,
+  travel_style TEXT,
+  party_size INTEGER,
+  nights INTEGER,
+  budget_usd REAL,
+  outcome TEXT NOT NULL DEFAULT 'completed',
+  inference_path TEXT NOT NULL DEFAULT 'unknown',
+  model_mode TEXT NOT NULL DEFAULT 'primary'
+);
+CREATE INDEX IF NOT EXISTS idx_liam_conv_events_created ON liam_conversation_events(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_liam_conv_events_outcome ON liam_conversation_events(outcome, created_at DESC);
