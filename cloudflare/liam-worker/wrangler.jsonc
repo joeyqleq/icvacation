@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "icvacation-liam",
+  "account_id": "0228e3fe174bbc185f30b1d4eaf5f166",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-15",
   "compatibility_flags": ["nodejs_compat"],
@@ -13,6 +14,32 @@
       "index_name": "liam-kb"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "liam_data",
+      "database_name": "liam-data",
+      "database_id": "e2b420db-824c-43a2-974c-013159ee0446"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "bucket_name": "liam-corpus",
+      "binding": "liam_corpus"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "queue": "liam-post-conversation",
+        "binding": "liam_post_conversation"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "liam-post-conversation"
+      }
+    ]
+  },
   "durable_objects": {
     "bindings": [
       {
